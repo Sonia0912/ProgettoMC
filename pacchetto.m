@@ -47,7 +47,6 @@ terminali = tuttiTerminali;
 numNonTerminali = Length[nonTerminali];
 numTerminali = Length[terminali];
 
-minNumeroNonTerminali = 1;
 maxNumeroNonTerminali = 3;
 
 minNumeroTerminali = 2;
@@ -71,6 +70,7 @@ Table[
 	
 	numNonTerminaliRimanenti = numNonTerminali - i;
 	
+	(*
 	(*Creazione della stringa di tutte le produzioni per il Non Terminale corrente*)
 	If[numNonTerminaliRimanenti > 0, 
 		(*Tutti i casi (tranne ultimo)*)
@@ -82,6 +82,23 @@ Table[
 		terminali = Drop[terminali, numElementiTerminali];
 		,
 		(*Caso ultimo Non Terminale*)	
+		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
+		elementiTerminali = terminali[[1;;numElementiTerminali]];
+		elementiNonTerminali = List[];
+	];
+	*)
+	
+	(*Creazione della stringa di tutte le produzioni per il Non Terminale corrente*)
+	If[numNonTerminaliRimanenti > 0, 
+		(*Ci sono ancora Non Terminali inutilizzati*)
+		numElementiNonTerminali = RandomInteger[{1,numNonTerminaliRimanenti}];
+		elementiNonTerminali = nonTerminali[[1;;numElementiNonTerminali]];
+		nonTerminali = Drop[nonTerminali, numElementiNonTerminali];
+		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
+		elementiTerminali = terminali[[1;;numElementiTerminali]];
+		terminali = Drop[terminali, numElementiTerminali];
+		,
+		(*Sono stati usati tutti i Non terminali*)	
 		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
 		elementiTerminali = terminali[[1;;numElementiTerminali]];
 		elementiNonTerminali = List[];
