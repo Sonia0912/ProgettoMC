@@ -198,8 +198,6 @@ grammatica
 
 (* NULLABLE *)
 nullable = List[];
-Length[grammatica];
-
 (*Per ogni Non Terminale partendo dall'ultimo*)
 (*Un Non Terminale potrebbe produrre uno dei Non Terminali successivi, serve sapere se quelli sono annullabili*)
 Table[ 
@@ -229,13 +227,7 @@ Table[
 					isNull = False;
 					, (*Else*)
 					(*Se il carattere \[EGrave] un simbolo Non Terminale devo controllare se \[EGrave] annullabile*)
-					Table[
-						If[StringTake[produzioneDaControllare, {k}] == nullable[[l, 1]],
-							isNull = isNull && nullable[[l, 2]];
-						];
-					,
-					{l, 1, Length[nullable]}
-					];
+					isNull = isNull && nullable[[Flatten[Position[nullable, StringTake[produzioneDaControllare, {k}]]][[1]], 2]];
 				];
 				k++;
 			];
@@ -296,26 +288,73 @@ For[i = numNonTerminali, i >= 1, i--,
 first
 
 (* FOLLOW *)
-follow = List[];
+follow = {{"A", {"$"}}};
+listaRicontrollo1 = List[];
+listaRicontrollo2 = List[];
+
+(*Inizializzazione lista di Follow*)
+Table[
+	AppendTo[follow, {tuttiNonTerminali[[i]], {}}]
+,{i, 2, numNonTerminali}
+];
 
 (*Itero su tutte le produzioni di tutti i Non Terminali*)
-For[i = 2, i <= numNonTerminali, i++,
-	nonTerminaleCorrente = tuttiNonTerminali[[i]];
-	tuttePosizioni = Position[grammatica,nonTerminaleCorrente];
-	(*Rimuovo l'ultima posizione perche' non appartiene a una produzione*)
-	tuttePosizioni = Drop[tuttePosizioni,{Length[tuttePosizioni]}];
-	
-	(*Itero su tutte le posizioni del Non Terminale corrente*)
-	For[j = 1, j <= Length[tuttePosizioni], j++, 
-		prossimoElemento = 
-		
-		grammatica[[i,2,j]];
-		(*Se trovo un Non Terminale in una Produzione*)
-		If[ContainsAny[{prossimoElemento},tuttiNonTerminali],
-			
-		]
-	]
-]
+Table[ (*Per ogni Non Terminale*)
+	Table[(*Per ogni produzione del Non Terminale*)
+		produzioneCorrente = grammatica[[i, 2, j]];
+		Table[(*Per ogni carattere della produzione*)
+			If[MemberQ[tuttiNonTerminali, StringTake[produzioneCorrente, {k}]],
+			(*Se il carattere \[EGrave] un Non Terminale ci sono 3 casi*)
+				nonTerminaleDaControllare = StringTake[produzioneCorrente, {k}];
+				Which[
+					(*Se \[EGrave] l'ultimo elemento della produzione*)
+					k == StringLength[produzioneCorrente],
+						(*Bisogner\[AGrave] aggiungere al Follow del Non Terminale corrente il Follow del Non Terminale che lo produce*)
+						AppendTo[listaRicontrollo1, {nonTerminaleDaControllare, grammatica[[i, 1]]}];
+					,
+					(*Se il prossimo elemento \[EGrave] un Terminale lo aggiungo al Follow del Non Terminale corrente*)
+					MemberQ[tuttiTerminali, StringTake[produzioneCorrente, {k + 1}]],
+						AppendTo[follow[[Flatten[Position[follow, nonTerminaleDaControllare]][[1]], 2]], StringTake[produzioneCorrente, {k + 1}]];
+					,
+					(*Se il prossimo elemento \[EGrave] un Non Terminale aggiungo il suo First (senza \[Epsilon]) al Follow del Non Terminale corrente*)
+					MemberQ[tuttiNonTerminali, StringTake[produzioneCorrente, {k + 1}]],
+						firstProssimoNonTerminale =  first[[Flatten[Position[first, StringTake[produzioneCorrente, {k + 1}]]][[1]], 2]];
+						If[MemberQ[firstProssimoNonTerminale, "\[Epsilon]"],
+							firstProssimoNonTerminale = Drop[firstProssimoNonTerminale, Flatten[Position[firstProssimoNonTerminale, "\[Epsilon]"]]];
+						];
+						AppendTo[follow[[Flatten[Position[follow, nonTerminaleDaControllare]][[1]], 2]], firstProssimoNonTerminale];
+						
+						(*Se il Non Terminale successivo \[EGrave] Nullable bisogner\[AGrave] aggiungere il suo Follow a quello del Non Terminale corrente*)
+						If[nullable[[Flatten[Position[nullable, StringTake[produzioneCorrente, {k + 1}]]][[1]], 2]],
+							PrependTo[listaRicontrollo2, {nonTerminaleDaControllare, StringTake[produzioneCorrente, {k + 1}]}];
+						];
+				];
+			];
+		,{k, 1, StringLength[produzioneCorrente]}
+		];
+	,{j, 1, Length[grammatica[[i, 2]]]}
+	];
+,{i, 1, numNonTerminali}
+];
+
+(*Ad ogni Non Terminale in ultima posizione in una produzione viene aggiunto il Follow del Non Terminale che lo ha prodotto*)
+Table[	
+	AppendTo[follow[[Flatten[Position[follow, listaRicontrollo1[[i, 1]]]][[1]], 2]], follow[[Flatten[Position[follow, listaRicontrollo1[[i, 2]]]][[1]], 2]]];
+,{i, 1, Length[listaRicontrollo1]}
+];
+
+(*Ad ogni Non Terminale che precede un Non Terminale Nullable viene aggiunto il Follow del Non Terminale Nullable*)
+Table[
+	AppendTo[follow[[Flatten[Position[follow, listaRicontrollo2[[i, 1]]]][[1]], 2]], follow[[Flatten[Position[follow, listaRicontrollo2[[i, 2]]]][[1]], 2]]];
+,{i, 1, Length[listaRicontrollo2]}
+];
+
+Table[
+	follow[[i, 2]] = Flatten[follow[[i, 2]]];
+	DeleteDuplicates[follow[[i, 2]]];
+	Sort[follow[[i, 2]]];
+,{i, 1, Length[follow]}	
+];
 
 follow
 
