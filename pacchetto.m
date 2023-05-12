@@ -38,23 +38,27 @@ D: g, h
 *)
 
 (*Parametri*)
-tuttiNonTerminali = CharacterRange["A","D"];
-tuttiTerminali = CharacterRange["a","l"];
+tuttiNonTerminali = CharacterRange["A", "D"];
+tuttiTerminali = CharacterRange["a", "l"];
 
 nonTerminali = tuttiNonTerminali;
+nonTerminali = Drop[nonTerminali, 1];
+nonTerminaliIndici = tuttiNonTerminali;
 terminali = tuttiTerminali;
 
-numNonTerminali = Length[nonTerminali];
+numNonTerminali = Length[tuttiNonTerminali];
 numTerminali = Length[terminali];
 
-maxNumeroNonTerminali = 3;
+maxNumeroNonTerminali = 2;
 
 minNumeroTerminali = 2;
 maxNumeroTerminali = 3;
 
 maxProduzioni = 4;
 
-probabilitaEpsilon = 40; (*probabilita' che compaia Epsilon come produzione per un Non Terminale*)
+probabilitaEpsilon = 
+  40; (*probabilita' che compaia Epsilon come produzione per un Non \
+Terminale*)
 
 (*Inizializzazione lista per la grammatica finale*)
 Clear[grammatica];
@@ -62,99 +66,130 @@ grammatica = List[];
 
 (*Per ogni Non Terminale viene generata la sua lista di produzioni*)
 Table[
-	(*Salviamo il primo Non Terminale in una lista e lo rimuoviamo dalla lista nonTerminali*)
-	Clear[listaNonTerminaleEProduzioni];
-	listaNonTerminaleEProduzioni = List[];
-	AppendTo[listaNonTerminaleEProduzioni, nonTerminali[[1]]];
-	nonTerminali = Drop[nonTerminali, 1];
-	
-	numNonTerminaliRimanenti = numNonTerminali - i;
-	
-	(*
-	(*Creazione della stringa di tutte le produzioni per il Non Terminale corrente*)
-	If[numNonTerminaliRimanenti > 0, 
-		(*Tutti i casi (tranne ultimo)*)
-		numElementiNonTerminali = RandomInteger[{1,numNonTerminaliRimanenti}];
-		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
-		
-		elementiNonTerminali = nonTerminali[[1;;numElementiNonTerminali]];
-		elementiTerminali = terminali[[1;;numElementiTerminali]];
-		terminali = Drop[terminali, numElementiTerminali];
-		,
-		(*Caso ultimo Non Terminale*)	
-		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
-		elementiTerminali = terminali[[1;;numElementiTerminali]];
-		elementiNonTerminali = List[];
-	];
-	*)
-	
-	(*Creazione della stringa di tutte le produzioni per il Non Terminale corrente*)
-	If[numNonTerminaliRimanenti > 0, 
-		(*Ci sono ancora Non Terminali inutilizzati*)
-		numElementiNonTerminali = RandomInteger[{1,numNonTerminaliRimanenti}];
-		elementiNonTerminali = nonTerminali[[1;;numElementiNonTerminali]];
-		nonTerminali = Drop[nonTerminali, numElementiNonTerminali];
-		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
-		elementiTerminali = terminali[[1;;numElementiTerminali]];
-		terminali = Drop[terminali, numElementiTerminali];
-		,
-		(*Sono stati usati tutti i Non terminali*)	
-		numElementiTerminali = RandomInteger[{minNumeroTerminali,maxNumeroTerminali}];
-		elementiTerminali = terminali[[1;;numElementiTerminali]];
-		elementiNonTerminali = List[];
-	];
-	elementiDestra = Union[elementiNonTerminali,elementiTerminali];
-	elementiDestra = RandomSample[elementiDestra];
-	numElementiDestra = Length[elementiDestra];
-	
-	(*Inizializzazione lista di produzioni per il Non Terminale corrente*)
-	Clear[listaProduzioniCorrente];
-	listaProduzioniCorrente = List[];
-	
-	(*Generazione dei punti di suddivisione della stringa per ottenere le produzioni*)
-	breaks = Range[2, numElementiDestra];
-	numProduzioni = RandomInteger[{1, Min[maxProduzioni, numElementiDestra]}];
-	numBreakpoints = numProduzioni - 1;
-	breakpoints = Sort[RandomSample[breaks, numBreakpoints]]; (*Indici a cui spezzare la lista di elementi*)
-	
-	(*Divisione della stringa nelle varie produzioni*)
-	If[numBreakpoints == 0,
-		(*Caso partizione singola (una sola produzione)*)
-		AppendTo[listaProduzioniCorrente, StringRiffle[elementiDestra, ""]];
-	,
-		(*Caso partizioni/produzioni multiple*)
-		Table[
-			Which[
-			j == 1, (*Prima produzione*)
-				indiceUltimoElementoProduzione = breakpoints[[j]] - 1;
-				AppendTo[listaProduzioniCorrente, StringRiffle[elementiDestra[[1;;indiceUltimoElementoProduzione]], ""]];
-			, 
-			j == numProduzioni, (*Ultima produzione*)
-				AppendTo[listaProduzioniCorrente, StringRiffle[elementiDestra[[breakpoints[[j - 1]];;-1]], ""]];
-			,
-			True, (*Produzioni intermedie*)
-				indiceUltimoElementoProduzione = breakpoints[[j]] - 1;
-				AppendTo[listaProduzioniCorrente, StringRiffle[elementiDestra[[breakpoints[[j - 1]];;indiceUltimoElementoProduzione]], ""]];
-			];
-		,
-		{j, 1, numProduzioni}
-		];
-	];
-	
-	(*I Non Terminali successivi al primo possono produrre Epsilon con una determinata percentuale di probabilita'*)	
-	If[i > 1,
-		If[RandomInteger[99] < probabilitaEpsilon, 
-			AppendTo[listaProduzioniCorrente, "\[Epsilon]"];
-		]
-	]
-	
-	(*La lista finale con Non Terminale e relative produzioni viene aggiunta alla grammatica*);
-	AppendTo[listaNonTerminaleEProduzioni, listaProduzioniCorrente];
-	AppendTo[grammatica, listaNonTerminaleEProduzioni];	
-			
-,
-{i,1,numNonTerminali}
-];
+  	(*Salviamo il primo Non Terminale in una lista e lo rimuoviamo \
+dalla lista nonTerminali*)
+  	Clear[listaNonTerminaleEProduzioni];
+  	listaNonTerminaleEProduzioni = List[];
+  	AppendTo[listaNonTerminaleEProduzioni, nonTerminaliIndici[[1]]];
+  	nonTerminaliIndici = Drop[nonTerminaliIndici, 1];
+  	
+  	numNonTerminaliRimanenti = Length[nonTerminali];
+  	
+  	(*
+  	(*Creazione della stringa di tutte le produzioni per il Non \
+Terminale corrente*)
+  	If[numNonTerminaliRimanenti > 0, 
+  		(*Tutti i casi (tranne ultimo)*)
+  		numElementiNonTerminali = RandomInteger[{1,
+  numNonTerminaliRimanenti}];
+  		numElementiTerminali = RandomInteger[{minNumeroTerminali,
+  maxNumeroTerminali}];
+  		
+  		elementiNonTerminali = nonTerminali[[1;;
+  numElementiNonTerminali]];
+  		elementiTerminali = terminali[[1;;numElementiTerminali]];
+  		terminali = Drop[terminali, numElementiTerminali];
+  		,
+  		(*Caso ultimo Non Terminale*)	
+  		numElementiTerminali = RandomInteger[{minNumeroTerminali,
+  maxNumeroTerminali}];
+  		elementiTerminali = terminali[[1;;numElementiTerminali]];
+  		elementiNonTerminali = List[];
+  	];
+  	*)
+  	
+  	(*Creazione della stringa di tutte le produzioni per il Non \
+Terminale corrente*)
+  	If[numNonTerminaliRimanenti > 0, 
+   		(*Ci sono ancora Non Terminali inutilizzati*)
+   		numElementiNonTerminali = 
+    RandomInteger[{1, 
+      Min[maxNumeroNonTerminali, numNonTerminaliRimanenti]}];
+   		elementiNonTerminali = 
+    nonTerminali[[1 ;; numElementiNonTerminali]];
+   		nonTerminali = Drop[nonTerminali, numElementiNonTerminali];
+   		numElementiTerminali = 
+    RandomInteger[{minNumeroTerminali, maxNumeroTerminali}];
+   		elementiTerminali = terminali[[1 ;; numElementiTerminali]];
+   		terminali = Drop[terminali, numElementiTerminali];
+   		,
+   		(*Sono stati usati tutti i Non terminali*)	
+   		numElementiTerminali = 
+    RandomInteger[{minNumeroTerminali, maxNumeroTerminali}];
+   		elementiTerminali = terminali[[1 ;; numElementiTerminali]];
+   	  terminali = Drop[terminali, numElementiTerminali];
+   		elementiNonTerminali = List[];
+   	];
+  	elementiDestra = Union[elementiNonTerminali, elementiTerminali];
+  	elementiDestra = RandomSample[elementiDestra];
+  	numElementiDestra = Length[elementiDestra];
+  	
+  	(*Inizializzazione lista di produzioni per il Non Terminale \
+corrente*)
+  	Clear[listaProduzioniCorrente];
+  	listaProduzioniCorrente = List[];
+  	
+  	(*Generazione dei punti di suddivisione della stringa per ottenere \
+le produzioni*)
+  	breaks = Range[2, numElementiDestra];
+  	numProduzioni = 
+   RandomInteger[{1, Min[maxProduzioni, numElementiDestra]}];
+  	numBreakpoints = numProduzioni - 1;
+  	breakpoints = 
+   Sort[RandomSample[breaks, 
+     numBreakpoints]]; (*Indici a cui spezzare la lista di elementi*)
+  	
+  	(*Divisione della stringa nelle varie produzioni*)
+  	If[numBreakpoints == 0,
+   		(*Caso partizione singola (una sola produzione)*)
+   		AppendTo[listaProduzioniCorrente, 
+     StringRiffle[elementiDestra, ""]];
+   	,
+   		(*Caso partizioni/produzioni multiple*)
+   		Table[
+     			Which[
+       			j == 1, (*Prima produzione*)
+       				indiceUltimoElementoProduzione = breakpoints[[j]] - 1;
+       				
+       AppendTo[listaProduzioniCorrente, 
+        StringRiffle[
+         elementiDestra[[1 ;; indiceUltimoElementoProduzione]], ""]];
+       			, 
+       			j == numProduzioni, (*Ultima produzione*)
+       				
+       AppendTo[listaProduzioniCorrente, 
+         StringRiffle[elementiDestra[[breakpoints[[j - 1]] ;; -1]], 
+          ""]];
+       			,
+       			True, (*Produzioni intermedie*)
+       				indiceUltimoElementoProduzione = breakpoints[[j]] - 1;
+       				
+       AppendTo[listaProduzioniCorrente, 
+        StringRiffle[
+         elementiDestra[[breakpoints[[j - 1]] ;; 
+            indiceUltimoElementoProduzione]], ""]];
+       			];
+     		,
+     		{j, 1, numProduzioni}
+     		];
+   	];
+  	
+  	(*I Non Terminali successivi al primo possono produrre Epsilon con \
+una determinata percentuale di probabilita'*)	
+  	If[i > 1,
+   		If[RandomInteger[99] < probabilitaEpsilon, 
+    			AppendTo[listaProduzioniCorrente, "\[Epsilon]"];
+    		]
+   	]
+  	
+  	(*La lista finale con Non Terminale e relative produzioni viene \
+aggiunta alla grammatica*);
+  	AppendTo[listaNonTerminaleEProduzioni, listaProduzioniCorrente];
+  	AppendTo[grammatica, listaNonTerminaleEProduzioni];	
+  			
+  ,
+  {i, 1, numNonTerminali}
+  ];
 
 grammatica
 
