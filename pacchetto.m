@@ -269,8 +269,6 @@ follow
 
 
 (*TABELLA*)
-(*grammar = {{"A", " ", " ", "A -> c"}, {"B", "B -> a", "B -> b"}, {"C"," ", "C -> b", "C -> c"}};*)
-
 (*colonne Terminali SOLO dei first*)
 colonneTabellaFirst = List[];
 
@@ -297,9 +295,9 @@ ListaCelle
 
 headings = {grammatica[[All,1]],  colonneTabellaFirst};
            
-Manipulate[
+(*Manipulate[
 Text@Grid[Prepend[Flatten /@ Transpose[{headings[[1]], ListaCelle}], 
-          PadLeft[headings[[2]], Length@data[[1]] + 1, ""]],
+          PadLeft[headings[[2]], Length@headings[[1]] + 1, ""]],
 \[NonBreakingSpace]\[NonBreakingSpace] Background -> {None, {Lighter[Yellow, .9], {White,Lighter[Blend[{Blue, Green}], .8]}}},
 \[NonBreakingSpace]\[NonBreakingSpace] Dividers -> {{Darker[Gray, .6], {Lighter[Gray, .5]},
 	Darker[Gray, .6]}, {Darker[Gray, .6],
@@ -309,65 +307,122 @@ Text@Grid[Prepend[Flatten /@ Transpose[{headings[[1]], ListaCelle}],
 	Spacings -> {Automatic, .8},
 	Editable->False],{i, 1, 20}
 	
-]
+]*)
 
+
+grammar = {{" ", "a", "b", "d", "f", "g", "l", "m", "$"},
+			{"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, 
+			{"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, 
+			{"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "},
+			{"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}};
+produzioni = 10;			
+rows = Length[grammar[[All,1]]];
+cols = Length[grammar[[1,All]]];
+
+(*calcola l'esatta riga e colonna di ogni cella della tabella*)
+row[n_Integer]:=Quotient[n-1,cols]+1;
+col[n_Integer]:=Mod[n-1,cols]+1;
+(*data la cella n restituisce riga e colonna corrispondenti*)
+xy[n_Integer]:={row[n],col[n]}
 
 display[a_Association,cursor_Integer: 0,style_Integer: 22,color_: Blue]:=
-	Module[{backgrounds},backgrounds=Join[xy[#]->LightGray&/@Select[Range[81],OddQ[block[#]]&],
-	xy[#]->LightRed&/@simpleConflicts[a]];
-	
-	Grid[colonneTabellaFirst,righeTabella,
-	Frame->If[MatchQ[a[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
-	Background->{White,White,backgrounds},ItemStyle->{Automatic,Automatic,xy[#]->color&/@First/@blues[a]},
-	ItemSize->{style/22.0,style/18.0},BaseStyle->{style,Bold}]]
-
+	Module[{backgrounds},
+	backgrounds=Join[xy[#]->LightRed&/@simpleConflicts[a]];
+	Grid[grammar,
+		Frame->If[MatchQ[a[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
+		Background->{White,White,backgrounds},
+		ItemStyle->{Automatic},
+		ItemSize->{style/22.0,style/18.0},
+		BaseStyle->{style,Bold}]]
+		
 displaySln[a_Association]:=display[a,0,13,Black]
 
-
-loc[{x_,y_}]:=1+Floor[9 x]+9 Floor[9 (1-y)]
-
-Manipulate[
-Grid[{
-{Which[
-validSln[puzzle],Style["Correct solution!",Bold,Blue],
-finished[puzzle],Style["You have errors.",Bold,Red],
-True, Style["Click on blank square:","Label"]]
-},
-{
-Column[{
-EventHandler[Dynamic[display[puzzle,cursor]],"MouseClicked":>(cursor=loc[MousePosition["EventHandlerScaled"]])],
-Column[{Style["Select value:","Label"],EventHandler[Grid[{{" ",1,2,3,4,5,6,7,8,9}},Frame->All,BaseStyle->Large],"MouseClicked":>Module[{digt =Floor[10First@ MousePosition["EventHandlerScaled"]]},
-If[digt == 0,KeyDropFrom[puzzle,cursor],puzzle[cursor]={digt}]]]
-}]
-}],
-" ",
-If[showSolution,displaySln[solution],""]
-}
-}],
-{solution,ControlType->None},
-{{puzzle, (solution=randFill[];createPuzzle[solution])},ControlType->None},
-{{cursor,0},ControlType->None},
-Button["New Game",(
-cursor=0 ; 
-showSolution=False;
-solution=randFill[];
-puzzle=createPuzzle[solution];
-)&],
-{{showSolution,False,"show solution"},{True,False}},
-SaveDefinitions->True,
-ContentSize->{620, 420}
+(*
+createEmptyGrammar[rows_Integer, cols_Integer] := Module[{emptyGrammar},
+  emptyGrammar = Table[" ", {i, 1, rows}, {j, 1, cols}];
+  emptyGrammar[[All, 1]] = {" ", "A", "B", "C", "D"};
+  emptyGrammar[[1, All]] = {" ", "a", "b", "d", "f", "g", "l", "m", "$"};
+  emptyGrammar
 ]
 
-(*Manipulate[
-TextGrid[Prepend[grammar, colonneTabellaFirst],
-Background -> {None, {Lighter[Yellow, .9]}},
-\[NonBreakingSpace]\[NonBreakingSpace] Dividers -> {{Darker[Gray, .6], {Lighter[Gray, .5]},
-	Darker[Gray, .6]}, {Darker[Gray, .6],
-	Darker[Gray, .6], {False},
-	Darker[Gray, .6]}} Alignment -> {{Left, Right, {Left}}},
-	ItemSize -> {{3, 6, 6, 6}}, ItemStyle -> 14,
-	Spacings -> {Automatic, .8}],{i, 0,9}
-]*)
+rows = Length[grammar[[All,1]]];
+cols = Length[grammar[[1,All]]];
+emptyGrammar = createEmptyGrammar[rows, cols];
+
+emptyGrammar = List[];
+emptyGrammar = grammar;
+
+createEmptyGrammar[sln_Association] := Module[{emptyGrammar},
+  emptyGrammar = Table[" ", {i, 2, rows}, {j, 2, cols}];
+  emptyGrammar
+]
+createPuzzle[sln_Association]:=Module[{emptyGrammar},
+	emptyGrammar = Table[" ", {i, 2, rows}, {j, 2, cols}];
+];
+
+*)
+
+emptyGrammar = grammar;
+Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}];
+rows = Length[emptyGrammar[[All,1]]];
+cols = Length[emptyGrammar[[1,All]]];
+
+listaProduzioni = {" ", "A->aB", "A->bC", "B->d", "B->Ce", "C->fD", "C->gh", "D->l", "D->m"}
+
+
+(*mouse location on table*)
+loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows]
+
+
+Manipulate[
+	Grid[{
+	{Which[
+		True, Style["Click on blank square:","Label"]]
+	},
+	{
+	Column[{
+		EventHandler[
+			Grid[emptyGrammar,
+			Frame->If[MatchQ[a[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
+			Background->{White,White,backgrounds},
+			ItemStyle->{Automatic},
+			ItemSize -> {{3, {5}}},
+			BaseStyle->{Bold}],
+			"MouseClicked":>(cursor=loc[MousePosition["EventHandlerScaled"]])
+			],
+		Column[{Style["Select value:","Label"],
+		EventHandler[
+			Grid[{listaProduzioni},
+			Frame->All,
+			ItemStyle->{Automatic},
+			ItemSize->{Automatic}
+			],
+			"MouseClicked":>Module[{digt = Floor[10First@ MousePosition["EventHandlerScaled"]]},
+		If[digt == 0, emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=" ", emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=listaProduzioni[[digt]]]]]
+		}]
+	}],
+	" "
+	}
+	}],
+	{solution,ControlType->None},
+	{{puzzle, (solution=grammar;createPuzzle[solution])},ControlType->None},
+	{{cursor,0},ControlType->None},
+	Button["New Game",(
+	cursor=0 ; 
+	showSolution=False;
+	solution=grammar;
+	puzzle=createPuzzle[solution];
+	)&],
+	{{showSolution,False,"show solution"},{True,False}},
+	SaveDefinitions->True,
+	ContentSize->{620, 420}
+	
+]
+
+
+
+
+
 
 
 End[]
