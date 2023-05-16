@@ -1,0 +1,385 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13482,        377]
+NotebookOptionsPosition[      9747,        302]
+NotebookOutlinePosition[     10212,        319]
+CellTagsIndexPosition[     10169,        316]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Progetto Matematica Computazionale", "Title",
+ CellChangeTimes->{{3.890750962823655*^9, 3.8907509885064335`*^9}},
+ TextAlignment->Center,ExpressionUUID->"5a1f2e26-4b6a-4ea3-9804-de30c40d3e08"],
+
+Cell[TextData[StyleBox["Esercizio di Analisi Sintattica",
+ FontSize->27]], "Subtitle",
+ CellChangeTimes->{{3.8907509951285677`*^9, 3.8907510019691195`*^9}, {
+  3.8907520475013933`*^9, 3.8907520477532053`*^9}},
+ TextAlignment->Center,ExpressionUUID->"bb67af07-e1ff-49b5-87b6-4fa053c91c67"],
+
+Cell[TextData[{
+ StyleBox["Nome Gruppo",
+  FontSize->20,
+  FontSlant->"Italic"],
+ StyleBox["\nMC 2022/2023",
+  FontSize->20]
+}], "Text",
+ CellChangeTimes->{{3.8907510714718204`*^9, 3.890751099306947*^9}, {
+  3.8907518262120275`*^9, 3.890751848177871*^9}, {3.8907518798245273`*^9, 
+  3.8907518861619463`*^9}},
+ TextAlignment->Center,ExpressionUUID->"2cdba1a7-404c-4d69-8992-032295e035a9"],
+
+Cell[TextData[StyleBox["FOTO",
+ FontSlant->"Italic"]], "Text",
+ CellChangeTimes->{{3.8907519302475586`*^9, 3.8907519308097343`*^9}},
+ TextAlignment->Center,ExpressionUUID->"976b1111-432e-4e8a-94c9-20958d8eff75"],
+
+Cell[TextData[{
+ "Lorenzo Campidelli, Gianluca Gueli, Sonia Nicoletti, Anna Tosoroni\n",
+ StyleBox["anno 1 curriculum ?, anno 1 curriculum B, anno 1 curriculum B, \
+anno 1 curriculum ?",
+  FontSize->13]
+}], "Text",
+ CellChangeTimes->{{3.8907511091736736`*^9, 3.8907511254724493`*^9}, {
+  3.890751158485685*^9, 3.890751250820182*^9}, {3.890751845599101*^9, 
+  3.8907518464383917`*^9}, {3.8907519333724127`*^9, 3.8907519355702925`*^9}},
+ TextAlignment->Center,ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
+
+Cell[CellGroupData[{
+
+Cell["Codice", "Section",
+ CellChangeTimes->{{3.8907520033868685`*^9, 3.8907520039145327`*^9}, {
+  3.8907522681820693`*^9, 
+  3.8907522687822404`*^9}},ExpressionUUID->"75fb08d1-1430-4971-ab7d-\
+77896cebc04a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Settiamo", " ", "il", " ", "Path", " ", "e", " ", "carichiamo", " ", 
+    RowBox[{"pacchetto", ".", "m"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   RowBox[{"<<", "pacchetto.m"}]}]}]], "Input",
+ CellChangeTimes->{{3.8907512723332453`*^9, 3.8907512723342476`*^9}, 
+   3.8907519747584324`*^9, {3.890752071887743*^9, 3.890752077299266*^9}, {
+   3.890752273757166*^9, 3.8907523049978194`*^9}, 3.8907533925209055`*^9, {
+   3.8907542511038485`*^9, 3.890754255295512*^9}, {3.8907552285631733`*^9, 
+   3.8907552327753973`*^9}},ExpressionUUID->"8b0f82fd-5ce7-4ba1-b2bf-\
+31c964368f81"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"Main", " ", "per", " ", "generare", " ", 
+   RowBox[{"l", "'"}], "interfaccia"}], "*)"}]], "Input",ExpressionUUID->\
+"583e7d5c-ab9d-44f5-8c10-19fe4af5e5f6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Indice", "Section",
+ CellChangeTimes->{{3.8907513787584734`*^9, 
+  3.8907513797545824`*^9}},ExpressionUUID->"b994f387-a12f-4dc4-a2dc-\
+dab7aa7f8d43"],
+
+Cell["\<\
+Introduzione
+I. Analisi Sintattica
+\tI.1 Cos\[CloseCurlyQuote]\[EGrave] l\[CloseCurlyQuote]analisi sintattica
+\tI.2 Cos\[CloseCurlyQuote]\[EGrave] la grammatica (LL1)
+\tI.3 Cosa vuol dire fare parsing di una grammatica
+\tI.4 Esempio
+II. Nullable
+\tII.1 Cos\[CloseCurlyQuote]\[EGrave] nullable
+\tII.2 Come si genera
+\tII.3 Esempi
+III. First
+\tIII.1 Cos\[CloseCurlyQuote]\[EGrave] first
+\tIII.2 Come si genera
+\tIII.3 Esempi
+IV. Follow
+\tIV.1 Cos\[CloseCurlyQuote]\[EGrave] follow
+\tIV.2 Come si genera
+\tIV.3 Esempi
+V. Tabella di Parsing
+\tVI.1 Cos\[CloseCurlyQuote]\[EGrave]
+\tVi.2 Come si genera
+\tVI.2 Esempio esercizio completo (con stringa di esempio)
+VI. Esercizio
+\tVII.1 In cosa consiste l\[CloseCurlyQuote]esercizio  
+\tVII.2 Funzionalit\[AGrave] dell\[CloseCurlyQuote]interfaccia
+IV. Bibliografia e Sitografia
+V. Commenti e Lavoro Futuro\
+\>", "Text",
+ CellChangeTimes->{{3.890751650145605*^9, 3.8907517169405155`*^9}, {
+  3.8932255262951155`*^9, 3.8932256964518366`*^9}, {3.8932257712571754`*^9, 
+  3.89322590760499*^9}, {3.8932259848980007`*^9, 3.8932259960145082`*^9}, {
+  3.8932267578836594`*^9, 3.893226768519039*^9}, {3.893226979723595*^9, 
+  3.893226987407835*^9}, {3.893227028831957*^9, 3.893227029464725*^9}, {
+  3.8932272248399487`*^9, 3.8932272505569572`*^9}, {3.893227290696949*^9, 
+  3.8932273072145576`*^9}, {3.893227351754671*^9, 3.8932274562087345`*^9}, {
+  3.8932275418836803`*^9, 
+  3.8932275502128973`*^9}},ExpressionUUID->"2588153c-a80c-4091-ba49-\
+2da0194dd30f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduzione", "Section",
+ CellChangeTimes->{{3.8907513867783594`*^9, 
+  3.8907513882472687`*^9}},ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-\
+8d79751a7c6a"],
+
+Cell["\<\
+Prendere familiarit\[AGrave] con generazione di first follow ecc. 
+spiegare limitazioni dell\[CloseCurlyQuote]esercizio
+obiettivo di familiarizzare l\[CloseCurlyQuote]utente con la generazione di \
+questi insiemi
+Target = studente di informatica che si approccia al parsing ll1\
+\>", "Text",
+ CellChangeTimes->{{3.8907517249591913`*^9, 3.890751725235973*^9}, {
+  3.893227001502784*^9, 
+  3.8932271046996274`*^9}},ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-\
+2663a01cd7f6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["I. Sezione 1", "Section",
+ CellChangeTimes->{{3.8907513973129363`*^9, 
+  3.890751399886715*^9}},ExpressionUUID->"c6392b86-4ad6-4f35-ac5d-\
+2139abd26ae9"],
+
+Cell[CellGroupData[{
+
+Cell["I.1 Sottosezione", "Subsection",
+ CellChangeTimes->{{3.890751485035192*^9, 3.890751504746661*^9}, {
+  3.890751574160438*^9, 3.8907515750480895`*^9}, {3.890751609313715*^9, 
+  3.8907516107036943`*^9}},ExpressionUUID->"eac818a9-0bde-4524-86da-\
+4ff09a1c9579"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.89075151167789*^9, 
+  3.890751511958028*^9}},ExpressionUUID->"5229659b-3e0d-4599-b55d-\
+c02ef744291a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["I.2 Esempi", "Subsection",
+ CellChangeTimes->{{3.890751536580962*^9, 3.8907515375221353`*^9}, {
+  3.8907516134669905`*^9, 
+  3.890751614743664*^9}},ExpressionUUID->"4eb34693-83a4-420f-be9c-\
+707c33a4d69f"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.890751559350464*^9, 
+  3.89075155965889*^9}},ExpressionUUID->"4d8953b4-27b1-4275-864d-\
+f930a95e924f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["II. Sezione 2", "Section",
+ CellChangeTimes->{{3.890751406098993*^9, 
+  3.890751408009591*^9}},ExpressionUUID->"2406016e-6080-4f95-bdcc-\
+4e947cf98ed1"],
+
+Cell[CellGroupData[{
+
+Cell["II.1 Sottosezione", "Subsection",
+ CellChangeTimes->{{3.890751485035192*^9, 3.890751504746661*^9}, {
+  3.890751574160438*^9, 3.8907515750480895`*^9}, {3.8907516175610323`*^9, 
+  3.890751619100312*^9}},ExpressionUUID->"6374d6a2-ba4c-46f3-aa30-\
+2f2c26bb5098"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.89075151167789*^9, 
+  3.890751511958028*^9}},ExpressionUUID->"ffd2037c-f0b3-47be-b492-\
+cee86fec2bdd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["II.2 Esempi", "Subsection",
+ CellChangeTimes->{{3.890751536580962*^9, 3.8907515375221353`*^9}, {
+  3.8907516225991993`*^9, 
+  3.8907516234660063`*^9}},ExpressionUUID->"e8d0d3b3-e296-4d4d-b31f-\
+a21ece488adc"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.890751559350464*^9, 
+  3.89075155965889*^9}},ExpressionUUID->"aabff7e9-e37e-459b-8619-\
+1a57cd80a4c9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["III. Approfondimento", "Section",
+ CellChangeTimes->{{3.890751417445614*^9, 
+  3.8907514209663477`*^9}},ExpressionUUID->"8128f560-56af-4906-b20e-\
+f0eb5cee469c"],
+
+Cell[CellGroupData[{
+
+Cell["III.1 Sottosezione", "Subsection",
+ CellChangeTimes->{{3.890751485035192*^9, 3.890751504746661*^9}, {
+  3.890751574160438*^9, 3.8907515750480895`*^9}, {3.890751625603489*^9, 
+  3.89075162995789*^9}},ExpressionUUID->"61129019-4c6b-42e5-ba5e-\
+736ca23b4903"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.89075151167789*^9, 
+  3.890751511958028*^9}},ExpressionUUID->"ea103078-fabb-4a01-8320-\
+03e9c65139dc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["III.2 Esempi", "Subsection",
+ CellChangeTimes->{{3.890751536580962*^9, 3.8907515375221353`*^9}, {
+  3.890751632906438*^9, 
+  3.8907516341592317`*^9}},ExpressionUUID->"fa22868b-75e1-427f-a7c3-\
+158c9ffb1128"],
+
+Cell["\<\
+A -> BC | aDb
+B -> cd | \[Epsilon]
+C -> e | \[Epsilon]
+D -> fg\
+\>", "Text",
+ CellChangeTimes->{{3.890751559350464*^9, 3.89075155965889*^9}, {
+  3.893226931067625*^9, 
+  3.893226932667945*^9}},ExpressionUUID->"9f5568fa-f41f-4c2a-8683-\
+9cd3fe560f1c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["IV. Bibliografia e Sitografia", "Section",
+ CellChangeTimes->{{3.890751429118579*^9, 
+  3.890751439177018*^9}},ExpressionUUID->"b2b4837b-fa5c-444f-a236-\
+91bdca30cda9"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.8907514723087015`*^9, 
+  3.890751472587801*^9}},ExpressionUUID->"ea59365b-32a6-4981-a1b6-\
+5780175d3c7e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["V. Commenti e Lavoro Futuro", "Section",
+ CellChangeTimes->{{3.8907514458231473`*^9, 
+  3.8907514547511325`*^9}},ExpressionUUID->"e500173f-e44a-4dc9-be86-\
+3fd82f12e23e"],
+
+Cell["...", "Text",
+ CellChangeTimes->{{3.890751461928514*^9, 
+  3.890751462214046*^9}},ExpressionUUID->"fc5c28d2-a05a-4452-9829-\
+e1c8d0b78581"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1202.086956521739, 607.9304347826087},
+WindowMargins->{{-5.634782608695652, Automatic}, {-5.634782608695559, 
+   Automatic}},
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"9658fb0a-0c2b-417f-b382-efd4f58f5443"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 198, 2, 98, "Title",ExpressionUUID->"5a1f2e26-4b6a-4ea3-9804-de30c40d3e08"],
+Cell[781, 26, 288, 4, 57, "Subtitle",ExpressionUUID->"bb67af07-e1ff-49b5-87b6-4fa053c91c67"],
+Cell[1072, 32, 387, 10, 70, "Text",ExpressionUUID->"2cdba1a7-404c-4d69-8992-032295e035a9"],
+Cell[1462, 44, 211, 3, 35, "Text",ExpressionUUID->"976b1111-432e-4e8a-94c9-20958d8eff75"],
+Cell[1676, 49, 513, 9, 55, "Text",ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
+Cell[CellGroupData[{
+Cell[2214, 62, 208, 4, 67, "Section",ExpressionUUID->"75fb08d1-1430-4971-ab7d-77896cebc04a"],
+Cell[2425, 68, 752, 16, 67, "Input",ExpressionUUID->"8b0f82fd-5ce7-4ba1-b2bf-31c964368f81"],
+Cell[3180, 86, 197, 4, 28, "Input",ExpressionUUID->"583e7d5c-ab9d-44f5-8c10-19fe4af5e5f6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3414, 95, 155, 3, 67, "Section",ExpressionUUID->"b994f387-a12f-4dc4-a2dc-dab7aa7f8d43"],
+Cell[3572, 100, 1502, 38, 633, "Text",ExpressionUUID->"2588153c-a80c-4091-ba49-2da0194dd30f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5111, 143, 161, 3, 67, "Section",ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-8d79751a7c6a"],
+Cell[5275, 148, 480, 10, 104, "Text",ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5792, 163, 159, 3, 67, "Section",ExpressionUUID->"c6392b86-4ad6-4f35-ac5d-2139abd26ae9"],
+Cell[CellGroupData[{
+Cell[5976, 170, 263, 4, 54, "Subsection",ExpressionUUID->"eac818a9-0bde-4524-86da-4ff09a1c9579"],
+Cell[6242, 176, 144, 3, 35, "Text",ExpressionUUID->"5229659b-3e0d-4599-b55d-c02ef744291a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6423, 184, 211, 4, 54, "Subsection",ExpressionUUID->"4eb34693-83a4-420f-be9c-707c33a4d69f"],
+Cell[6637, 190, 144, 3, 35, "Text",ExpressionUUID->"4d8953b4-27b1-4275-864d-f930a95e924f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6830, 199, 158, 3, 67, "Section",ExpressionUUID->"2406016e-6080-4f95-bdcc-4e947cf98ed1"],
+Cell[CellGroupData[{
+Cell[7013, 206, 264, 4, 54, "Subsection",ExpressionUUID->"6374d6a2-ba4c-46f3-aa30-2f2c26bb5098"],
+Cell[7280, 212, 144, 3, 35, "Text",ExpressionUUID->"ffd2037c-f0b3-47be-b492-cee86fec2bdd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7461, 220, 214, 4, 54, "Subsection",ExpressionUUID->"e8d0d3b3-e296-4d4d-b31f-a21ece488adc"],
+Cell[7678, 226, 144, 3, 35, "Text",ExpressionUUID->"aabff7e9-e37e-459b-8619-1a57cd80a4c9"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7871, 235, 167, 3, 67, "Section",ExpressionUUID->"8128f560-56af-4906-b20e-f0eb5cee469c"],
+Cell[CellGroupData[{
+Cell[8063, 242, 262, 4, 54, "Subsection",ExpressionUUID->"61129019-4c6b-42e5-ba5e-736ca23b4903"],
+Cell[8328, 248, 144, 3, 35, "Text",ExpressionUUID->"ea103078-fabb-4a01-8320-03e9c65139dc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8509, 256, 213, 4, 54, "Subsection",ExpressionUUID->"fa22868b-75e1-427f-a7c3-158c9ffb1128"],
+Cell[8725, 262, 260, 9, 104, "Text",ExpressionUUID->"9f5568fa-f41f-4c2a-8683-9cd3fe560f1c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9034, 277, 174, 3, 67, "Section",ExpressionUUID->"b2b4837b-fa5c-444f-a236-91bdca30cda9"],
+Cell[9211, 282, 147, 3, 35, "Text",ExpressionUUID->"ea59365b-32a6-4981-a1b6-5780175d3c7e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9395, 290, 176, 3, 67, "Section",ExpressionUUID->"e500173f-e44a-4dc9-be86-3fd82f12e23e"],
+Cell[9574, 295, 145, 3, 35, "Text",ExpressionUUID->"fc5c28d2-a05a-4452-9829-e1c8d0b78581"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
