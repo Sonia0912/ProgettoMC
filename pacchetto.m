@@ -604,56 +604,33 @@ rows = Length[grammar[[All,1]]];
 cols = Length[grammar[[1,All]]];
 
 (*calcola l'esatta riga e colonna di ogni cella della tabella*)
-row[n_Integer]:=Quotient[n-1,cols]+1;
-col[n_Integer]:=Mod[n-1,cols]+1;
+row[n_]:=Quotient[n-1,cols]+1;
+col[n_]:=Mod[n-1,cols]+1;
 (*data la cella n restituisce riga e colonna corrispondenti*)
-xy[n_Integer]:={row[n],col[n]}
-
-display[a_Association,cursor_Integer: 0,style_Integer: 22,color_: Blue]:=
-	Module[{backgrounds},
-	backgrounds=Join[xy[#]->LightRed&/@simpleConflicts[a]];
-	Grid[grammar,
-		Frame->If[MatchQ[a[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
-		Background->{White,White,backgrounds},
-		ItemStyle->{Automatic},
-		ItemSize->{style/22.0,style/18.0},
-		BaseStyle->{style,Bold}]]
-		
-displaySln[a_Association]:=display[a,0,13,Black]
-
-(*
-createEmptyGrammar[rows_Integer, cols_Integer] := Module[{emptyGrammar},
-  emptyGrammar = Table[" ", {i, 1, rows}, {j, 1, cols}];
-  emptyGrammar[[All, 1]] = {" ", "A", "B", "C", "D"};
-  emptyGrammar[[1, All]] = {" ", "a", "b", "d", "f", "g", "l", "m", "$"};
-  emptyGrammar
-]
-
-rows = Length[grammar[[All,1]]];
-cols = Length[grammar[[1,All]]];
-emptyGrammar = createEmptyGrammar[rows, cols];
-
-emptyGrammar = List[];
-emptyGrammar = grammar;
-
-createEmptyGrammar[sln_Association] := Module[{emptyGrammar},
-  emptyGrammar = Table[" ", {i, 2, rows}, {j, 2, cols}];
-  emptyGrammar
-]
-createPuzzle[sln_Association]:=Module[{emptyGrammar},
-	emptyGrammar = Table[" ", {i, 2, rows}, {j, 2, cols}];
-];
-
-*)
-
-emptyGrammar = grammar;
-Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}];
-rows = Length[emptyGrammar[[All,1]]];
-cols = Length[emptyGrammar[[1,All]]];
-
+xy[n_]:={row[n],col[n]}
 
 listaProduzioni = {"A->aB", "A->bC", "B->d", "B->Ce", "C->fD", "C->gh", "D->l", "D->m"};
 
+
+display[g_,cursor_:0]:=
+	Grid[g,
+		Frame->If[MatchQ[xy[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
+		Background->{White,White,backgrounds},
+		ItemStyle->{Automatic},
+		ItemSize->{{3,{5}}},
+		BaseStyle->{Bold}]
+
+displaySln[g_]:=display[g,0]
+
+checkErrors[g_, cursor_]:=
+	If[g[[xy[cursor][[1]], xy[cursor][[2]]]]==grammar[[xy[cursor][[1]], xy[cursor][[2]]]],
+			Join[xy[cursor]->{LightRed}]]
+
+(*questa sar\[AGrave] la func contenente tutto l'algo per generare la grammatica*)
+createSol[g_]:=grammar;
+
+createEmptyGrammar[sln_] := 
+	Module[{copy = sln}, Table[ If[i > 1 && j > 1, copy[[i, j]] = " "], {i, rows}, {j, cols} ]; copy ]
 
 (*Mappiamo il click del mouse sulla tabella a un numero che identifica in maniera univoca la cella cliccata*)
 loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows]
@@ -662,62 +639,476 @@ loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows]
 Manipulate[
 	Grid[{
 	{Which[
+		(*inserire if tabella completata stampa sol corretta o hai errori*)
 		True, Style["Click on blank square:","Label"]]
 	},
 	{
 	Column[{
 		EventHandler[
-			Grid[emptyGrammar,
-			Frame->If[MatchQ[xy[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
-			Background->{White,White,backgrounds},
-			ItemStyle->{Automatic},
-			ItemSize -> {{5, {5}}},
-			BaseStyle->{Bold}],
+			Dynamic[display[emptyGrammar,cursor]],
 			"MouseClicked":>(
-			(*Dovremmo fare un controllo sul fatto che non possa selzionare sui nonTerminali e sui terminali*)
-			cursor=loc[MousePosition["EventHandlerScaled"]])
-			],
-		
-		Row[Table[With[{i = i},\[NonBreakingSpace]
-\[NonBreakingSpace] Button[listaProduzioni[[i]], Print[listaProduzioni[[i]]]]], {i, 1,\[NonBreakingSpace]
-\[NonBreakingSpace] Length[listaProduzioni]}]
-  ]}],
-	" "
+			If[MemberQ[Range[1, rows*cols, 9],loc[MousePosition["EventHandlerScaled"]]] || 
+				MemberQ[Range[2, cols],loc[MousePosition["EventHandlerScaled"]]],
+				cursor = -1,
+				cursor = loc[MousePosition["EventHandlerScaled"]]
+				]
+			)], 
+	Row[  
+		Table[With[{i = i},\[NonBreakingSpace]
+\[NonBreakingSpace]       Button[listaProduzioni[[i]],
+\[NonBreakingSpace]              emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=listaProduzioni[[i]]; 
+\[NonBreakingSpace]       ]], 
+\[NonBreakingSpace]       {i, 1, Length[listaProduzioni]}],Spacer[0.5]     
+\[NonBreakingSpace]           
+    ],
+    Row[{
+        Button["Clear", emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]= " "],
+        Button["Clear All", Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}]]
+        }],
+    (*rimuovi puntatore da tabella soluzione *)
+    If[showSolution,Row[{displaySln[solution]}],""]
+    },
+    Alignment -> Center
+    ],
+	" "	
 	}
 	}],
 	{solution,ControlType->None},
-	{{puzzle, (solution=grammar;createPuzzle[solution])},ControlType->None},
-	{{cursor,0},ControlType->None},
-	Button["New Game",(
-	cursor=0 ; 
-	showSolution=False;
-	solution=grammar;
-	puzzle=createPuzzle[solution];
-	)&],
-	{{showSolution,False,"show solution"},{True,False}},
-	SaveDefinitions->True,
-	ContentSize->{720, 300}
+	{{emptyGrammar, (solution=grammar;createEmptyGrammar[solution])},ControlType->None},
+{{cursor,0},ControlType->None},
+Button["Nuovo esercizio",(
+cursor=0 ; 
+showSolution=False;
+solution=grammar;
+emptyGrammar=createEmptyGrammar[solution];
+)&],
+{{showSolution,False,"show solution"},{True,False}},
+SaveDefinitions->True,
+ContentSize->{650, 420}
 ]
 
 
 
-	
-	
 
+
+
+(* ::Input:: *)
+(*Manipulate[Grid[{{Which[True, Style["Click on blank square:", "Label"]]}, *)
+(*    {Column[{EventHandler[Dynamic[AnalisiSintattica`Private`display[*)
+(*          AnalisiSintattica`Private`emptyGrammar, *)
+(*          AnalisiSintattica`Private`cursor]], "MouseClicked" :> *)
+(*         If[MemberQ[Range[1, AnalisiSintattica`Private`rows**)
+(*              AnalisiSintattica`Private`cols, 9], *)
+(*            AnalisiSintattica`Private`loc[MousePosition[*)
+(*              "EventHandlerScaled"]]] || MemberQ[Range[2, *)
+(*             AnalisiSintattica`Private`cols], AnalisiSintattica`Private`loc[*)
+(*             MousePosition["EventHandlerScaled"]]], *)
+(*          AnalisiSintattica`Private`cursor = -1, *)
+(*          AnalisiSintattica`Private`cursor = AnalisiSintattica`Private`loc[*)
+(*            MousePosition["EventHandlerScaled"]]]], *)
+(*       Row[Table[With[{AnalisiSintattica`Private`i$ = *)
+(*            AnalisiSintattica`Private`i}, Button[*)
+(*           AnalisiSintattica`Private`listaProduzioni[[*)
+(*            AnalisiSintattica`Private`i$]], *)
+(*           AnalisiSintattica`Private`emptyGrammar[[*)
+(*             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor][[*)
+(*              1]],AnalisiSintattica`Private`xy[*)
+(*               AnalisiSintattica`Private`cursor][[2]]]] = *)
+(*            AnalisiSintattica`Private`listaProduzioni[[*)
+(*             AnalisiSintattica`Private`i$]]]], {AnalisiSintattica`Private`i, *)
+(*          1, Length[AnalisiSintattica`Private`listaProduzioni]}], *)
+(*        Spacer[0.5]], Row[{Button["Clear", *)
+(*          AnalisiSintattica`Private`emptyGrammar[[*)
+(*            AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor][[*)
+(*             1]],AnalisiSintattica`Private`xy[*)
+(*              AnalisiSintattica`Private`cursor][[2]]]] = " "], *)
+(*         Button["Clear All", Table[AnalisiSintattica`Private`emptyGrammar[[*)
+(*             AnalisiSintattica`Private`i,AnalisiSintattica`Private`j]] = " ", *)
+(*           {AnalisiSintattica`Private`i, 2, AnalisiSintattica`Private`rows}, *)
+(*           {AnalisiSintattica`Private`j, 2, *)
+(*            AnalisiSintattica`Private`cols}]]}], *)
+(*       If[AnalisiSintattica`Private`showSolution, *)
+(*        Row[{AnalisiSintattica`Private`displaySln[*)
+(*           AnalisiSintattica`Private`solution], Enabled -> False}], ""]}, *)
+(*      Alignment -> Center], " "}}], {{AnalisiSintattica`Private`solution, *)
+(*    {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*     {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*     {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*     {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*     {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}}, *)
+(*   ControlType -> None}, {{AnalisiSintattica`Private`emptyGrammar, *)
+(*    {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*     {"A", " ", " ", " ", " ", " ", " ", " ", " "}, *)
+(*     {"B", " ", " ", " ", " ", " ", " ", " ", " "}, *)
+(*     {"C", " ", " ", " ", " ", " ", " ", " ", " "}, *)
+(*     {"D", " ", " ", " ", " ", " ", " ", " ", " "}}}, ControlType -> None}, *)
+(*  {{AnalisiSintattica`Private`cursor, 0}, ControlType -> None}, *)
+(*  Button["New Game", (AnalisiSintattica`Private`cursor = 0; *)
+(*     AnalisiSintattica`Private`showSolution = False; *)
+(*     AnalisiSintattica`Private`solution = AnalisiSintattica`Private`grammar; *)
+(*     AnalisiSintattica`Private`emptyGrammar = *)
+(*      AnalisiSintattica`Private`createEmptyGrammar[*)
+(*       AnalisiSintattica`Private`solution]; ) & ], *)
+(*  {{AnalisiSintattica`Private`showSolution, True, "show solution"}, *)
+(*   {True, False}}, ContentSize -> {650, 420}, *)
+(*  Initialization :> {AnalisiSintattica`Private`display[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution, *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g_Null, *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]], *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}], *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {Automatic}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g_, *)
+(*      AnalisiSintattica`Private`cursor_:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{3, {5}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`solution = {{" ", "a", "b", "d", "f", "g", "l", *)
+(*       "m", "$"}, {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*      {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*      {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*      {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}, *)
+(*    AnalisiSintattica`Private`xy[AnalisiSintattica`Private`n_Integer] := *)
+(*     {AnalisiSintattica`Private`row[AnalisiSintattica`Private`n], *)
+(*      AnalisiSintattica`Private`col[AnalisiSintattica`Private`n]}, *)
+(*    AnalisiSintattica`Private`xy[AnalisiSintattica`Private`n_] := *)
+(*     {AnalisiSintattica`Private`row[AnalisiSintattica`Private`n], *)
+(*      AnalisiSintattica`Private`col[AnalisiSintattica`Private`n]}, *)
+(*    AnalisiSintattica`Private`row[AnalisiSintattica`Private`n_Integer] := *)
+(*     Quotient[AnalisiSintattica`Private`n - 1, *)
+(*       AnalisiSintattica`Private`cols] + 1, *)
+(*    AnalisiSintattica`Private`row[AnalisiSintattica`Private`n_] := *)
+(*     Quotient[AnalisiSintattica`Private`n - 1, *)
+(*       AnalisiSintattica`Private`cols] + 1, AnalisiSintattica`Private`cols = *)
+(*     9, AnalisiSintattica`Private`col[AnalisiSintattica`Private`n_Integer] := *)
+(*     Mod[AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + *)
+(*      1, AnalisiSintattica`Private`col[AnalisiSintattica`Private`n_] := *)
+(*     Mod[AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + *)
+(*      1, AnalisiSintattica`Private`createSol[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]]] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g_] := *)
+(*     AnalisiSintattica`Private`grammar, AnalisiSintattica`Private`grammar = *)
+(*     {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*      {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*      {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*      {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*      {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}, *)
+(*    AnalisiSintattica`Private`rows = 5, *)
+(*    AnalisiSintattica`Private`loc[{AnalisiSintattica`Private`x_, *)
+(*       AnalisiSintattica`Private`y_}] := *)
+(*     1 + Floor[AnalisiSintattica`Private`cols*AnalisiSintattica`Private`x] + *)
+(*      AnalisiSintattica`Private`cols*Floor[(1 - AnalisiSintattica`Private`y)**)
+(*         AnalisiSintattica`Private`rows], AnalisiSintattica`Private`i = 5, *)
+(*    AnalisiSintattica`Private`listaProduzioni = {"A->aB", "A->bC", "B->d", *)
+(*      "B->Ce", "C->fD", "C->gh", "D->l", "D->m"}, *)
+(*    AnalisiSintattica`Private`j = 2, AnalisiSintattica`Private`displaySln[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]]] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g_] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`createEmptyGrammar[*)
+(*      AnalisiSintattica`Private`sln_Association] := *)
+(*     Module[{AnalisiSintattica`Private`rows, AnalisiSintattica`Private`cols}, *)
+(*      Table[AnalisiSintattica`Private`sln[AnalisiSintattica`Private`i, *)
+(*         AnalisiSintattica`Private`j] = " ", {AnalisiSintattica`Private`i, 2, *)
+(*        AnalisiSintattica`Private`rows}, {AnalisiSintattica`Private`j, 2, *)
+(*        AnalisiSintattica`Private`cols}]], *)
+(*    AnalisiSintattica`Private`createEmptyGrammar[*)
+(*      AnalisiSintattica`Private`sln_] := *)
+(*     Module[{AnalisiSintattica`Private`copy = AnalisiSintattica`Private`sln}, *)
+(*      Table[If[AnalisiSintattica`Private`i > 1 && *)
+(*          AnalisiSintattica`Private`j > 1, AnalisiSintattica`Private`copy[[*)
+(*           AnalisiSintattica`Private`i,AnalisiSintattica`Private`j]] = " "], *)
+(*        {AnalisiSintattica`Private`i, AnalisiSintattica`Private`rows}, *)
+(*        {AnalisiSintattica`Private`j, AnalisiSintattica`Private`cols}]; *)
+(*       AnalisiSintattica`Private`copy]}]*)
+
+
+(* ::Input:: *)
+(*Manipulate[Grid[{{Which[True, Style["Click on blank square:", "Label"]]}, *)
+(*    {Column[{EventHandler[Dynamic[AnalisiSintattica`Private`display[*)
+(*          AnalisiSintattica`Private`emptyGrammar, *)
+(*          AnalisiSintattica`Private`cursor]], "MouseClicked" :> *)
+(*         If[MemberQ[Range[1, AnalisiSintattica`Private`rows**)
+(*              AnalisiSintattica`Private`cols, 9], *)
+(*            AnalisiSintattica`Private`loc[MousePosition[*)
+(*              "EventHandlerScaled"]]] || MemberQ[Range[2, *)
+(*             AnalisiSintattica`Private`cols], AnalisiSintattica`Private`loc[*)
+(*             MousePosition["EventHandlerScaled"]]], *)
+(*          AnalisiSintattica`Private`cursor = -1, *)
+(*          AnalisiSintattica`Private`cursor = AnalisiSintattica`Private`loc[*)
+(*            MousePosition["EventHandlerScaled"]]]], *)
+(*       Row[Table[With[{AnalisiSintattica`Private`i$ = *)
+(*            AnalisiSintattica`Private`i}, Button[*)
+(*           AnalisiSintattica`Private`listaProduzioni[[*)
+(*            AnalisiSintattica`Private`i$]], *)
+(*           AnalisiSintattica`Private`emptyGrammar[[*)
+(*             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor][[*)
+(*              1]],AnalisiSintattica`Private`xy[*)
+(*               AnalisiSintattica`Private`cursor][[2]]]] = *)
+(*            AnalisiSintattica`Private`listaProduzioni[[*)
+(*             AnalisiSintattica`Private`i$]]]], {AnalisiSintattica`Private`i, *)
+(*          1, Length[AnalisiSintattica`Private`listaProduzioni]}], *)
+(*        Spacer[0.5]], Row[{Button["Clear", *)
+(*          AnalisiSintattica`Private`emptyGrammar[[*)
+(*            AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor][[*)
+(*             1]],AnalisiSintattica`Private`xy[*)
+(*              AnalisiSintattica`Private`cursor][[2]]]] = " "], *)
+(*         Button["Clear All", Table[AnalisiSintattica`Private`emptyGrammar[[*)
+(*             AnalisiSintattica`Private`i,AnalisiSintattica`Private`j]] = " ", *)
+(*           {AnalisiSintattica`Private`i, 2, AnalisiSintattica`Private`rows}, *)
+(*           {AnalisiSintattica`Private`j, 2, *)
+(*            AnalisiSintattica`Private`cols}]]}], *)
+(*       If[AnalisiSintattica`Private`showSolution, *)
+(*        Row[{AnalisiSintattica`Private`displaySln[*)
+(*           AnalisiSintattica`Private`solution]}], ""]}, Alignment -> Center], *)
+(*     " "}}], {{AnalisiSintattica`Private`solution, *)
+(*    {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*     {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*     {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*     {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*     {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}}, *)
+(*   ControlType -> None}, {{AnalisiSintattica`Private`emptyGrammar, *)
+(*    {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*     {"A", " ", " ", " ", "A->bC", " ", " ", " ", " "}, *)
+(*     {"B", " ", " ", " ", " ", " ", " ", " ", " "}, *)
+(*     {"C", " ", " ", " ", " ", " ", " ", " ", " "}, *)
+(*     {"D", " ", " ", " ", " ", " ", " ", " ", " "}}}, ControlType -> None}, *)
+(*  {{AnalisiSintattica`Private`cursor, 14}, ControlType -> None}, *)
+(*  Button["New Game", (AnalisiSintattica`Private`cursor = 0; *)
+(*     AnalisiSintattica`Private`showSolution = False; *)
+(*     AnalisiSintattica`Private`solution = AnalisiSintattica`Private`grammar; *)
+(*     AnalisiSintattica`Private`emptyGrammar = *)
+(*      AnalisiSintattica`Private`createEmptyGrammar[*)
+(*       AnalisiSintattica`Private`solution]; ) & ], *)
+(*  {{AnalisiSintattica`Private`showSolution, True, "show solution"}, *)
+(*   {True, False}}, ContentSize -> {650, 420}, *)
+(*  Initialization :> {AnalisiSintattica`Private`display[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution, *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g_Null, *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]], *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{Automatic, {Automatic}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}], *)
+(*      AnalisiSintattica`Private`cursor_Integer:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {Automatic}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`display[AnalisiSintattica`Private`g_, *)
+(*      AnalisiSintattica`Private`cursor_:0] := *)
+(*     Grid[AnalisiSintattica`Private`g, *)
+(*      Frame -> If[MatchQ[AnalisiSintattica`Private`xy[*)
+(*          AnalisiSintattica`Private`cursor], _Integer], All, *)
+(*        {All, All, {AnalisiSintattica`Private`xy[*)
+(*            AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], *)
+(*      Background -> {White, White, White}, ItemStyle -> {Automatic}, *)
+(*      ItemSize -> {{3, {5}}}, BaseStyle -> {Bold}], *)
+(*    AnalisiSintattica`Private`solution = {{" ", "a", "b", "d", "f", "g", "l", *)
+(*       "m", "$"}, {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*      {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*      {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*      {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}, *)
+(*    AnalisiSintattica`Private`xy[AnalisiSintattica`Private`n_Integer] := *)
+(*     {AnalisiSintattica`Private`row[AnalisiSintattica`Private`n], *)
+(*      AnalisiSintattica`Private`col[AnalisiSintattica`Private`n]}, *)
+(*    AnalisiSintattica`Private`xy[AnalisiSintattica`Private`n_] := *)
+(*     {AnalisiSintattica`Private`row[AnalisiSintattica`Private`n], *)
+(*      AnalisiSintattica`Private`col[AnalisiSintattica`Private`n]}, *)
+(*    AnalisiSintattica`Private`row[AnalisiSintattica`Private`n_Integer] := *)
+(*     Quotient[AnalisiSintattica`Private`n - 1, *)
+(*       AnalisiSintattica`Private`cols] + 1, *)
+(*    AnalisiSintattica`Private`row[AnalisiSintattica`Private`n_] := *)
+(*     Quotient[AnalisiSintattica`Private`n - 1, *)
+(*       AnalisiSintattica`Private`cols] + 1, AnalisiSintattica`Private`cols = *)
+(*     9, AnalisiSintattica`Private`col[AnalisiSintattica`Private`n_Integer] := *)
+(*     Mod[AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + *)
+(*      1, AnalisiSintattica`Private`col[AnalisiSintattica`Private`n_] := *)
+(*     Mod[AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + *)
+(*      1, AnalisiSintattica`Private`createSol[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]]] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]] := *)
+(*     AnalisiSintattica`Private`grammar, *)
+(*    AnalisiSintattica`Private`createSol[AnalisiSintattica`Private`g_] := *)
+(*     AnalisiSintattica`Private`grammar, AnalisiSintattica`Private`grammar = *)
+(*     {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*      {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*      {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*      {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*      {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}, *)
+(*    AnalisiSintattica`Private`rows = 5, *)
+(*    AnalisiSintattica`Private`loc[{AnalisiSintattica`Private`x_, *)
+(*       AnalisiSintattica`Private`y_}] := *)
+(*     1 + Floor[AnalisiSintattica`Private`cols*AnalisiSintattica`Private`x] + *)
+(*      AnalisiSintattica`Private`cols*Floor[(1 - AnalisiSintattica`Private`y)**)
+(*         AnalisiSintattica`Private`rows], AnalisiSintattica`Private`i = 5, *)
+(*    AnalisiSintattica`Private`listaProduzioni = {"A->aB", "A->bC", "B->d", *)
+(*      "B->Ce", "C->fD", "C->gh", "D->l", "D->m"}, *)
+(*    AnalisiSintattica`Private`j = 2, AnalisiSintattica`Private`displaySln[*)
+(*      AnalisiSintattica`Private`g_AnalisiSintattica`Private`solution] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g:*)
+(*       Blank[AnalisiSintattica`Private`createSol[*)
+(*         {{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*          {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*          {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*          {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*          {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]]] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g:*)
+(*       Blank[{{" ", "a", "b", "d", "f", "g", "l", "m", "$"}, *)
+(*         {"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, *)
+(*         {"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, *)
+(*         {"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "}, *)
+(*         {"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}}]] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`displaySln[AnalisiSintattica`Private`g_] := *)
+(*     AnalisiSintattica`Private`display[AnalisiSintattica`Private`g, 0], *)
+(*    AnalisiSintattica`Private`createEmptyGrammar[*)
+(*      AnalisiSintattica`Private`sln_Association] := *)
+(*     Module[{AnalisiSintattica`Private`rows, AnalisiSintattica`Private`cols}, *)
+(*      Table[AnalisiSintattica`Private`sln[AnalisiSintattica`Private`i, *)
+(*         AnalisiSintattica`Private`j] = " ", {AnalisiSintattica`Private`i, 2, *)
+(*        AnalisiSintattica`Private`rows}, {AnalisiSintattica`Private`j, 2, *)
+(*        AnalisiSintattica`Private`cols}]], *)
+(*    AnalisiSintattica`Private`createEmptyGrammar[*)
+(*      AnalisiSintattica`Private`sln_] := *)
+(*     Module[{AnalisiSintattica`Private`copy = AnalisiSintattica`Private`sln}, *)
+(*      Table[If[AnalisiSintattica`Private`i > 1 && *)
+(*          AnalisiSintattica`Private`j > 1, AnalisiSintattica`Private`copy[[*)
+(*           AnalisiSintattica`Private`i,AnalisiSintattica`Private`j]] = " "], *)
+(*        {AnalisiSintattica`Private`i, AnalisiSintattica`Private`rows}, *)
+(*        {AnalisiSintattica`Private`j, AnalisiSintattica`Private`cols}]; *)
+(*       AnalisiSintattica`Private`copy]}]*)
 
 
 End[]
 
 
 EndPackage[]
-
-
-DynamicModule[{labels = ConstantArray["", 10]},
-  Column[Table[
-    With[{i = i},
-      Button[Dynamic[labels[[i]]], labels[[i]] = "Bottone " <> ToString[i]]
-    ],
-    {i, 10}
-  ]]
-]
-
