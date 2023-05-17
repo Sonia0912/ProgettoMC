@@ -651,10 +651,11 @@ Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}];
 rows = Length[emptyGrammar[[All,1]]];
 cols = Length[emptyGrammar[[1,All]]];
 
-listaProduzioni = {" ", "A->aB", "A->bC", "B->d", "B->Ce", "C->fD", "C->gh", "D->l", "D->m"}
+
+listaProduzioni = {"A->aB", "A->bC", "B->d", "B->Ce", "C->fD", "C->gh", "D->l", "D->m"};
 
 
-(*mouse location on table*)
+(*Mappiamo il click del mouse sulla tabella a un numero che identifica in maniera univoca la cella cliccata*)
 loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows]
 
 
@@ -667,24 +668,20 @@ Manipulate[
 	Column[{
 		EventHandler[
 			Grid[emptyGrammar,
-			Frame->If[MatchQ[a[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
+			Frame->If[MatchQ[xy[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
 			Background->{White,White,backgrounds},
 			ItemStyle->{Automatic},
-			ItemSize -> {{3, {5}}},
+			ItemSize -> {{5, {5}}},
 			BaseStyle->{Bold}],
-			"MouseClicked":>(cursor=loc[MousePosition["EventHandlerScaled"]])
+			"MouseClicked":>(
+			(*Dovremmo fare un controllo sul fatto che non possa selzionare sui nonTerminali e sui terminali*)
+			cursor=loc[MousePosition["EventHandlerScaled"]])
 			],
-		Column[{Style["Select value:","Label"],
-		EventHandler[
-			Grid[{listaProduzioni},
-			Frame->All,
-			ItemStyle->{Automatic},
-			ItemSize->{Automatic}
-			],
-			"MouseClicked":>Module[{digt = Floor[10First@ MousePosition["EventHandlerScaled"]]},
-		If[digt == 0, emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=" ", emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=listaProduzioni[[digt]]]]]
-		}]
-	}],
+		
+		Row[Table[With[{i = i},\[NonBreakingSpace]
+\[NonBreakingSpace] Button[listaProduzioni[[i]], Print[listaProduzioni[[i]]]]], {i, 1,\[NonBreakingSpace]
+\[NonBreakingSpace] Length[listaProduzioni]}]
+  ]}],
 	" "
 	}
 	}],
@@ -699,13 +696,13 @@ Manipulate[
 	)&],
 	{{showSolution,False,"show solution"},{True,False}},
 	SaveDefinitions->True,
-	ContentSize->{620, 420}
-	
+	ContentSize->{720, 300}
 ]
 
 
 
-
+	
+	
 
 
 
@@ -713,3 +710,14 @@ End[]
 
 
 EndPackage[]
+
+
+DynamicModule[{labels = ConstantArray["", 10]},
+  Column[Table[
+    With[{i = i},
+      Button[Dynamic[labels[[i]]], labels[[i]] = "Bottone " <> ToString[i]]
+    ],
+    {i, 10}
+  ]]
+]
+
