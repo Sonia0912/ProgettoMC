@@ -884,7 +884,7 @@ Cell[TextData[{
  "Data la seguente grammatica, trova l\[CloseCurlyQuote]insieme Follow per \
 ogni non terminale.\n\nA \[RightArrow] aB\nB \[RightArrow] b | CDc\nC \
 \[RightArrow] d | De\nD \[RightArrow] f | \[Epsilon]\n\nNullable = {D}\n\
-First(A) = {a}\nFirst(B) = {b, d, f}\nFirst(C) = {d, f}\nFirst(D) = {f, \
+First(A) = {a}\nFirst(B) = {b, d, e, f}\nFirst(C) = {d, e, f}\nFirst(D) = {f, \
 \[Epsilon]}\n\n1. Partiamo dal non terminale A. Esso \[EGrave] il non \
 terminale iniziale e non compare in nessuna produzione, perci\[OGrave]:\n\t\
 Follow(A) = {$}\n2. B compare solo nella produzione di A e non ha niente alla \
