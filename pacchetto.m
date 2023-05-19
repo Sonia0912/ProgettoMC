@@ -551,6 +551,15 @@ Print["First: ", first];
 Print["Follow: ", follow];
 soluzione // MatrixForm
 
+listaProduzioni = List[];
+Table[
+	Table[
+		AppendTo[listaProduzioni, StringJoin[grammatica[[i, 1]], " \[RightArrow] ", grammatica[[i, 2, j]]]];
+	,{j, 1, Length[grammatica[[i, 2]]]}
+	];
+,{i, 1, Length[grammatica]}
+];
+listaProduzioni							 
 
 (*TABELLA*)
 (*grammar = {{"A", " ", " ", "A -> c"}, {"B", "B -> a", "B -> b"}, {"C"," ", "C -> b", "C -> c"}};*)
