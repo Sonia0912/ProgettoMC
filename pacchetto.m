@@ -37,7 +37,7 @@ C: e, f, D
 D: g, h
 *)
 
-SeedRandom[1234];
+SeedRandom[2];
 
 (*Parametri*)
 tuttiNonTerminali = CharacterRange["A", "D"];
@@ -261,6 +261,7 @@ Table[
 ];
 
 nullable
+
 
 
 (* FIRST *)
@@ -551,32 +552,80 @@ Print["First: ", first];
 Print["Follow: ", follow];
 soluzione // MatrixForm
 
+<<<<<<< Updated upstream
 
 (*TABELLA*)
 (*colonne Terminali SOLO dei first*)
 colonneTabellaFirst = List[];
-
-Table[ AppendTo[colonneTabellaFirst, first[[i,2]]],
-{i, 1, Length[first]}];
-
-colonneTabellaFirst = Union[Flatten[colonneTabellaFirst]];
-colonneTabellaFirst = DeleteCases[colonneTabellaFirst, "\[Epsilon]"];
-colonneTabellaFirst = AppendTo[colonneTabellaFirst, $]
-
-ListaCelle = List[];
-
+=======
+listaProduzioni = List[];
 Table[
-	tmpCelle = List[];
 	Table[
-	tmpCelle = Append[tmpCelle, " "],
-	{j, 1, Length[colonneTabellaFirst]}
+		AppendTo[listaProduzioni, StringJoin[grammatica[[i, 1]], " \[RightArrow] ", grammatica[[i, 2, j]]]];
+	,{j, 1, Length[grammatica[[i, 2]]]}
 	];
-	ListaCelle = Append[ListaCelle, tmpCelle];,
-	{i, 1, Length[grammatica[[All,1]]]}
+,{i, 1, Length[grammatica]}
 ];
+listaProduzioni		
 
-ListaCelle
 
+(*grammar = {{" ", "a", "b", "d", "f", "g", "l", "m", "$"},
+			{"A", "A->aB", "A->bC", " ", " ", " ", " ", " ", " "}, 
+			{"B", " ", " ", "B->d", "B->Ce", "B->Ce", " ", " ", " "}, 
+			{"C", " ", " ", " ", "C->fD", "C->gh ", " ", " ", " "},
+			{"D", " ", " ", " ", " ", " ", "D->l", "D->m", " "}};*)
+grammar = soluzione;
+>>>>>>> Stashed changes
+
+rows = Length[grammar[[All,1]]](*numero dei terminali*)
+cols = Length[grammar[[1,All]]] (*numero dei non terminali*)
+
+(*calcola l'esatta riga e colonna di ogni cella della tabella*)
+row[n_]:=Quotient[n-1,cols]+1;
+col[n_]:=Mod[n-1,cols]+1;
+(*data la cella n restituisce riga e colonna corrispondenti*)
+xy[n_]:={row[n],col[n]}
+
+
+displayFirstFollow[g_]:=Grid[g,
+			 Frame -> All, 
+			 Background->{White,White},
+			 ItemStyle->{Automatic},
+			 ItemSize->{{2,{2}}},
+		     BaseStyle->{Bold}
+			 Editable -> False]
+			 
+displayFirstFollowSln[g_]:=displayFirstFollow[g]
+
+display[g_,cursor_:0]:=
+	(*Module[{backgrounds},
+		backgrounds = {If[checkErrors[g, cursor], xy[cursor]->LightRed]}; *)
+		Grid[g,
+		Frame->If[MatchQ[xy[cursor],_Integer],All,{All,All,{xy[cursor]->{Thick,Blue}}}],
+		Background->{White,White},
+		ItemStyle->{Automatic},
+		ItemSize->{{3,{5}}},
+		BaseStyle->{Bold}]
+
+displaySln[g_]:=display[g,0]
+
+checkErrors[g_, cursor_]:= If[g[[xy[cursor][[1]], xy[cursor][[2]]]] != grammar[[xy[cursor][[1]], xy[cursor][[2]]]], True, False]	
+			
+
+createEmptyGrammar[sln_] := 
+	Module[{copy = sln}, Table[ If[i > 1 && j > 1, copy[[i, j]] = " "], {i, rows}, {j, cols} ]; copy ]
+
+createEmptyCheckbox[sln_]:= 
+	Module[{copy = sln}, Table[ If[i > 1 && j > 1, copy[[i, j]] = Checkbox[]], {i, rows}, {j, cols} ]; copy ]
+
+(*Mappiamo il click del mouse sulla tabella a un numero che identifica in maniera univoca la cella cliccata*)
+loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows]
+tmp = soluzione[[All,1]]
+tmp = Delete[soluzione[[All,1]], 1]
+
+
+
+<<<<<<< Updated upstream
 headings = {grammatica[[All,1]],  colonneTabellaFirst};
            
 (*Manipulate[
@@ -1106,6 +1155,119 @@ ContentSize->{650, 420}
 (*        {AnalisiSintattica`Private`i, AnalisiSintattica`Private`rows}, *)
 (*        {AnalisiSintattica`Private`j, AnalisiSintattica`Private`cols}]; *)
 (*       AnalisiSintattica`Private`copy]}]*)
+=======
+Manipulate[
+	Grid[
+	{{Column[{Style["ANALISI SINTATTICA", Bold],
+	  Style["ESERCIZIO DI GRAMMATICA N\[Degree]:", Bold] (*INSERISCI SEED*),
+	  Style["Generare gli insiemi Nullable, First e Follow per la seguente grammatica", Bold] }, 
+	  Alignment -> Center]},
+	{
+	Column[{
+		(*GRAMMATICA*)
+		Row[{
+		
+		Button["Nuova grammatica",(
+		cursor=0 ; 
+		Spacer[5];
+		showSolution=False;
+		soluzione=grammar;
+		emptyGrammar=createEmptyGrammar[soluzione];
+		)&],
+		
+		DynamicModule[{numero = ""}, 
+        Panel[Column[{
+        Row[{
+        Style["Genera esercizio n\[Degree]: ", Bold],
+        InputField[Dynamic[numero], Number]
+        }],
+        Dynamic[numero];
+        }]]
+	    ]}], " ",
+		Row[{Column[{
+			Style["Grammatica", Bold],
+			Grid[Map[List, listaProduzioni],
+			 Frame -> All, 
+			 Background->{White,White},
+			 ItemStyle->{Automatic},
+			 ItemSize->{{8,{8}}},
+		     BaseStyle->{Bold}
+			 Editable -> False]}, Alignment->Center]}], 
+			" ",
+			
+		(*NULLABLE*)
+		Row[{Column[{
+			Style["NULLABLE", Bold],
+			TabView[Table[tmp[[i]]->PopupMenu[" ",{TRUE, FALSE}],{i, 1, Length[tmp]}]]}, Alignment->Left],
+			" "		 
+          }], 
+			" ",
+			
+		(*FIRST*)	
+		Row[{Column[{
+			Style["FIRST", Bold],
+			displayFirstFollow[emptyCheckboxGrammar]
+			}, Alignment->Left]		 
+          }], 
+        
+		(*TABLE*)	
+		EventHandler[
+			Dynamic[display[emptyGrammar,cursor]],
+			"MouseClicked":>(
+			If[MemberQ[Range[1, rows*cols, cols],loc[MousePosition["EventHandlerScaled"]]] || 
+				MemberQ[Range[1, cols],loc[MousePosition["EventHandlerScaled"]]],
+				cursor = -1,
+				cursor = loc[MousePosition["EventHandlerScaled"]]
+				] 
+			)], 
+	Row[  
+		Table[With[{i = i},\[NonBreakingSpace]
+\[NonBreakingSpace]       Button[listaProduzioni[[i]],
+\[NonBreakingSpace]              emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=listaProduzioni[[i]];
+\[NonBreakingSpace]              (*MessageDialog["Hai sbagliato"]*) 
+\[NonBreakingSpace]       ]], 
+\[NonBreakingSpace]       {i, 1, Length[listaProduzioni]}],Spacer[0.5]     
+\[NonBreakingSpace]           
+    ],
+    Row[{
+        Button["Clear", emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]= " "],
+        Button["Clear All", Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}]]
+        }],
+      
+    (*rimuovi puntatore da tabella soluzione *)
+    If[showNullable, Column[{
+						Style["Mostra Nullable", Bold],
+						TabView[Table[tmp[[i]]->nullable[[i,2]],{i, 1, Length[tmp]}]]}, Alignment->Right]," "],
+	If[showFirst, Column[{
+						Style["Mostra First", Bold],
+						displayFirstFollowSln[emptyCheckboxGrammar]
+						},Alignment->Right],""],					
+    If[showSolution,Row[{displaySln[soluzione]}],""]
+    },
+    Alignment -> Center
+    ],
+   
+	" "	
+	}
+	}],
+	{soluzione,ControlType->None},
+	{first,ControlType->None},
+	{{emptyGrammar, (soluzione=grammar;createEmptyGrammar[soluzione])},ControlType->None},
+	{{emptyCheckboxGrammar, (soluzione;createEmptyCheckbox[soluzione])},ControlType->None},
+	{{cursor,0},ControlType->None},
+   
+	(*Genera nuova gramm con seed da keyboard*)
+	{{showNullable,False,"Mostra Nullable"},{True,False}},
+	{{showFirst,False,"Mostra First"},{True,False}},
+	{{showSolution,False,"show solution"},{True,False}},
+	SaveDefinitions->True,
+	ContentSize->{900, 900}
+]
+
+
+
+
+>>>>>>> Stashed changes
 
 
 End[]
