@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     77357,       1678]
-NotebookOptionsPosition[     68019,       1515]
-NotebookOutlinePosition[     68514,       1533]
-CellTagsIndexPosition[     68471,       1530]
+NotebookDataLength[    104675,       2215]
+NotebookOptionsPosition[     94697,       2046]
+NotebookOutlinePosition[     95133,       2063]
+CellTagsIndexPosition[     95090,       2060]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -52,69 +52,16 @@ Cell[TextData[StyleBox["[FOTO]",
 Cell[TextData[{
  "Lorenzo Campidelli, Luca Castricini, Gianluca Gueli, Sonia Nicoletti, Anna \
 Tosoroni\n",
- StyleBox["anno 1 curriculum C, anno 1 curriculum ?, anno 1 curriculum B, \
-anno 1 curriculum B, anno 1 curriculum ?",
+ StyleBox["anno 1 curriculum C, anno 1 curriculum A, anno 1 curriculum B, \
+anno 1 curriculum B, anno 1 curriculum A",
   FontSize->13]
 }], "Text",
  CellChangeTimes->{{3.8907511091736736`*^9, 3.8907511254724493`*^9}, {
   3.890751158485685*^9, 3.890751250820182*^9}, {3.890751845599101*^9, 
   3.8907518464383917`*^9}, {3.8907519333724127`*^9, 3.8907519355702925`*^9}, {
   3.8932371376546803`*^9, 3.8932371688285217`*^9}, {3.8934809410947*^9, 
-  3.8934809414386854`*^9}},
+  3.8934809414386854`*^9}, {3.8935817224559097`*^9, 3.8935817280806665`*^9}},
  TextAlignment->Center,ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
-
-Cell[CellGroupData[{
-
-Cell["Codice", "Section",
- CellChangeTimes->{{3.8907520033868685`*^9, 3.8907520039145327`*^9}, {
-  3.8907522681820693`*^9, 
-  3.8907522687822404`*^9}},ExpressionUUID->"75fb08d1-1430-4971-ab7d-\
-77896cebc04a"],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"(*", 
-   RowBox[{
-   "Settiamo", " ", "il", " ", "Path", " ", "e", " ", "carichiamo", " ", 
-    RowBox[{"pacchetto", ".", "m"}]}], "*)"}], "\[IndentingNewLine]", 
-  RowBox[{
-   RowBox[{
-    RowBox[{"SetDirectory", "[", 
-     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
-   RowBox[{"<<", "pacchetto.m"}]}]}]], "Input",
- CellChangeTimes->{{3.8907512723332453`*^9, 3.8907512723342476`*^9}, 
-   3.8907519747584324`*^9, {3.890752071887743*^9, 3.890752077299266*^9}, {
-   3.890752273757166*^9, 3.8907523049978194`*^9}, 3.8907533925209055`*^9, {
-   3.8907542511038485`*^9, 3.890754255295512*^9}, {3.8907552285631733`*^9, 
-   3.8907552327753973`*^9}, {3.893494775220046*^9, 3.893494777483858*^9}, {
-   3.8934948462187977`*^9, 3.893494854681739*^9}, 
-   3.893494909746094*^9},ExpressionUUID->"8b0f82fd-5ce7-4ba1-b2bf-\
-31c964368f81"],
-
-Cell[BoxData[
- RowBox[{"(*", 
-  RowBox[{"Main", " ", "per", " ", "generare", " ", 
-   RowBox[{"l", "'"}], "interfaccia"}], "*)"}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"583e7d5c-ab9d-44f5-8c10-19fe4af5e5f6"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"res", " ", "=", " ", 
-   RowBox[{"fun", "[", 
-    RowBox[{"16", ",", "2"}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", "res"}], "Input",
- CellChangeTimes->{{3.8934949140891075`*^9, 3.8934949272469544`*^9}, {
-  3.893495001375208*^9, 3.8934950108404503`*^9}, {3.8934951420729313`*^9, 
-  3.8934951568736553`*^9}},
- CellLabel->"In[21]:=",ExpressionUUID->"80ca04ec-f0fe-4f68-a672-52d32569f48b"],
-
-Cell[BoxData["18"], "Output",
- CellChangeTimes->{3.8934951614642143`*^9},
- CellLabel->"Out[22]=",ExpressionUUID->"689575b6-1f0e-4ac6-b307-2ba58c9f3af3"]
-}, Open  ]]
-}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1479,10 +1426,594 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["VII. Bibliografia e Sitografia", "Section",
+Cell["VII. Codice", "Section",
  CellChangeTimes->{{3.890751429118579*^9, 3.890751439177018*^9}, {
-  3.8934347360433364`*^9, 
-  3.893434737253439*^9}},ExpressionUUID->"b2b4837b-fa5c-444f-a236-\
+   3.8934347360433364`*^9, 3.893434737253439*^9}, 3.893584434969141*^9, {
+   3.8935844895807133`*^9, 3.8935844985225487`*^9}, {3.8935845473229804`*^9, 
+   3.8935845649257*^9}},ExpressionUUID->"eb32614a-c831-4e59-a181-\
+6bf7143953e4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Settiamo", " ", "il", " ", "Path", " ", "e", " ", "carichiamo", " ", 
+    RowBox[{"pacchetto", ".", "m"}]}], "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetDirectory", "[", 
+     RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+   RowBox[{"<<", " ", "pacchetto.m"}], " ", "\n", "\n", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Main", " ", "per", " ", "generare", " ", "l"}], 
+      "\[CloseCurlyQuote]"}], "interfaccia"}], "*)"}], "\n", 
+   RowBox[{"GenerazioneEsercizio", "[", "12", "]"}], "\n"}]}]], "Input",
+ CellChangeTimes->{{3.8907514723087015`*^9, 3.890751472587801*^9}, {
+   3.893434113816236*^9, 3.893434114621792*^9}, {3.8934342403259935`*^9, 
+   3.893434263045288*^9}, 3.893584444110671*^9, {3.8935845016398015`*^9, 
+   3.893584536657407*^9}},
+ CellLabel->
+  "In[539]:=",ExpressionUUID->"bd6adc6e-3164-453c-8bb7-4b2b8673844a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Part", "partd", 
+   "\"Part specification \\!\\(\\*RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"\\\\\
+\\\"A\\\\\\\"\\\", \\\",\\\", \\\"\\\\\\\"B\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"C\\\\\\\"\\\", \\\",\\\", \\\"\\\\\\\"D\\\\\\\"\\\"}], \
+\\\"}\\\"}], \\\"\[LeftDoubleBracket]\\\", RowBox[{\\\"All\\\", \\\",\\\", \\\
+\"1\\\"}], \\\"\[RightDoubleBracket]\\\"}]\\) is longer than depth of object.\
+\"", 2, 541, 188, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.893584602124843*^9},
+ CellLabel->
+  "During evaluation of \
+In[539]:=",ExpressionUUID->"0112aa92-e574-45e8-b5a5-a208ec5e308e"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{AnalisiSintattica`Private`cursor$$ = 1, 
+    AnalisiSintattica`Private`emptyCheckboxGrammar$$ = {{
+     " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "$"}, {
+     "A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ", " ", " ", 
+      " ", " "}, {
+     "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", " ", 
+      " "}, {"C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", 
+      " ", " ", " ", " "}, {
+     "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+      " "}}, AnalisiSintattica`Private`emptyGrammar$$ = {{
+     " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "$"}, {
+     "A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ", " ", " ", 
+      " ", " "}, {
+     "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", " ", 
+      " "}, {"C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", 
+      " ", " ", " ", " "}, {
+     "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+      " "}}, AnalisiSintattica`Private`showFirst$$ = True, 
+    AnalisiSintattica`Private`showFollow$$ = True, 
+    AnalisiSintattica`Private`showNullable$$ = False, 
+    AnalisiSintattica`Private`showSolution$$ = True, 
+    AnalisiSintattica`Private`soluzione$$ = {{
+     " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "$"}, {
+     "A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ", " ", " ", 
+      " ", " "}, {
+     "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", " ", 
+      " "}, {"C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", 
+      " ", " ", " ", " "}, {
+     "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+      " "}}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[AnalisiSintattica`Private`soluzione$$]}, {{
+       Hold[
+       AnalisiSintattica`Private`emptyGrammar$$], {{
+        " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+         "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ", 
+         " ", " ", " ", " "}, {
+        "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+         " ", " "}, {
+        "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+         " ", " ", " "}, {
+        "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+         " "}}}}, {{
+       Hold[
+       AnalisiSintattica`Private`emptyCheckboxGrammar$$], {{
+        " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+         "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ", 
+         " ", " ", " ", " "}, {
+        "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+         " ", " "}, {
+        "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+         " ", " ", " "}, {
+        "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+         " "}}}}, {{
+       Hold[AnalisiSintattica`Private`cursor$$], 0}}, {{
+       Hold[AnalisiSintattica`Private`showNullable$$], False, 
+       "Mostra Nullable"}, {True, False}}, {{
+       Hold[AnalisiSintattica`Private`showFirst$$], False, "Mostra First"}, {
+      True, False}}, {{
+       Hold[AnalisiSintattica`Private`showFollow$$], False, 
+       "Mostra Follow"}, {True, False}}, {{
+       Hold[AnalisiSintattica`Private`showSolution$$], False, 
+       "show solution"}, {True, False}}}, Typeset`size$$ = {
+    603., {708.3138232632122, 712.3261767367879}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {
+       AnalisiSintattica`Private`cursor$$ = 0, 
+        AnalisiSintattica`Private`emptyCheckboxGrammar$$ = {{
+          " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+           "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", 
+           " ", " ", " ", " ", " "}, {
+          "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+           " ", " "}, {
+          "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+           " ", " ", " "}, {
+          "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ",
+            " "}}, AnalisiSintattica`Private`emptyGrammar$$ = {{
+          " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+           "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", 
+           " ", " ", " ", " ", " "}, {
+          "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+           " ", " "}, {
+          "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+           " ", " ", " "}, {
+          "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ",
+            " "}}, AnalisiSintattica`Private`showFirst$$ = False, 
+        AnalisiSintattica`Private`showFollow$$ = False, 
+        AnalisiSintattica`Private`showNullable$$ = False, 
+        AnalisiSintattica`Private`showSolution$$ = False, 
+        AnalisiSintattica`Private`soluzione$$ = Null}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Grid[{{
+          Column[{
+            Style["ANALISI SINTATTICA", Bold], 
+            Style["ESERCIZIO DI GRAMMATICA N\[Degree]:", Bold], 
+            Style[
+            "Generare gli insiemi Nullable, First e Follow per la seguente \
+grammatica", Bold]}, Alignment -> Left]}, {
+          Column[{
+            Row[{
+              Button[
+              "Nuova grammatica", (AnalisiSintattica`Private`cursor$$ = 0; 
+               Spacer[5]; AnalisiSintattica`Private`showSolution$$ = False; 
+               AnalisiSintattica`Private`emptyGrammar$$ = 
+                AnalisiSintattica`Private`createEmptyGrammar[
+                 AnalisiSintattica`Private`soluzione$$]; Null)& ], 
+              DynamicModule[{AnalisiSintattica`Private`numero = ""}, 
+               Panel[
+                Column[{
+                  Row[{
+                    Style["Genera esercizio n\[Degree]: ", Bold], 
+                    InputField[
+                    Dynamic[AnalisiSintattica`Private`numero], Number]}], 
+                  Dynamic[AnalisiSintattica`Private`numero]; Null}]]]}], " ", 
+            Row[{
+              Column[{
+                Style["Grammatica", Bold], 
+                Grid[
+                 Map[List, AnalisiSintattica`Private`listaProduzioni], Frame -> 
+                 All, Background -> {White, White}, ItemStyle -> {Automatic}, 
+                 ItemSize -> {{8, {8}}}, BaseStyle -> {Bold}, Editable -> 
+                 False]}, Alignment -> Left]}], " ", 
+            Row[{
+              Column[{
+                Style["NULLABLE", Bold], 
+                Framed[
+                "Dato un non terminale, questo \[EGrave] nullable se pu\
+\[OGrave] produrre una stringa vuota (\[Epsilon]).\nSeleziona i non terminali \
+nullable.", FrameStyle -> Directive[Thin, White], ImageSize -> {800, 80}], 
+                TabView[
+                 Table[
+                 Part[AnalisiSintattica`Private`tmp, 
+                    AnalisiSintattica`Private`i] -> Checkbox[], {
+                  AnalisiSintattica`Private`i, 1, 
+                   Length[AnalisiSintattica`Private`tmp]}]]}, Alignment -> 
+               Left], " ", 
+              If[AnalisiSintattica`Private`showNullable$$, 
+               Column[{
+                 Style["Soluzione Nullable", Bold], 
+                 TabView[
+                  Table[
+                  Part[AnalisiSintattica`Private`tmp, 
+                    AnalisiSintattica`Private`i] -> 
+                   Part[AnalisiSintattica`Private`nullable, 
+                    AnalisiSintattica`Private`i, 2], {
+                   AnalisiSintattica`Private`i, 1, 
+                    Length[AnalisiSintattica`Private`tmp]}]]}, Alignment -> 
+                Left], " "]}], " ", 
+            Row[{
+              Column[{
+                Style["FIRST", Bold], 
+                Framed[
+                "Dato un non terminale (ad esempio A,B), il suo insieme First \
+\[EGrave] composto dai simboli terminali (compreso \[Epsilon])\n che possono \
+apparire come carattere iniziale di una stringa derivata da una sua \
+produzione.", FrameStyle -> Directive[Thin, White], ImageSize -> {800, 80}], 
+                AnalisiSintattica`Private`displayFirst[
+                AnalisiSintattica`Private`emptyCheckboxGrammar$$]}, Alignment -> 
+               Left], 
+              If[AnalisiSintattica`Private`showFirst$$, 
+               Column[{
+                 Style["Soluzione First", Bold], 
+                 AnalisiSintattica`Private`displayFirstSln[
+                 AnalisiSintattica`Private`emptyCheckboxGrammar$$]}, 
+                Alignment -> Left], ""]}], " ", 
+            Row[{
+              Column[{
+                Style["FOLLOW", Bold], 
+                Framed[
+                "Dato un non terminale, il suo insieme Follow \[EGrave] \
+composto dai simboli terminali (e dal simbolo $)\n che possono apparire \
+immediatamente dopo il non terminale in qualsiasi derivazione valida.", 
+                 FrameStyle -> Directive[Thin, White], 
+                 ImageSize -> {600, 80}], 
+                AnalisiSintattica`Private`displayFollow[
+                AnalisiSintattica`Private`emptyCheckboxGrammar$$]}, Alignment -> 
+               Left], 
+              If[AnalisiSintattica`Private`showFollow$$, 
+               Column[{
+                 Style["Soluzione Follow", Bold], 
+                 AnalisiSintattica`Private`displayFollowSln[
+                 AnalisiSintattica`Private`emptyCheckboxGrammar$$]}, 
+                Alignment -> Left], ""]}], " ", 
+            Row[{
+              Column[{
+                Style["TABELLA PRODUZIONI", Bold], 
+                Framed[
+                "Seleziona la cella in cui inserire la produzione e \
+successivamente il bottone ad essa corrispondente.", FrameStyle -> 
+                 Directive[Thin, White]], 
+                EventHandler[
+                 Dynamic[
+                  AnalisiSintattica`Private`displayTable[
+                  AnalisiSintattica`Private`emptyGrammar$$, 
+                   AnalisiSintattica`Private`cursor$$]], "MouseClicked" :> If[
+                   Or[
+                    MemberQ[
+                    Range[
+                    1, AnalisiSintattica`Private`rows 
+                    AnalisiSintattica`Private`cols, 
+                    AnalisiSintattica`Private`cols], 
+                    AnalisiSintattica`Private`loc[
+                    MousePosition["EventHandlerScaled"]]], 
+                    MemberQ[
+                    Range[1, AnalisiSintattica`Private`cols], 
+                    AnalisiSintattica`Private`loc[
+                    MousePosition["EventHandlerScaled"]]]], 
+                   AnalisiSintattica`Private`cursor$$ = -1, 
+                   AnalisiSintattica`Private`cursor$$ = 
+                   AnalisiSintattica`Private`loc[
+                    MousePosition["EventHandlerScaled"]]]], 
+                Row[
+                 Table[
+                  
+                  With[{AnalisiSintattica`Private`i$ = 
+                    AnalisiSintattica`Private`i}, 
+                   Button[
+                    Part[
+                    AnalisiSintattica`Private`listaProduzioni, 
+                    AnalisiSintattica`Private`i$], 
+                    Part[AnalisiSintattica`Private`emptyGrammar$$, 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 1], 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 2]] = 
+                    Part[AnalisiSintattica`Private`listaProduzioni, 
+                    AnalisiSintattica`Private`i$]; 
+                    If[Part[AnalisiSintattica`Private`soluzione$$, 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 1], 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 2]] != 
+                    Part[AnalisiSintattica`Private`emptyGrammar$$, 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 1], 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 2]], 
+                    Beep[]]]], {AnalisiSintattica`Private`i, 1, 
+                   Length[AnalisiSintattica`Private`listaProduzioni]}], 
+                 Spacer[0.4]], 
+                Row[{
+                  Button[
+                  "Clear", Part[AnalisiSintattica`Private`emptyGrammar$$, 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 1], 
+                    Part[
+                    AnalisiSintattica`Private`xy[
+                    AnalisiSintattica`Private`cursor$$], 2]] = " "], 
+                  Button["Clear All", 
+                   Table[
+                   Part[AnalisiSintattica`Private`emptyGrammar$$, 
+                    AnalisiSintattica`Private`i, AnalisiSintattica`Private`j] = 
+                    " ", {AnalisiSintattica`Private`i, 2, 
+                    AnalisiSintattica`Private`rows}, {
+                    AnalisiSintattica`Private`j, 2, 
+                    AnalisiSintattica`Private`cols}]]}, Alignment -> 
+                 Center]}], 
+              If[AnalisiSintattica`Private`showSolution$$, 
+               Row[{
+                 Style["Soluzione tabella delle produzioni", Bold], 
+                 AnalisiSintattica`Private`displayTableSln[
+                 AnalisiSintattica`Private`soluzione$$]}, Alignment -> Left], 
+               ""]}, Alignment -> Center], " "}], " "}}, Editable -> False], 
+      "Specifications" :> {{
+        AnalisiSintattica`Private`soluzione$$, ControlType -> None}, {{
+         AnalisiSintattica`Private`emptyGrammar$$, {{
+           " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+            "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", 
+            " ", " ", " ", " ", " "}, {
+           "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " "}, {
+           "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+            " ", " ", " "}, {
+           "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", 
+            " ", " "}}}, ControlType -> None}, {{
+         AnalisiSintattica`Private`emptyCheckboxGrammar$$, {{
+           " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+            "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", 
+            " ", " ", " ", " ", " "}, {
+           "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " "}, {
+           "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+            " ", " ", " "}, {
+           "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", 
+            " ", " "}}}, ControlType -> None}, {{
+         AnalisiSintattica`Private`cursor$$, 0}, ControlType -> None}, {{
+         AnalisiSintattica`Private`showNullable$$, False, 
+          "Mostra Nullable"}, {True, False}}, {{
+         AnalisiSintattica`Private`showFirst$$, False, "Mostra First"}, {
+         True, False}}, {{
+         AnalisiSintattica`Private`showFollow$$, False, "Mostra Follow"}, {
+         True, False}}, {{
+         AnalisiSintattica`Private`showSolution$$, False, "show solution"}, {
+         True, False}}}, "Options" :> {ContentSize -> {900, 900}}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{642., {353.9938232632121, 358.0061767367879}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({AnalisiSintattica`Private`createEmptyGrammar[
+         Pattern[AnalisiSintattica`Private`sln, 
+          Blank[]]] := 
+       Module[{AnalisiSintattica`Private`copy = 
+          AnalisiSintattica`Private`sln}, Table[
+           If[
+            And[
+            AnalisiSintattica`Private`i > 1, AnalisiSintattica`Private`j > 1],
+             Part[AnalisiSintattica`Private`copy, AnalisiSintattica`Private`i,
+               AnalisiSintattica`Private`j] = " "], {
+           AnalisiSintattica`Private`i, AnalisiSintattica`Private`rows}, {
+           AnalisiSintattica`Private`j, AnalisiSintattica`Private`cols}]; 
+         AnalisiSintattica`Private`copy], AnalisiSintattica`Private`i = 5, 
+       AnalisiSintattica`Private`j = 2, AnalisiSintattica`Private`rows = 3, 
+       AnalisiSintattica`Private`cols = 0, 
+       AnalisiSintattica`Private`soluzione$$ = {{
+         " ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
+          "$"}, {"A", "A->a", "A->b", "A->B", "A->B", " ", " ", " ", " ", " ",
+           " ", " ", " ", " "}, {
+         "B", " ", " ", "B->cC", "B->d", " ", " ", " ", " ", " ", " ", " ", 
+          " ", " "}, {
+         "C", " ", " ", " ", " ", "C->e", "C->f", "C->g", " ", "C->D", " ", 
+          " ", " ", " "}, {
+         "D", " ", " ", " ", " ", " ", " ", " ", " ", "D->ih", " ", " ", " ", 
+          " "}}, AnalisiSintattica`Private`listaProduzioni = {
+        "A \[RightArrow] B", "A \[RightArrow] a", "A \[RightArrow] b", 
+         "B \[RightArrow] cC", "B \[RightArrow] d", "C \[RightArrow] f", 
+         "C \[RightArrow] e", "C \[RightArrow] D", "C \[RightArrow] g", 
+         "D \[RightArrow] ih"}, 
+       AnalisiSintattica`Private`tmp = {"A", "B", "C", "D"}, 
+       AnalisiSintattica`Private`nullable = {{"A", False}, {"B", False}, {
+         "C", False}, {"D", False}}, AnalisiSintattica`Private`displayFirst[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]]] := 
+       Grid[AnalisiSintattica`Private`g, Frame -> All, 
+         Background -> {White, White}, ItemStyle -> {Automatic}, 
+         ItemSize -> {{2, {2}}}, BaseStyle -> ({Bold} Editable -> False)], 
+       AnalisiSintattica`Private`displayFirstSln[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]]] := 
+       AnalisiSintattica`Private`displayFirst[AnalisiSintattica`Private`g], 
+       AnalisiSintattica`Private`displayFollow[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]]] := 
+       Grid[AnalisiSintattica`Private`g, Frame -> All, 
+         Background -> {White, White}, ItemStyle -> {Automatic}, 
+         ItemSize -> {{2, {2}}}, BaseStyle -> ({Bold} Editable -> False)], 
+       AnalisiSintattica`Private`displayFollowSln[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]]] := 
+       AnalisiSintattica`Private`displayFollow[AnalisiSintattica`Private`g], 
+       AnalisiSintattica`Private`displayTable[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]], 
+         Optional[
+          Pattern[AnalisiSintattica`Private`cursor, 
+           Blank[]], 0]] := 
+       Module[{AnalisiSintattica`Private`backgrounds}, 
+         AnalisiSintattica`Private`backgrounds = 
+          AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor] -> 
+           If[AnalisiSintattica`Private`cursor > 0, 
+             AnalisiSintattica`Private`checkErrors[
+             AnalisiSintattica`Private`g, AnalisiSintattica`Private`cursor]]; 
+         Grid[AnalisiSintattica`Private`g, Frame -> If[
+             MatchQ[
+              AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor], 
+              Blank[Integer]], All, {
+             All, All, {
+              AnalisiSintattica`Private`xy[
+                AnalisiSintattica`Private`cursor] -> {Thick, Blue}}}], 
+           Background -> {
+            White, White, AnalisiSintattica`Private`backgrounds}, 
+           ItemStyle -> {Automatic}, ItemSize -> {{3, {4}}}, 
+           BaseStyle -> {Bold}, Editable -> False]], 
+       AnalisiSintattica`Private`xy[
+         Pattern[AnalisiSintattica`Private`n, 
+          Blank[]]] := {
+         AnalisiSintattica`Private`row[AnalisiSintattica`Private`n], 
+         AnalisiSintattica`Private`col[AnalisiSintattica`Private`n]}, 
+       AnalisiSintattica`Private`row[
+         Pattern[AnalisiSintattica`Private`n, 
+          Blank[]]] := 
+       Quotient[
+         AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + 1,
+        AnalisiSintattica`Private`col[
+         Pattern[AnalisiSintattica`Private`n, 
+          Blank[]]] := 
+       Mod[AnalisiSintattica`Private`n - 1, AnalisiSintattica`Private`cols] + 
+        1, AnalisiSintattica`Private`checkErrors[
+         Pattern[AnalisiSintattica`Private`g$, 
+          Blank[]], 
+         Pattern[AnalisiSintattica`Private`cursor$, 
+          Blank[]]] := If[Part[AnalisiSintattica`Private`g$, 
+           Part[
+            AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+            1], 
+           Part[
+            AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+            2]] != " ", 
+         If[Part[AnalisiSintattica`Private`g$, 
+            Part[
+             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+             1], 
+            Part[
+             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+             2]] != Part[AnalisiSintattica`Private`soluzione$$, 
+            Part[
+             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+             1], 
+            Part[
+             AnalisiSintattica`Private`xy[AnalisiSintattica`Private`cursor$], 
+             2]], LightRed]], AnalisiSintattica`Private`loc[{
+          Pattern[AnalisiSintattica`Private`x, 
+           Blank[]], 
+          Pattern[AnalisiSintattica`Private`y, 
+           Blank[]]}] := 
+       1 + Floor[AnalisiSintattica`Private`cols AnalisiSintattica`Private`x] + 
+        AnalisiSintattica`Private`cols 
+         Floor[(1 - AnalisiSintattica`Private`y) 
+           AnalisiSintattica`Private`rows], 
+       AnalisiSintattica`Private`displayTableSln[
+         Pattern[AnalisiSintattica`Private`g, 
+          Blank[]]] := 
+       AnalisiSintattica`Private`displayTable[
+        AnalisiSintattica`Private`g, 0]}; Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.8935846021988554`*^9, 3.893584641749818*^9}},
+ CellLabel->
+  "Out[541]=",ExpressionUUID->"3d5620fa-8455-40db-9441-9afaf7aa93f8"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Quotient", "infy", 
+   "\"Infinite expression \\!\\(\\*RowBox[{\\\"Quotient\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 244, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8935846437542653`*^9},
+ CellLabel->"",ExpressionUUID->"c1b9d148-09cd-4e89-b93a-b12852cb470f"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Mod", "indet", 
+   "\"Indeterminate expression \\!\\(\\*RowBox[{\\\"Mod\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 245, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8935846437892647`*^9},
+ CellLabel->"",ExpressionUUID->"e2613040-e7e5-4689-bfc1-7bbc8377a21b"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Quotient", "infy", 
+   "\"Infinite expression \\!\\(\\*RowBox[{\\\"Quotient\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 246, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8935846438092985`*^9},
+ CellLabel->"",ExpressionUUID->"3522216b-8502-4acf-afde-62ad7788025a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Mod", "indet", 
+   "\"Indeterminate expression \\!\\(\\*RowBox[{\\\"Mod\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 247, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.8935846438302975`*^9},
+ CellLabel->"",ExpressionUUID->"cbb04dc3-4552-408f-bb29-cb08a711ea48"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Quotient", "infy", 
+   "\"Infinite expression \\!\\(\\*RowBox[{\\\"Quotient\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 248, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.893584643851296*^9},
+ CellLabel->"",ExpressionUUID->"427d3b89-0ffa-4da5-a27a-1f3e15a35739"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Quotient\\\", \
+\\\"::\\\", \\\"infy\\\"}], \\\"MessageName\\\"]\\) will be suppressed during \
+this calculation.\"", 2, 542, 249, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.893584643900338*^9},
+ CellLabel->"",ExpressionUUID->"3e4637f7-4595-4ba6-a64d-e6953c28c2c5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Mod", "indet", 
+   "\"Indeterminate expression \\!\\(\\*RowBox[{\\\"Mod\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"1\\\"}], \\\",\\\", \\\"0\\\"}], \
+\\\"]\\\"}]\\) encountered.\"", 2, 542, 250, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.89358464396491*^9},
+ CellLabel->"",ExpressionUUID->"5655ce60-bfdb-40d6-9c7e-60396920f52c"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "General", "stop", 
+   "\"Further output of \\!\\(\\*StyleBox[RowBox[{\\\"Mod\\\", \\\"::\\\", \\\
+\"indet\\\"}], \\\"MessageName\\\"]\\) will be suppressed during this \
+calculation.\"", 2, 542, 251, 27177400342324593241, "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.893584644017815*^9},
+ CellLabel->"",ExpressionUUID->"5d3f5733-f575-4648-86d5-c63a411a4123"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["VIII. Bibliografia e Sitografia", "Section",
+ CellChangeTimes->{{3.890751429118579*^9, 3.890751439177018*^9}, {
+   3.8934347360433364`*^9, 3.893434737253439*^9}, 
+   3.893584550804947*^9},ExpressionUUID->"b2b4837b-fa5c-444f-a236-\
 91bdca30cda9"],
 
 Cell["\<\
@@ -1500,10 +2031,10 @@ https://www.geeksforgeeks.org/why-first-and-follow-in-compiler-design/\
 
 Cell[CellGroupData[{
 
-Cell["VIII. Commenti e Lavoro Futuro", "Section",
+Cell["IX. Commenti e Lavoro Futuro", "Section",
  CellChangeTimes->{{3.8907514458231473`*^9, 3.8907514547511325`*^9}, {
-  3.893434740334592*^9, 
-  3.893434740632352*^9}},ExpressionUUID->"e500173f-e44a-4dc9-be86-\
+  3.893434740334592*^9, 3.893434740632352*^9}, {3.893584557370924*^9, 
+  3.8935845600618424`*^9}},ExpressionUUID->"e500173f-e44a-4dc9-be86-\
 3fd82f12e23e"],
 
 Cell["...", "Text",
@@ -1513,9 +2044,8 @@ e1c8d0b78581"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1202.086956521739, 607.9304347826087},
-WindowMargins->{{-5.634782608695652, Automatic}, {-5.634782608695559, 
-   Automatic}},
+WindowSize->{1016.25, 608.25},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
 Magnification:>0.7 Inherited,
 FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
 StyleDefinitions->"Default.nb",
@@ -1537,147 +2067,154 @@ Cell[580, 22, 198, 2, 68, "Title",ExpressionUUID->"5a1f2e26-4b6a-4ea3-9804-de30c
 Cell[781, 26, 288, 4, 40, "Subtitle",ExpressionUUID->"bb67af07-e1ff-49b5-87b6-4fa053c91c67"],
 Cell[1072, 32, 489, 11, 48, "Text",ExpressionUUID->"2cdba1a7-404c-4d69-8992-032295e035a9"],
 Cell[1564, 45, 262, 4, 24, "Text",ExpressionUUID->"976b1111-432e-4e8a-94c9-20958d8eff75"],
-Cell[1829, 51, 655, 12, 38, "Text",ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
+Cell[1829, 51, 705, 12, 38, "Text",ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
 Cell[CellGroupData[{
-Cell[2509, 67, 208, 4, 47, "Section",ExpressionUUID->"75fb08d1-1430-4971-ab7d-77896cebc04a"],
-Cell[2720, 73, 876, 18, 47, "Input",ExpressionUUID->"8b0f82fd-5ce7-4ba1-b2bf-31c964368f81"],
-Cell[3599, 93, 218, 4, 21, "Input",ExpressionUUID->"583e7d5c-ab9d-44f5-8c10-19fe4af5e5f6"],
+Cell[2559, 67, 155, 3, 47, "Section",ExpressionUUID->"b994f387-a12f-4dc4-a2dc-dab7aa7f8d43"],
+Cell[2717, 72, 2371, 60, 428, "Text",ExpressionUUID->"2588153c-a80c-4091-ba49-2da0194dd30f"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[3842, 101, 424, 9, 34, "Input",ExpressionUUID->"80ca04ec-f0fe-4f68-a672-52d32569f48b"],
-Cell[4269, 112, 152, 2, 23, "Output",ExpressionUUID->"689575b6-1f0e-4ac6-b307-2ba58c9f3af3"]
+Cell[5125, 137, 161, 3, 47, "Section",ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-8d79751a7c6a"],
+Cell[5289, 142, 2049, 32, 153, "Text",ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7375, 179, 219, 4, 47, "Section",ExpressionUUID->"2064ed3a-6554-4335-b298-0e7d33e63446"],
+Cell[CellGroupData[{
+Cell[7619, 187, 464, 7, 37, "Subsection",ExpressionUUID->"cff70c90-21a6-4a19-ad04-2134c5b48c8f"],
+Cell[8086, 196, 2649, 44, 217, "Text",ExpressionUUID->"831cc4ee-6cc3-429b-99df-c844d749d142"],
+Cell[10738, 242, 437, 10, 33, "DisplayFormula",ExpressionUUID->"2524ca1b-2af3-4218-b837-a3dbbb5a345a"],
+Cell[11178, 254, 1653, 29, 137, "Text",ExpressionUUID->"9595033e-f004-4aa0-aaf3-e50054ea31e4"],
+Cell[12834, 285, 654, 16, 17, "DisplayFormula",ExpressionUUID->"69efaa76-cd62-441d-9972-a5f803b9778b"],
+Cell[13491, 303, 249, 4, 24, "Text",ExpressionUUID->"7f70c12b-588f-4672-8e7c-ec43550a3389"],
+Cell[13743, 309, 350, 8, 17, "DisplayFormula",ExpressionUUID->"0863eee6-c5bf-4963-9fc5-b8476c0154a0"],
+Cell[14096, 319, 618, 12, 56, "Text",ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-c954cf4b54c2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14751, 336, 356, 5, 37, "Subsection",ExpressionUUID->"6005e3bd-6347-4db0-bc5d-0a01aa95e20e"],
+Cell[15110, 343, 1894, 32, 137, "Text",ExpressionUUID->"8035951f-3f95-47fc-ac68-058de01754a0"],
+Cell[17007, 377, 262, 6, 18, "DisplayFormula",ExpressionUUID->"39118365-7d5b-43e3-99e3-3a4a14fab024"],
+Cell[17272, 385, 529, 11, 72, "Text",ExpressionUUID->"aa978665-5369-4964-8987-c2ef01f4a074"],
+Cell[17804, 398, 437, 10, 33, "DisplayFormula",ExpressionUUID->"70d3cb79-035d-4602-a991-5bbac7d44173"],
+Cell[18244, 410, 608, 10, 24, "Text",ExpressionUUID->"c9a3dd01-cb85-4389-b684-97695488f56f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18889, 425, 359, 6, 37, "Subsection",ExpressionUUID->"73ab1766-7a53-4bec-9f86-2a2fc07d233a"],
+Cell[19251, 433, 628, 10, 40, "Text",ExpressionUUID->"014820bb-6df9-460d-9b5a-895efe595162"],
+Cell[19882, 445, 386, 9, 33, "DisplayFormula",ExpressionUUID->"b26faa46-5045-4df5-9970-7e09dcd51d36"],
+Cell[20271, 456, 2582, 51, 337, "Text",ExpressionUUID->"5d9d7106-8588-4618-8e0f-c9d98b41818f"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4470, 120, 155, 3, 47, "Section",ExpressionUUID->"b994f387-a12f-4dc4-a2dc-dab7aa7f8d43"],
-Cell[4628, 125, 2371, 60, 428, "Text",ExpressionUUID->"2588153c-a80c-4091-ba49-2da0194dd30f"]
+Cell[22902, 513, 159, 3, 47, "Section",ExpressionUUID->"0646fb6f-37b6-4ed3-957d-29a0728cc53c"],
+Cell[CellGroupData[{
+Cell[23086, 520, 422, 7, 37, "Subsection",ExpressionUUID->"fdf434a1-9f32-4214-b7fb-b421dfb429f1"],
+Cell[23511, 529, 1095, 20, 105, "Text",ExpressionUUID->"69ad39df-ffb3-451b-9784-d3cfc8adfd86"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7036, 190, 161, 3, 47, "Section",ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-8d79751a7c6a"],
-Cell[7200, 195, 2049, 32, 137, "Text",ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
+Cell[24643, 554, 320, 5, 37, "Subsection",ExpressionUUID->"0bf6c4da-1221-4b0a-969c-c598692c2e8e"],
+Cell[24966, 561, 1375, 22, 137, "Text",ExpressionUUID->"957dcab2-83cb-44a3-801e-0bef065d6273"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9286, 232, 219, 4, 47, "Section",ExpressionUUID->"2064ed3a-6554-4335-b298-0e7d33e63446"],
-Cell[CellGroupData[{
-Cell[9530, 240, 464, 7, 37, "Subsection",ExpressionUUID->"cff70c90-21a6-4a19-ad04-2134c5b48c8f"],
-Cell[9997, 249, 2649, 44, 217, "Text",ExpressionUUID->"831cc4ee-6cc3-429b-99df-c844d749d142"],
-Cell[12649, 295, 437, 10, 33, "DisplayFormula",ExpressionUUID->"2524ca1b-2af3-4218-b837-a3dbbb5a345a"],
-Cell[13089, 307, 1653, 29, 121, "Text",ExpressionUUID->"9595033e-f004-4aa0-aaf3-e50054ea31e4"],
-Cell[14745, 338, 654, 16, 17, "DisplayFormula",ExpressionUUID->"69efaa76-cd62-441d-9972-a5f803b9778b"],
-Cell[15402, 356, 249, 4, 24, "Text",ExpressionUUID->"7f70c12b-588f-4672-8e7c-ec43550a3389"],
-Cell[15654, 362, 350, 8, 17, "DisplayFormula",ExpressionUUID->"0863eee6-c5bf-4963-9fc5-b8476c0154a0"],
-Cell[16007, 372, 618, 12, 56, "Text",ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-c954cf4b54c2"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[16662, 389, 356, 5, 37, "Subsection",ExpressionUUID->"6005e3bd-6347-4db0-bc5d-0a01aa95e20e"],
-Cell[17021, 396, 1894, 32, 137, "Text",ExpressionUUID->"8035951f-3f95-47fc-ac68-058de01754a0"],
-Cell[18918, 430, 262, 6, 18, "DisplayFormula",ExpressionUUID->"39118365-7d5b-43e3-99e3-3a4a14fab024"],
-Cell[19183, 438, 529, 11, 72, "Text",ExpressionUUID->"aa978665-5369-4964-8987-c2ef01f4a074"],
-Cell[19715, 451, 437, 10, 33, "DisplayFormula",ExpressionUUID->"70d3cb79-035d-4602-a991-5bbac7d44173"],
-Cell[20155, 463, 608, 10, 24, "Text",ExpressionUUID->"c9a3dd01-cb85-4389-b684-97695488f56f"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[20800, 478, 359, 6, 37, "Subsection",ExpressionUUID->"73ab1766-7a53-4bec-9f86-2a2fc07d233a"],
-Cell[21162, 486, 628, 10, 40, "Text",ExpressionUUID->"014820bb-6df9-460d-9b5a-895efe595162"],
-Cell[21793, 498, 386, 9, 33, "DisplayFormula",ExpressionUUID->"b26faa46-5045-4df5-9970-7e09dcd51d36"],
-Cell[22182, 509, 2582, 51, 321, "Text",ExpressionUUID->"5d9d7106-8588-4618-8e0f-c9d98b41818f"]
+Cell[26378, 588, 314, 5, 37, "Subsection",ExpressionUUID->"890f2930-b3cd-4a49-8261-5a17ca97376b"],
+Cell[26695, 595, 1574, 26, 282, "Text",ExpressionUUID->"bcd51cd4-9be4-41fe-b942-57f9f01a9f4f"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[24813, 566, 159, 3, 47, "Section",ExpressionUUID->"0646fb6f-37b6-4ed3-957d-29a0728cc53c"],
+Cell[28318, 627, 159, 3, 47, "Section",ExpressionUUID->"b775610c-d517-4bd7-870f-1f6c36027a95"],
 Cell[CellGroupData[{
-Cell[24997, 573, 422, 7, 37, "Subsection",ExpressionUUID->"fdf434a1-9f32-4214-b7fb-b421dfb429f1"],
-Cell[25422, 582, 1095, 20, 105, "Text",ExpressionUUID->"69ad39df-ffb3-451b-9784-d3cfc8adfd86"]
+Cell[28502, 634, 468, 7, 37, "Subsection",ExpressionUUID->"e59a435c-60ac-4a6e-a5c7-e9b47ccff390"],
+Cell[28973, 643, 1537, 24, 105, "Text",ExpressionUUID->"5432960b-69a3-4ff1-b477-24c6de744c30"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[26554, 607, 320, 5, 37, "Subsection",ExpressionUUID->"0bf6c4da-1221-4b0a-969c-c598692c2e8e"],
-Cell[26877, 614, 1375, 22, 137, "Text",ExpressionUUID->"957dcab2-83cb-44a3-801e-0bef065d6273"]
+Cell[30547, 672, 345, 5, 37, "Subsection",ExpressionUUID->"46fa9c89-32bd-4862-8ff1-2f9fe1f19c32"],
+Cell[30895, 679, 2217, 36, 169, "Text",ExpressionUUID->"86f53269-f156-4951-9a9c-4ad530f4d153"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28289, 641, 314, 5, 37, "Subsection",ExpressionUUID->"890f2930-b3cd-4a49-8261-5a17ca97376b"],
-Cell[28606, 648, 1574, 26, 282, "Text",ExpressionUUID->"bcd51cd4-9be4-41fe-b942-57f9f01a9f4f"]
+Cell[33149, 720, 339, 5, 37, "Subsection",ExpressionUUID->"c0435769-f0c6-4cbf-b20d-cbba7ad36a95"],
+Cell[33491, 727, 1469, 23, 362, "Text",ExpressionUUID->"2d2db8be-b1d3-434e-b2b6-5f0c3638bd78"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[30229, 680, 159, 3, 47, "Section",ExpressionUUID->"b775610c-d517-4bd7-870f-1f6c36027a95"],
+Cell[35009, 756, 157, 3, 47, "Section",ExpressionUUID->"4cc23520-cbfd-4a13-87ee-e5eded1b04bd"],
 Cell[CellGroupData[{
-Cell[30413, 687, 468, 7, 37, "Subsection",ExpressionUUID->"e59a435c-60ac-4a6e-a5c7-e9b47ccff390"],
-Cell[30884, 696, 1537, 24, 88, "Text",ExpressionUUID->"5432960b-69a3-4ff1-b477-24c6de744c30"]
+Cell[35191, 763, 421, 7, 37, "Subsection",ExpressionUUID->"e722abd7-c646-4038-b81d-a9f41e2cd661"],
+Cell[35615, 772, 791, 15, 72, "Text",ExpressionUUID->"ef855798-cad4-4986-ab62-63ba9c256773"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32458, 725, 345, 5, 37, "Subsection",ExpressionUUID->"46fa9c89-32bd-4862-8ff1-2f9fe1f19c32"],
-Cell[32806, 732, 2217, 36, 153, "Text",ExpressionUUID->"86f53269-f156-4951-9a9c-4ad530f4d153"]
+Cell[36443, 792, 371, 6, 37, "Subsection",ExpressionUUID->"e7ccc2a3-87a4-40d1-b1f4-391cf4060341"],
+Cell[36817, 800, 1948, 35, 201, "Text",ExpressionUUID->"4a39c3d8-0e4f-4355-872a-f8ff9dd5054c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[35060, 773, 339, 5, 37, "Subsection",ExpressionUUID->"c0435769-f0c6-4cbf-b20d-cbba7ad36a95"],
-Cell[35402, 780, 1469, 23, 362, "Text",ExpressionUUID->"2d2db8be-b1d3-434e-b2b6-5f0c3638bd78"]
+Cell[38802, 840, 367, 6, 37, "Subsection",ExpressionUUID->"40f29717-1677-4d9f-96fe-4b0a0b81e7ab"],
+Cell[39172, 848, 1793, 28, 410, "Text",ExpressionUUID->"004136ee-b984-48d9-b4c0-82c7bb846a9d"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[36920, 809, 157, 3, 47, "Section",ExpressionUUID->"4cc23520-cbfd-4a13-87ee-e5eded1b04bd"],
+Cell[41014, 882, 219, 4, 47, "Section",ExpressionUUID->"8128f560-56af-4906-b20e-f0eb5cee469c"],
 Cell[CellGroupData[{
-Cell[37102, 816, 421, 7, 37, "Subsection",ExpressionUUID->"e722abd7-c646-4038-b81d-a9f41e2cd661"],
-Cell[37526, 825, 791, 15, 72, "Text",ExpressionUUID->"ef855798-cad4-4986-ab62-63ba9c256773"]
+Cell[41258, 890, 351, 5, 37, "Subsection",ExpressionUUID->"61129019-4c6b-42e5-ba5e-736ca23b4903"],
+Cell[41612, 897, 1037, 19, 88, "Text",ExpressionUUID->"ea103078-fabb-4a01-8320-03e9c65139dc"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[38354, 845, 371, 6, 37, "Subsection",ExpressionUUID->"e7ccc2a3-87a4-40d1-b1f4-391cf4060341"],
-Cell[38728, 853, 1948, 35, 185, "Text",ExpressionUUID->"4a39c3d8-0e4f-4355-872a-f8ff9dd5054c"]
+Cell[42686, 921, 322, 5, 37, "Subsection",ExpressionUUID->"fa22868b-75e1-427f-a7c3-158c9ffb1128"],
+Cell[43011, 928, 1388, 25, 137, "Text",ExpressionUUID->"9f5568fa-f41f-4c2a-8683-9cd3fe560f1c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40713, 893, 367, 6, 37, "Subsection",ExpressionUUID->"40f29717-1677-4d9f-96fe-4b0a0b81e7ab"],
-Cell[41083, 901, 1793, 28, 410, "Text",ExpressionUUID->"004136ee-b984-48d9-b4c0-82c7bb846a9d"]
-}, Open  ]]
-}, Open  ]],
+Cell[44436, 958, 259, 4, 37, "Subsection",ExpressionUUID->"641097da-573a-409d-a974-74e1676aee23"],
+Cell[44698, 964, 864, 15, 378, "Text",ExpressionUUID->"386cf907-739f-48b3-9a68-1a2fd12fd54a"],
 Cell[CellGroupData[{
-Cell[42925, 935, 219, 4, 47, "Section",ExpressionUUID->"8128f560-56af-4906-b20e-f0eb5cee469c"],
-Cell[CellGroupData[{
-Cell[43169, 943, 351, 5, 37, "Subsection",ExpressionUUID->"61129019-4c6b-42e5-ba5e-736ca23b4903"],
-Cell[43523, 950, 1037, 19, 88, "Text",ExpressionUUID->"ea103078-fabb-4a01-8320-03e9c65139dc"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[44597, 974, 322, 5, 37, "Subsection",ExpressionUUID->"fa22868b-75e1-427f-a7c3-158c9ffb1128"],
-Cell[44922, 981, 1388, 25, 105, "Text",ExpressionUUID->"9f5568fa-f41f-4c2a-8683-9cd3fe560f1c"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[46347, 1011, 259, 4, 37, "Subsection",ExpressionUUID->"641097da-573a-409d-a974-74e1676aee23"],
-Cell[46609, 1017, 864, 15, 378, "Text",ExpressionUUID->"386cf907-739f-48b3-9a68-1a2fd12fd54a"],
-Cell[CellGroupData[{
-Cell[47498, 1036, 1615, 34, 34, "Input",ExpressionUUID->"667eb9bc-adbe-4b7c-9e07-a4d13843158b"],
-Cell[49116, 1072, 887, 18, 81, "Output",ExpressionUUID->"346a669d-f7cf-4741-9ad8-64b544b182d2"]
+Cell[45587, 983, 1615, 34, 34, "Input",ExpressionUUID->"667eb9bc-adbe-4b7c-9e07-a4d13843158b"],
+Cell[47205, 1019, 887, 18, 81, "Output",ExpressionUUID->"346a669d-f7cf-4741-9ad8-64b544b182d2"]
 }, {2}]],
-Cell[50015, 1093, 329, 8, 40, "Text",ExpressionUUID->"6f05de30-7087-4357-9e3b-c38102986959"],
+Cell[48104, 1040, 329, 8, 40, "Text",ExpressionUUID->"6f05de30-7087-4357-9e3b-c38102986959"],
 Cell[CellGroupData[{
-Cell[50369, 1105, 1689, 35, 34, "Input",ExpressionUUID->"eb458662-eedc-4b49-ae2f-c592e586e351"],
-Cell[52061, 1142, 931, 19, 81, "Output",ExpressionUUID->"36be9489-537b-4ba2-b2a0-4eb93f92a341"]
+Cell[48458, 1052, 1689, 35, 34, "Input",ExpressionUUID->"eb458662-eedc-4b49-ae2f-c592e586e351"],
+Cell[50150, 1089, 931, 19, 81, "Output",ExpressionUUID->"36be9489-537b-4ba2-b2a0-4eb93f92a341"]
 }, {2}]],
-Cell[53004, 1164, 261, 7, 40, "Text",ExpressionUUID->"348b998a-3fb5-4ba7-bc04-71849f5e1436"],
+Cell[51093, 1111, 261, 7, 40, "Text",ExpressionUUID->"348b998a-3fb5-4ba7-bc04-71849f5e1436"],
 Cell[CellGroupData[{
-Cell[53290, 1175, 1812, 39, 34, "Input",ExpressionUUID->"5cd0d65d-427e-4df3-bc7c-f3b8cf852b51"],
-Cell[55105, 1216, 1005, 19, 81, "Output",ExpressionUUID->"b624e5fa-5459-4987-9ae7-634d88709c86"]
+Cell[51379, 1122, 1812, 39, 34, "Input",ExpressionUUID->"5cd0d65d-427e-4df3-bc7c-f3b8cf852b51"],
+Cell[53194, 1163, 1005, 19, 81, "Output",ExpressionUUID->"b624e5fa-5459-4987-9ae7-634d88709c86"]
 }, {2}]],
-Cell[56122, 1238, 530, 11, 40, "Text",ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-33056bd7db1f"],
+Cell[54211, 1185, 530, 11, 40, "Text",ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-33056bd7db1f"],
 Cell[CellGroupData[{
-Cell[56677, 1253, 1882, 40, 34, "Input",ExpressionUUID->"578d7f46-198d-4d4d-91fb-48c4e7202d69"],
-Cell[58562, 1295, 1046, 19, 81, "Output",ExpressionUUID->"c31d2b4d-c5ed-439e-912c-546ab6528fb7"]
+Cell[54766, 1200, 1882, 40, 34, "Input",ExpressionUUID->"578d7f46-198d-4d4d-91fb-48c4e7202d69"],
+Cell[56651, 1242, 1046, 19, 81, "Output",ExpressionUUID->"c31d2b4d-c5ed-439e-912c-546ab6528fb7"]
 }, {2}]],
-Cell[59620, 1317, 390, 9, 40, "Text",ExpressionUUID->"185bc883-8a01-4012-8428-eaaea821465d"],
+Cell[57709, 1264, 390, 9, 40, "Text",ExpressionUUID->"185bc883-8a01-4012-8428-eaaea821465d"],
 Cell[CellGroupData[{
-Cell[60035, 1330, 1955, 40, 34, "Input",ExpressionUUID->"e47078be-230e-4da9-a28c-810e3bc24e17"],
-Cell[61993, 1372, 1101, 21, 81, "Output",ExpressionUUID->"4c02b6bf-3784-44d4-b061-06372d90b1d0"]
+Cell[58124, 1277, 1955, 40, 34, "Input",ExpressionUUID->"e47078be-230e-4da9-a28c-810e3bc24e17"],
+Cell[60082, 1319, 1101, 21, 81, "Output",ExpressionUUID->"4c02b6bf-3784-44d4-b061-06372d90b1d0"]
 }, {2}]],
-Cell[63106, 1396, 438, 9, 40, "Text",ExpressionUUID->"c9e7994a-55b3-4556-a764-ff20210c1669"],
+Cell[61195, 1343, 438, 9, 40, "Text",ExpressionUUID->"c9e7994a-55b3-4556-a764-ff20210c1669"],
 Cell[CellGroupData[{
-Cell[63569, 1409, 2035, 41, 34, "Input",ExpressionUUID->"2780565f-16fb-4272-a9df-954ddad9201d"],
-Cell[65607, 1452, 1150, 22, 81, "Output",ExpressionUUID->"60406f44-cec8-4b78-b618-fcc2c7972924"]
+Cell[61658, 1356, 2035, 41, 34, "Input",ExpressionUUID->"2780565f-16fb-4272-a9df-954ddad9201d"],
+Cell[63696, 1399, 1150, 22, 81, "Output",ExpressionUUID->"60406f44-cec8-4b78-b618-fcc2c7972924"]
 }, {2}]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[66815, 1481, 226, 4, 47, "Section",ExpressionUUID->"b2b4837b-fa5c-444f-a236-91bdca30cda9"],
-Cell[67044, 1487, 534, 10, 72, "Text",ExpressionUUID->"ea59365b-32a6-4981-a1b6-5780175d3c7e"]
+Cell[64904, 1428, 331, 5, 47, "Section",ExpressionUUID->"eb32614a-c831-4e59-a181-6bf7143953e4"],
+Cell[CellGroupData[{
+Cell[65260, 1437, 932, 22, 100, "Input",ExpressionUUID->"bd6adc6e-3164-453c-8bb7-4b2b8673844a"],
+Cell[66195, 1461, 663, 13, 20, "Message",ExpressionUUID->"0112aa92-e574-45e8-b5a5-a208ec5e308e"],
+Cell[66861, 1476, 23123, 450, 735, "Output",ExpressionUUID->"3d5620fa-8455-40db-9441-9afaf7aa93f8"],
+Cell[89987, 1928, 424, 8, 20, "Message",ExpressionUUID->"c1b9d148-09cd-4e89-b93a-b12852cb470f"],
+Cell[90414, 1938, 420, 8, 20, "Message",ExpressionUUID->"e2613040-e7e5-4689-bfc1-7bbc8377a21b"],
+Cell[90837, 1948, 424, 8, 20, "Message",ExpressionUUID->"3522216b-8502-4acf-afde-62ad7788025a"],
+Cell[91264, 1958, 420, 8, 20, "Message",ExpressionUUID->"cbb04dc3-4552-408f-bb29-cb08a711ea48"],
+Cell[91687, 1968, 422, 8, 20, "Message",ExpressionUUID->"427d3b89-0ffa-4da5-a27a-1f3e15a35739"],
+Cell[92112, 1978, 421, 8, 20, "Message",ExpressionUUID->"3e4637f7-4595-4ba6-a64d-e6953c28c2c5"],
+Cell[92536, 1988, 417, 8, 20, "Message",ExpressionUUID->"5655ce60-bfdb-40d6-9c7e-60396920f52c"],
+Cell[92956, 1998, 417, 8, 20, "Message",ExpressionUUID->"5d3f5733-f575-4648-86d5-c63a411a4123"]
+}, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[67615, 1502, 228, 4, 47, "Section",ExpressionUUID->"e500173f-e44a-4dc9-be86-3fd82f12e23e"],
-Cell[67846, 1508, 145, 3, 24, "Text",ExpressionUUID->"fc5c28d2-a05a-4452-9829-e1c8d0b78581"]
+Cell[93422, 2012, 251, 4, 47, "Section",ExpressionUUID->"b2b4837b-fa5c-444f-a236-91bdca30cda9"],
+Cell[93676, 2018, 534, 10, 72, "Text",ExpressionUUID->"ea59365b-32a6-4981-a1b6-5780175d3c7e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[94247, 2033, 274, 4, 47, "Section",ExpressionUUID->"e500173f-e44a-4dc9-be86-3fd82f12e23e"],
+Cell[94524, 2039, 145, 3, 24, "Text",ExpressionUUID->"fc5c28d2-a05a-4452-9829-e1c8d0b78581"]
 }, Open  ]]
 }, Open  ]]
 }
