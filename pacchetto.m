@@ -58,12 +58,12 @@ GenerazioneEsercizio::usage:=
 Begin["`Private`"];
 
 
-(*GENERAZIONE GRAMMATICA CASUALE*)
-(*
-- A ogni Non Terminale (sempre 4) e' associata una lista di 1-3 Terminali e 2-3 Non Terminali (almeno 1 deve essere il Non Terminale successivo nella lista - tranne per l'ultimo Non Terminale, che ha solo Terminali)
-- Tutti gli elementi della lista devono apparire esattamente una volta nelle produzioni (1-4 produzioni) 
+(*GENERAZIONE GRAMMATICA CASUALE
+- A ogni Non Terminale (sempre A, B, C, D) e' associata una lista composta da Terminali e da Non Terminali.
+- Questa lista viene poi suddivisa in 1/2/3 produzioni che saranno associate a quel non terminale.
+- Tutti gli elementi della lista devono apparire esattamente una volta nelle produzioni.
 - Esempio:
-A: a, b, B, C
+A: a, b, B
 B: c, d, C
 C: e, f, D
 D: g, h
@@ -177,6 +177,7 @@ GenerazioneGrammatica[] := (
 )
 
 
+(*Riscrive la grammatica con il formato "NT -> produzione"*)
 GenerazioneListaProduzioni[] := (
 	listaProduzioni = List[];
 	Table[
@@ -498,18 +499,18 @@ GenerazioneSoluzione[] := (
 	
 	rigaCorrente = List[];
 	
-	For[i = 1, i <= numNonTerminali, i++,
-	
+	Table[	
 		(*Inizializziamo la riga di quel Non Terminale*)
-		For[h = 1, h <= numColonne, h++,
-			AppendTo[rigaCorrente, " "];
+		Table[
+			AppendTo[rigaCorrente, " "];,
+			{h, 1, numColonne}
 		];
 		(*Il primo elemento della riga sara' il NT corrente*)
 		rigaCorrente = ReplacePart[rigaCorrente, 1 -> tuttiNonTerminali[[i]]];
 		AppendTo[soluzione, rigaCorrente];
 		
 		(*Cicliamo su tutte le produzioni del NT corrente*)
-		For[j = 1, j <= Length[grammatica[[i,2]]], j++,
+		Table[
 			produzione = grammatica[[i,2,j]];
 			primoElemento = StringTake[produzione,1];
 			produzioneIntera = StringJoin[tuttiNonTerminali[[i]], "->", produzione];
@@ -571,18 +572,21 @@ GenerazioneSoluzione[] := (
 					followNT = follow[[i,2]];
 					(*Prendiamo le posizioni di quei Terminali nelle colonne e rimpiazziamo*)
 					inserisciProduzione[produzioneIntera, followNT, i+1];
-			];
+			];,
+			{j, 1, Length[grammatica[[i,2]]]}
 		];
 		
 		(*Reinizializziamo rigaCorrente*)
 		Clear[rigaCorrente];
-	    rigaCorrente = List[];
+	    rigaCorrente = List[];,
+	    {i, 1, numNonTerminali}
 	];
 	
 	soluzione
 	)
 
 
+(*Funzione che mostra la grammatica generata in una griglia*)
 displayGrammatica[g_] :=\[NonBreakingSpace]
 	Module[{grammar = g, formattedList},\[NonBreakingSpace]formattedList =\[NonBreakingSpace]Map[{#[[1]] <> " -> " <> StringRiffle[#[[2]], " | "]} &, grammar];
 \[NonBreakingSpace]   Grid[formattedList, Frame -> All, Background -> {White, White},\[NonBreakingSpace]
@@ -592,32 +596,26 @@ displayGrammatica[g_] :=\[NonBreakingSpace]
 \[NonBreakingSpace]\[NonBreakingSpace]  BaseStyle -> {Bold}, 
 \[NonBreakingSpace]\[NonBreakingSpace]  Editable -> False]]
 \[NonBreakingSpace]
+(*Funzione che prende in input la lista dei simboli nullable e li stampa in una griglia*)
 displayNullable[g_]:=Grid[g,
 			 Frame -> All, 
 			 Background->{White,White},
 			 ItemStyle->{Automatic},
 			 ItemSize->{{4,{4}}},
-		     BaseStyle->{Bold}
+		     BaseStyle->{Bold},
 			 Editable -> False]
 
-displayNullableSln[g_]:=displayNullable[g]
-
+(*Funzione che prende in input la lista dei simboli First o dei simboli Follow e li stampa in una griglia*)
 displayFirstFollow[g_]:=Grid[g,
 			 Frame -> All, 
 			 Background->{White,White},
 			 ItemStyle->{Automatic},
 			 ItemSize->{{4,{4}}},
-		     BaseStyle->{Bold}
+		     BaseStyle->{Bold},
 			 Editable -> False]
-			 
-displayFirstFollowSln[g_]:=Grid[g,
-			 Frame -> All, 
-			 Background->{White,White},
-			 ItemStyle->{Automatic},
-			 ItemSize->{Automatic},
-		     BaseStyle->{Bold}
-			 Editable -> False]
-		 
+					
+(*Funzione che prende in input la grammatica e stampa la griglia.
+Pu\[OGrave] prendere in input anche un cursore che evidenzia di blu la cella cliccata dall'utente*)		
 displayTable[g_,cursor_:0]:=
 	(Module[{backgrounds},
 		backgrounds = checkErrors[g];
@@ -629,8 +627,11 @@ displayTable[g_,cursor_:0]:=
 		BaseStyle->{Bold},
 		Editable -> False]])
 
+(*Funzione che prende in input la grammatica e la stampa con le produzioni nelle posizione corrette*)	
 displayTableSln[g_]:=(displayTable[g,0])
 
+(*Funzione che controlla la singola produzione inserita dall'utente. 
+In caso essa non corrisponda a quella esatta della soluzione, viene colorata la cella di rosso.*)
 checkErrors[g_]:=
 	(
 	tmp = List[];
@@ -641,48 +642,54 @@ checkErrors[g_]:=
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]        If[ g[[xy[i][[1]], xy[i][[2]]]]!= soluzione[[xy[i][[1]], xy[i][[2]]]],
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]   AppendTo[tmp, xy[i]-> LightRed]];
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]   cond = False;
-\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]  ]
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]  ];
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]If[cond,AppendTo[tmp, xy[i]-> White ]];
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] , {i,1,rows*cols}];
-\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] If[cond,AppendTo[tmp, xy[i]-> LightYellow ]];
+\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] tmp
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace])
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
-(*crea tabella nullable vuota*)\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
+(*Crea la tabella nullable vuota*)\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
 \[NonBreakingSpace]createEmptyNullableCheckbox[sln_]:= 
 	(Module[{copy = sln}, Table[copy[[i, 2]] = Checkbox[], {i, 1, rows-1}]; copy ])\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
-(*crea tabella first vuota*)
+(*Crea la tabella vuota con celle checkbox per i First e Follow*)
 createEmptyFirstFollowCheckbox[sln_,tabFirst_]:=\[NonBreakingSpace]
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] (Module[{copy = sln}, Table[ If[i > 1 && j > 1, copy[[i, j]] = Checkbox[]], {i, rows}, {j, cols} ];
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] If[tabFirst,copy[[1,cols]] = "\[Epsilon]"; ];
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] copy ])\[NonBreakingSpace]
 \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] \[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
-(*crea tabella finale produzioni vuota*)
+(*Crea la tabella finale delle produzioni vuota*)
 createEmptyGrammar[sln_]:= 
 	(Module[{copy = sln}, Table[ If[i > 1 && j > 1, copy[[i, j]] = " "], {i, rows}, {j, cols} ]; copy] )
 
+(*Funzione che prende in input le coordinate corrispondenti alla posizione del mouse 
+e restituisce un intero settato sulla dimensione della griglia*)
 loc[{x_, y_}] := 1 + Floor[cols x] + cols Floor[(1 - y) rows];
 
-(*calcola l'esatta riga e colonna di ogni cella della tabella*)
+(*Funzione che calcola l'esatta riga e colonna di ogni cella della tabella*)
 row[n_]:=(Quotient[n-1,cols]+1);
 col[n_]:=(Mod[n-1,cols]+1);
-(*data la cella n restituisce riga e colonna corrispondenti*)
+
+(*Funzione che presa in input una cella della griglia ne restituisce riga e colonna corrispondenti*)
 xy[n_]:=({row[n],col[n]});
 
+(*Funzione che preso in input un seed genera la manipulate*)
 GenerazioneInterfaccia[seed_]:=(
 showNullable=False;
 showFirst=False;
 showFollow=False;
 showSolution=False;
 num = seed;
+
 interface=Manipulate[
 	Grid[
 	{{
 	
-    Column[{
+       Column[{
        Style["ANALISI SINTATTICA", Bold, FontSize -> 28], " ",
        Style["ESERCIZIO DI GRAMMATICA N\[Degree]:"<>ToString[num], Bold, FontSize -> 20]
-    }, Alignment -> Center]
+     }, Alignment -> Center]
     },
 	{
 	  Column[{
@@ -692,11 +699,12 @@ interface=Manipulate[
 	    Alignment->Left],
 	    " ",
 		Row[{
-		Button["Nuovo esercizio",(
+		Button["Nuovo Esercizio",(
 		cursor=0 ; 
 		Spacer[5];
 		ImageSize->{100,100};
 		emptyGrammar = createEmptyGrammar[soluzione];
+		(*Al clic del bottone viene generata una nuova grammatica con seed random*)
 		GenerazioneEsercizio[];
 		)],
 		" ", " ",
@@ -705,12 +713,17 @@ interface=Manipulate[
         Row[{
         Style["oppure ripeti l'esercizio n\[Degree]:", Bold],
         Spacer[1],
-        InputField[Dynamic[parametro, If[NumberQ[#],parametro = Abs[#]]&], Number, ImageSize -> {100,20}]
+        (*Input field in cui inserire un valore positivo fra 1 e 10000 per generare un esercizio con uno specifico seed*)
+        InputField[Dynamic[parametro, If[NumberQ[#],parametro = Abs[#]]&], Number,  ImageSize -> {100,20}]
         }],
         Button["Genera", 
-        cursor=0 ;
-        emptyGrammar = createEmptyGrammar[soluzione];
-        GenerazioneEsercizio[parametro]]
+        If[parametro != "" && 0<=parametro<=10000, 
+           cursor=0 ;
+           emptyGrammar = createEmptyGrammar[soluzione];
+           (*Al clic del bottone viene generata una nuova grammatica con seed preso da tastiera*)
+           GenerazioneEsercizio[parametro];,
+           MessageDialog["Inserire un valore compreso fra 1 e 10000"]];
+        ]
         }]
         ]
 		}], 
@@ -726,13 +739,14 @@ interface=Manipulate[
 					FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],	
 			displayNullable[emptyNullableCheckbox],
 			" ",
+			(*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli Nullable*)
 			Button["Mostra Soluzione Nullable",
             showNullable = Not[showNullable],ImageSize->{Automatic}
             ], " ",         
 			Dynamic[If[showNullable, 
 				Column[{
 						Style["Soluzione Nullable", Bold],
-						displayNullableSln[nullable]}, Alignment->Left]," "]]
+						displayNullable[nullable]}, Alignment->Left]," "]]
 			}, Alignment->Left]," "
 					 
           }], 
@@ -744,14 +758,15 @@ interface=Manipulate[
 			Framed["Dato un non terminale (ad esempio A,B), il suo insieme First \[EGrave] composto dai simboli terminali (compreso \[Epsilon])\nche possono apparire come carattere iniziale di una stringa derivata da una sua produzione.",
 					FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top], 
 			displayFirstFollow[emptyFirstCheckbox], 			
-			" ",		
+			" ",	
+			(*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli First*)	
 			Button["Mostra Soluzione First",
             showFirst = Not[showFirst],ImageSize->{Automatic}
             ], " ",
             Dynamic[If[showFirst, 
 				Column[{
 					Style["Soluzione First", Bold],
-					displayFirstFollowSln[first]					
+					displayFirstFollow[first]					
 				},
 				Alignment->Left],""]] 			
 			}, Alignment->Left]					 
@@ -765,13 +780,14 @@ interface=Manipulate[
 					FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],
 	        displayFirstFollow[emptyFollowCheckbox],
 			" ",
-			Button["Mostra soluzione Follow",
+			(*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli Follow*)
+			Button["Mostra Soluzione Follow",
             showFollow = Not[showFollow], ImageSize->{Automatic}]
             , " ",
 			Dynamic[If[showFollow, 
 				Column[{
 					Style["Soluzione Follow", Bold],
-					displayFirstFollowSln[follow]
+					displayFirstFollow[follow]
 				},Alignment->Left],""]]
 			}, Alignment->Left]	 
           }], 
@@ -785,6 +801,9 @@ interface=Manipulate[
 					FrameStyle -> Directive[Thin, White],ImageSize -> {Automatic}, Alignment -> Top],
 			EventHandler[
 			Dynamic[displayTable[emptyGrammar,cursor]],
+			(*MouseClicked permette di calcolare tramite la funzione loc la posizione del mouse.
+			Controlla che l'utente non modifichi le intestazioni della tabella in cui sono presenti Terminali e Non terminali.
+			In caso contrario setta il cursore a -1.*)
 			"MouseClicked":>(
 			If[MemberQ[Range[1, rows*cols, cols],loc[MousePosition["EventHandlerScaled"]]] || 
 				MemberQ[Range[1, cols],loc[MousePosition["EventHandlerScaled"]]],
@@ -793,24 +812,37 @@ interface=Manipulate[
 				] 
 			)],
 			Row[ 
+			(*Viene creata una serie di bottoni ciascuno indicante una delle produzioni della grammatica generata.*)
 			Table[With[{i = i},\[NonBreakingSpace]
 \[NonBreakingSpace]           Button[listaProduzioni[[i]],
+\[NonBreakingSpace]           If[cursor > 0,
 \[NonBreakingSpace]              emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]=listaProduzioni[[i]];
-\[NonBreakingSpace]              If[soluzione[[xy[cursor][[1]], xy[cursor][[2]]]] != emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]], Beep[]]
+\[NonBreakingSpace]              
+\[NonBreakingSpace]              (*Controllo che la produzione inserita nella cella sia nella posizione corretta.
+\[NonBreakingSpace]              In caso contrario viene eseguito un Beep.*)
+\[NonBreakingSpace]              If[emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]] != soluzione[[xy[cursor][[1]], xy[cursor][[2]]]], Beep[]]
+\[NonBreakingSpace]            ];
 \[NonBreakingSpace]            ]], 
 \[NonBreakingSpace]            {i, 1, Length[listaProduzioni]}],Spacer[0.4]
             ],
             Row[{
-            Button["Svuota", emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]= " "], " ",
-            Button["Svuota tutto", Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}]],  " "        
+            (*Bottone che permette di svuotare il contenuto di una singola cella*)
+            Button["Svuota", 
+            If[cursor > 0,
+            emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]]= " "]
+            ]
+            , " ",
+            (*Bottone che permette di svuotare il contenuto dell'intera griglia*)
+            Button["Svuota Tutto", Table[emptyGrammar[[i,j]] = " ", {i, 2, rows}, {j, 2, cols}]],  " "        
             }, Alignment -> Center],
             " ",
+            (*Al clic del bottone viene mostrata la tabella con la soluzione finale della tabella di Parsing*)
             Button["Mostra Soluzione Tabella",
             showSolution = Not[showSolution],
             ImageSize->{Automatic}
             ], " ",
             Dynamic[If[showSolution, 
-				Row[{Style["Soluzione tabella delle produzioni", Bold],
+				Column[{Style["Soluzione tabella delle produzioni", Bold],
 				displayTableSln[soluzione]},Alignment -> Left],""]] 
 			}]
 			}, Alignment->Center], " "
@@ -829,9 +861,13 @@ interface=Manipulate[
 interface)
 
 
-(*GENERAZIONE ESERCIZIO*)
+(*Funzione globale che permette di eseguire l'intero esercizio*)
 GenerazioneEsercizio[seed_:0] := (
 	numEsercizio = seed;
+	
+	(*Controllo che il seed sia un valore intero compreso fra 0 e 10000*)
+	If[NumberQ[numEsercizio] && 0<=numEsercizio<=10000, 		            
+	(*Se il seed non viene specificato \[EGrave] preso randomicamente*)
 	If[numEsercizio == 0,
 		numEsercizio = RandomInteger[{1,9999}];
 		SeedRandom[numEsercizio];
@@ -844,14 +880,14 @@ GenerazioneEsercizio[seed_:0] := (
 	nullable = GenerazioneNullable[];
 	first = GenerazioneFirst[];
 	follow = GenerazioneFollow[];
-	Clear[soluzione];
 	soluzione = GenerazioneSoluzione[];
-	Clear[rows];
-	Clear[cols];
+
 	rows = Length[soluzione[[All,1]]];
 	cols = Length[soluzione[[1, All]]];
-	interfaccia = GenerazioneInterfaccia[numEsercizio];
-	interfaccia	
+	interfaccia = GenerazioneInterfaccia[numEsercizio];,
+	MessageDialog["Inserire un valore compreso fra 1 e 10000"]];
+	
+	interfaccia
 	)
 
 
