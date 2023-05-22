@@ -33,9 +33,7 @@ BeginPackage["AnalisiSintattica`"];
 (*Remove[rimuoviNTeEps]*)
 (*Remove[displayGrammatica]*)
 (*Remove[displayNullable]*)
-(*Remove[displayNullableSln]*)
 (*Remove[displayFirstFollow]*)
-(*Remove[displayFirstFollowSln]*)
 (*Remove[displayTable]*)
 (*Remove[displayTableSln]*)
 (*Remove[checkErrors]*)
@@ -46,7 +44,7 @@ BeginPackage["AnalisiSintattica`"];
 (*Remove[row]*)
 (*Remove[col]*)
 (*Remove[xy]*)
-(*Remove[Global`GenerazioneEsercizio]*)
+(*Remove[Global` GenerazioneEsercizio]*)
 (**)
 
 
@@ -975,7 +973,6 @@ GenerazioneInterfaccia[seed0_] :=
 
 
 (*Funzione globale che permette di eseguire l'intero esercizio*)
-
 GenerazioneEsercizio[seed0_:0] :=
 	Module[{seed = seed0},
 		numEsercizio = seed;
