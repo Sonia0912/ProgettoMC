@@ -44,6 +44,7 @@ BeginPackage["AnalisiSintattica`"];
 (*Remove[row]*)
 (*Remove[col]*)
 (*Remove[xy]*)
+(*Remove[GenerazioneEsercizio]*)
 (*Remove[Global` GenerazioneEsercizio]*)
 (**)
 
