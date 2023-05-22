@@ -19,7 +19,7 @@ BeginPackage["AnalisiSintattica`"];
 
 
 (* ::Input:: *)
-(*(*Funzioni private del pacchetto*)*)
+(*(*Funzioni private del pacchetto*)
 (*Remove[GenerazioneGrammatica]*)
 (*Remove[GenerazioneListaProduzioni]*)
 (*Remove[GenerazioneNullable]*)
@@ -33,7 +33,9 @@ BeginPackage["AnalisiSintattica`"];
 (*Remove[rimuoviNTeEps]*)
 (*Remove[displayGrammatica]*)
 (*Remove[displayNullable]*)
+(*Remove[displayNullableSln]*)
 (*Remove[displayFirstFollow]*)
+(*Remove[displayFirstFollowSln]*)
 (*Remove[displayTable]*)
 (*Remove[displayTableSln]*)
 (*Remove[checkErrors]*)
@@ -45,7 +47,7 @@ BeginPackage["AnalisiSintattica`"];
 (*Remove[col]*)
 (*Remove[xy]*)
 (*Remove[GenerazioneEsercizio]*)
-(*Remove[Global` GenerazioneEsercizio]*)
+(*Remove[Global`GenerazioneEsercizio]*)*)
 (**)
 
 
@@ -740,11 +742,11 @@ GenerazioneInterfaccia[seed0_] :=
                         (
                           cursor = 0;
                           Spacer[5];
-                          ImageSize -> {100, 100};
                           emptyGrammar = createEmptyGrammar[soluzione];
                            (*Al clic del bottone viene generata una nuova grammatica con seed random*)
                           GenerazioneEsercizio[];
-                        )
+                        ), ImageSize -> {Automatic},
+                          BaseStyle -> {FontSize -> 15}
                       ],
                       " ",
                       " ",
@@ -752,24 +754,19 @@ GenerazioneInterfaccia[seed0_] :=
                         {parametro = ""},
                         Row[
                           {
-                            Row[
-                              {
-                                Style["oppure ripeti l'esercizio n\[Degree]:",
-                                   Bold],
-                                Spacer[1],
+                          Style["oppure ripeti l'esercizio n\[Degree]:", Bold],
                              (*Input field in cui inserire un valore positivofra 1 e 10000 
                              per generare un eserciziocon uno specifico seed*)
-                                InputField[
+                           InputField[
                                   Dynamic[
                                     parametro,
                                     If[NumberQ[#],
                                       parametro = Abs[#]]&
                                   ],
                                   Number,
-                                  ImageSize -> {100, 20}
-                                ]
-                              }
-                            ],
+                                  ImageSize -> {100,Automatic}
+                            ], 
+                            Spacer[4],
                             Button[
                               "Genera",
                               If[parametro != "" && 0 <= parametro <= 10000,
@@ -779,9 +776,11 @@ GenerazioneInterfaccia[seed0_] :=
                                 GenerazioneEsercizio[parametro];,
                                 MessageDialog["Inserire un valore compreso fra 1 e 10000"
                                   ]
-                              ];
+                              ],
+                              ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}
                             ]
-                          }
+                          }, Alignment->Center
                         ]
                       ]
                     }
@@ -802,7 +801,8 @@ GenerazioneInterfaccia[seed0_] :=
                           " ",
                           (*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli Nullable*)
                           Button["Mostra Soluzione Nullable", showNullable
-                             = Not[showNullable], ImageSize -> {Automatic}],
+                             = Not[showNullable],ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                           " ",
                           Dynamic[
                             If[showNullable,
@@ -830,7 +830,8 @@ GenerazioneInterfaccia[seed0_] :=
                           " ",
                          (*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli First*)
                           Button["Mostra Soluzione First", showFirst 
-                            = Not[showFirst], ImageSize -> {Automatic}],
+                            = Not[showFirst],ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                           " ",
                           Dynamic[
                             If[showFirst,
@@ -858,7 +859,8 @@ GenerazioneInterfaccia[seed0_] :=
                           " ", 
                           (*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli Follow*)
                           Button["Mostra Soluzione Follow", showFollow
-                             = Not[showFollow], ImageSize -> {Automatic}],
+                             = Not[showFollow], ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                           " ",
                           Dynamic[
                             If[showFollow,
@@ -911,7 +913,8 @@ GenerazioneInterfaccia[seed0_] :=
                                     If[emptyGrammar[[xy[cursor][[1]],xy[cursor][[2]]]] != soluzione[[xy[cursor][[1]], xy[cursor][[2]]]],
                                         Beep[]
                                     ]
-                                  ];
+                                  ], ImageSize -> {Automatic},
+                                BaseStyle -> {FontSize -> 15}
                                 ]
                               ],
                               {i, 1, Length[listaProduzioni]}
@@ -925,12 +928,13 @@ GenerazioneInterfaccia[seed0_] :=
                                 If[cursor > 0,
                                   emptyGrammar[[xy[cursor][[1]], xy[cursor
                                     ][[2]]]] = " "
-                                ]
-                              ],
+                                ],ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                               " ",
                               (*Bottone che permette di svuotare il contenuto dell'intera griglia*)
                               Button["Svuota Tutto", Table[emptyGrammar
-                                [[i, j]] = " ", {i, 2, rows}, {j, 2, cols}]],
+                                [[i, j]] = " ", {i, 2, rows}, {j, 2, cols}],ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                               " "
                             },
                             Alignment -> Center
@@ -939,7 +943,8 @@ GenerazioneInterfaccia[seed0_] :=
 						 (*Al clic del bottone viene mostrata 
 						   la tabella con la soluzione finale della tabella di Parsing*)
                           Button["Mostra Soluzione Tabella", showSolution
-                             = Not[showSolution], ImageSize -> {Automatic}],
+                             = Not[showSolution], ImageSize -> {Automatic},
+                              BaseStyle -> {FontSize -> 15}],
                           " ",
                           Dynamic[
                             If[showSolution,
@@ -974,6 +979,7 @@ GenerazioneInterfaccia[seed0_] :=
 
 
 (*Funzione globale che permette di eseguire l'intero esercizio*)
+
 GenerazioneEsercizio[seed0_:0] :=
 	Module[{seed = seed0},
 		numEsercizio = seed;
@@ -1002,6 +1008,7 @@ GenerazioneEsercizio[seed0_:0] :=
 		
 		interfaccia
 	]
+
 
 
 End[];
