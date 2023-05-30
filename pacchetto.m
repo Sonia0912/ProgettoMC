@@ -15,40 +15,7 @@
 (* :Requirements: Mathematica Version 13*)
 
 
-BeginPackage["AnalisiSintattica`"];
-
-
-(* ::Input:: *)
-(*(*Funzioni private del pacchetto*)
-(*Remove[GenerazioneGrammatica]*)
-(*Remove[GenerazioneListaProduzioni]*)
-(*Remove[GenerazioneNullable]*)
-(*Remove[GenerazioneFirst]*)
-(*Remove[GenerazioneFollow]*)
-(*Remove[GenerazioneSoluzione]*)
-(*Remove[GenerazioneInterfaccia]*)
-(*Remove[getFirst]*)
-(*Remove[checkNullabilita]*)
-(*Remove[inserisciProduzione]*)
-(*Remove[rimuoviNTeEps]*)
-(*Remove[displayGrammatica]*)
-(*Remove[displayNullable]*)
-(*Remove[displayNullableSln]*)
-(*Remove[displayFirstFollow]*)
-(*Remove[displayFirstFollowSln]*)
-(*Remove[displayTable]*)
-(*Remove[displayTableSln]*)
-(*Remove[checkErrors]*)
-(*Remove[createEmptyNullableCheckbox]*)
-(*Remove[createEmptyFirstFollowCheckbox]*)
-(*Remove[createEmptyGrammar]*)
-(*Remove[loc]*)
-(*Remove[row]*)
-(*Remove[col]*)
-(*Remove[xy]*)
-(*Remove[GenerazioneEsercizio]*)
-(*Remove[Global`GenerazioneEsercizio]*)*)
-(**)
+BeginPackage["AnalisiSintattica`"]
 
 
 GenerazioneEsercizio::usage := 
@@ -71,23 +38,19 @@ D: g, h
 
 GenerazioneGrammatica[] := 
 	Module[{},	
-		(*Parametri*)
-		tuttiNonTerminali = CharacterRange["A", "D"];
-		tuttiTerminali = CharacterRange["a", "l"];	
-		nonTerminali = tuttiNonTerminali;
-		nonTerminali = Drop[nonTerminali, 1];
-		nonTerminaliIndici = tuttiNonTerminali;
-		terminali = tuttiTerminali;
+		(*Parametri per la generazione*)
+		tuttiNonTerminali = CharacterRange["A", "D"]; (*simboli Non Terminali disponibili*)
+		tuttiTerminali = CharacterRange["a", "l"];    (*simboli terminali disponibli*)
+		
 		
 		numNonTerminali = Length[tuttiNonTerminali];
-		numTerminali = Length[terminali];
+		numTerminali = Length[tuttiTerminali];
 		
+		(*parametri per la lunghezza delle produzioni*)
 		maxNumeroNonTerminali = 2;
-		
 		minNumeroTerminali = 2;
 		maxNumeroTerminali = 3;
-		
-		maxProduzioni = 4;
+		maxProduzioni = 4; 
 		
 		probabilitaEpsilon = 40; (*probabilita' che compaia Epsilon come produzione per un Non Terminale*)
 		
@@ -95,9 +58,15 @@ GenerazioneGrammatica[] :=
 		Clear[grammatica];
 		grammatica = List[];
 		
+		(*liste da consumare per generare la grammatica*)
+		nonTerminali = tuttiNonTerminali;
+		nonTerminali = Drop[nonTerminali, 1];
+		nonTerminaliIndici = tuttiNonTerminali;
+		terminali = tuttiTerminali;
+		
 		(*Per ogni Non Terminale viene generata la sua lista di produzioni*)
 		Table[
-		  	(*Salviamo il primo Non Terminale in una lista e lo rimuoviamo dalla lista nonTerminali*)
+		  	(*Salva il primo Non Terminale in una lista e lo rimuove dalla lista nonTerminali*)
 		  	Clear[listaNonTerminaleEProduzioni];
 		  	listaNonTerminaleEProduzioni = List[];
 		  	AppendTo[listaNonTerminaleEProduzioni, nonTerminaliIndici[[1]]];
@@ -108,6 +77,7 @@ GenerazioneGrammatica[] :=
 		  	(*Creazione della stringa di tutte le produzioni per il Non Terminale corrente*)
 		  	If[numNonTerminaliRimanenti > 0, 
 		   		(*Ci sono ancora Non Terminali inutilizzati*)
+		   		(*seleziona un numero casuale di Terminali e Non Terminali e li rimuove dalle rispettive liste*)
 		   		numElementiNonTerminali = RandomInteger[{1, Min[maxNumeroNonTerminali, numNonTerminaliRimanenti]}];
 		   		elementiNonTerminali = nonTerminali[[1 ;; numElementiNonTerminali]];
 		   		nonTerminali = Drop[nonTerminali, numElementiNonTerminali];
@@ -116,11 +86,13 @@ GenerazioneGrammatica[] :=
 		   		terminali = Drop[terminali, numElementiTerminali];
 		   		,
 		   		(*Sono stati usati tutti i Non terminali*)	
+		   		(*seleziona un numero casuale di Terminali e li rimuove dalla lista*)
 		   		numElementiTerminali = RandomInteger[{minNumeroTerminali, maxNumeroTerminali}];
 		   		elementiTerminali = terminali[[1 ;; numElementiTerminali]];
 		   	    terminali = Drop[terminali, numElementiTerminali];
 		   		elementiNonTerminali = List[];
 		   	];
+		   	(*viene creata una stringa casuale di caratteri che andranno a formare le produzioni*)
 		  	elementiDestra = Union[elementiNonTerminali, elementiTerminali];
 		  	elementiDestra = RandomSample[elementiDestra];
 		  	numElementiDestra = Length[elementiDestra];
@@ -182,8 +154,9 @@ GenerazioneGrammatica[] :=
 GenerazioneListaProduzioni[] := 
 	Module[{},
 		listaProduzioni = List[];
-		Table[
-			Table[
+		Table[ (*per ogni Non Terminale della grammatica*)
+			Table[ (*per ogni produzione del Non Terminale*)
+				(*inserisce in una lista la stringa "NT -> produzione"*)
 				AppendTo[listaProduzioni, StringJoin[grammatica[[i, 1]], "->", grammatica[[i, 2, j]]]];
 			,{j, 1, Length[grammatica[[i, 2]]]}
 			];
@@ -433,7 +406,7 @@ GenerazioneFollow[] :=
 		,{i, 2, numNonTerminali}
 		];
 		
-		(*Itero su tutte le produzioni di tutti i Non Terminali*)
+		(*Itera su tutte le produzioni di tutti i Non Terminali*)
 		Table[ (*Per ogni Non Terminale*)
 			Table[(*Per ogni produzione del Non Terminale*)
 				produzioneCorrente = grammatica[[i, 2, j]];
@@ -484,6 +457,7 @@ GenerazioneFollow[] :=
 		,{i, 1, Length[listaRicontrollo2]}
 		];
 		
+		(*Riordinamento e rimozione degli eventuali caratteri ripetuti*)
 		Table[
 			follow[[i, 2]] = Flatten[follow[[i, 2]]];
 			DeleteDuplicates[follow[[i, 2]]];
@@ -923,8 +897,8 @@ GenerazioneInterfaccia[seed0_] :=
                           ],
                           Row[
                             {
-                         (*Bottone che permette di svuotare il contenutodi una sing ola cella*)
-                         Button["Svuota",
+                         (*Bottone che permette di svuotare il contenuto di una singola cella*)
+                         Button["Svuota Cella",
                                 If[cursor > 0,
                                   emptyGrammar[[xy[cursor][[1]], xy[cursor
                                     ][[2]]]] = " "
@@ -994,6 +968,7 @@ GenerazioneEsercizio[seed0_:0] :=
 			SeedRandom[numEsercizio];
 		];
 		
+		(*Inizializzazione di tutte le parti della grammatica*)
 		grammatica = GenerazioneGrammatica[];
 		listaProduzioni = GenerazioneListaProduzioni[];
 		nullable = GenerazioneNullable[];
@@ -1001,6 +976,7 @@ GenerazioneEsercizio[seed0_:0] :=
 		follow = GenerazioneFollow[];
 		soluzione = GenerazioneSoluzione[];
 	
+		(*Inizializzazione dell'interfaccia dell'esercizio*)
 		rows = Length[soluzione[[All,1]]];
 		cols = Length[soluzione[[1, All]]];
 		interfaccia = GenerazioneInterfaccia[numEsercizio];,
