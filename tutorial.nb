@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   3036109,      50205]
-NotebookOptionsPosition[   3025975,      50035]
-NotebookOutlinePosition[   3026433,      50052]
-CellTagsIndexPosition[   3026390,      50049]
+NotebookDataLength[   3031077,      50119]
+NotebookOptionsPosition[   3021308,      49953]
+NotebookOutlinePosition[   3021867,      49972]
+CellTagsIndexPosition[   3021824,      49969]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -48350,7 +48350,7 @@ r3aJ+OraLsHOH1B8eXWX0KXLzHy4X/sXl3fQep3SOPu2syb9zBYpTzl7rrN3
        "Comment" -> "xr:d:DAFje1sCL1Y:7,j:47599171737,t:23052109"|>|>],
    Selectable->False],
   DefaultBaseStyle->"ImageGraphics",
-  ImageSize->{1121.5006211180166`, Automatic},
+  ImageSize->{1036.9788819875785`, Automatic},
   ImageSizeRaw->{1500., 300.},
   PlotRange->{{0, 1500.}, {0, 300.}}]], "Text",
  CellChangeTimes->{{3.8935994867762504`*^9, 3.8935994913820295`*^9}, 
@@ -48451,38 +48451,31 @@ Cell["Introduzione", "Section",
 8d79751a7c6a"],
 
 Cell["\<\
-Questo pacchetto contiene un generatore di esercizi sul parsing di \
-grammatiche LL(1) nell\[CloseCurlyQuote]ambito dei linguaggi di \
-programmazione. L\[CloseCurlyQuote]obiettivo \[EGrave] quello di \
-familiarizzare l\[CloseCurlyQuote]utente con il procedimento per la \
-risoluzione di questa tipologia di esercizio. 
-L\[CloseCurlyQuote]esercizio consiste, come prima cosa, nel generare gli \
-insiemi Nullable, First e Follow associati a ogni simbolo non terminale della \
-grammatica e successivamente nel compilare di una tabella di parsing.
+Questo tutorial contiene un generatore di esercizi sul parsing di grammatiche \
+LL(1). 
+L\[CloseCurlyQuote]obiettivo \[EGrave] quello di spiegare all\
+\[CloseCurlyQuote]utente il procedimento per la risoluzione di questa \
+tipologia di esercizio. 
+L\[CloseCurlyQuote]esercizio consiste nel generare gli insiemi Nullable, \
+First e Follow e compilare la tabella di parsing.
+
 Le grammatiche casuali generate dal pacchetto sono abbastanza semplici, in \
-modo da garantire che siano sempre di tipo LL(1). In pi\[UGrave], ci\[OGrave] \
-permette all\[CloseCurlyQuote]utente di concentrarsi sulle fasi di \
-risoluzione in modo da abituarsi al procedimento, rendendolo quasi automatico \
-una volta che si passa ad osservare grammatiche pi\[UGrave] complesse. 
+modo da garantire che siano sempre di tipo LL(1).
 Il pacchetto \[EGrave] adatto a chi si approccia per la prima volta a questo \
 argomento, ma che ha comunque alcune conoscenze basilari di compilatori e \
-interpreti. In particolare, \[EGrave] indirizzato a studenti di informatica \
-che frequentano un corso di linguaggi di programmazione.\
+interpreti.
+In particolare, \[EGrave] indirizzato a studenti di informatica che \
+frequentano un corso di linguaggi di programmazione.\
 \>", "Text",
- CellChangeTimes->{{3.8907517249591913`*^9, 3.890751725235973*^9}, {
-  3.893227001502784*^9, 3.8932271046996274`*^9}, {3.893478500010079*^9, 
-  3.89347850088573*^9}, {3.8934801505798798`*^9, 3.8934801692027307`*^9}, {
-  3.89348021981164*^9, 3.893480220092758*^9}, {3.8934802967662787`*^9, 
-  3.8934802975012417`*^9}, {3.893480356801711*^9, 3.8934805923144026`*^9}, {
-  3.8934806247123427`*^9, 3.8934807546620727`*^9}, {3.89348078709247*^9, 
-  3.893480849431464*^9}, {3.893650277615032*^9, 3.893650310430993*^9}, {
-  3.893650376226635*^9, 3.893650443049507*^9}, {3.8936504788460817`*^9, 
-  3.893650492327643*^9}, {3.893650524809146*^9, 3.893650573853323*^9}, {
-  3.8936506140155735`*^9, 3.8936506468435326`*^9}, {3.8936506859119825`*^9, 
-  3.893650716827442*^9}, {3.8937394422446423`*^9, 3.893739450156705*^9}, {
-  3.8937463367998447`*^9, 
-  3.893746339247093*^9}},ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-\
-2663a01cd7f6"]
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQvWnjPFnWv28cxXuXg+lzYgb79zK+dYxMFjsDoicG
+NfRYML11fBY+B0wn9F2KsgTSR2vUYkH0lx+VySD6wfcmMB3dKpELonW4DMD0
+vOUzS0D0NH6uSSC6+bTYNBC9WT90GYhu+Zq0CkT3ndPdBKIj1m3O6QHSm06d
+LQDRMxzYK0H0hKmJjSBaSvh2K4jmrelqB9FtT2Z2g+gcv90TQfSU+gPTQLTF
+v1uzQPQ3vb3zQXRG1azFIFrmivu37UB6F7PrdxAdMkMyZDeQNniRDqb/xRq8
+YmN561h39sk3EM1z09OPHUifMJgVCKI1uvdGgujz+rfA9DtjoTgQ/YJlSgqI
+fuNYkQeiZzyeB6YBGuufbw==
+  "],ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -48507,15 +48500,14 @@ Cell["1.1 Analisi sintattica e grammatiche", "Subsection",
 Cell["\<\
 In ambito di linguaggi di programmazione, l\[CloseCurlyQuote]analisi \
 sintattica \[EGrave] la fase del processo di compilazione in cui si verifica \
-la correttezza di una stringa, ovvero, se \[EGrave] possibile creare tale \
-stringa rispettando tutte le regole di scrittura che compongono il linguaggio \
-stesso. Ad esempio, nel linguaggio composto da stringhe contenenti solamente \
-il carattere \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] la stringa \
+la correttezza di una stringa.
+Una stringa \[EGrave] considerata corretta se rispetta tutte le regole di \
+scrittura che compongono il linguaggio stesso.
+Ad esempio, nel linguaggio composto da stringhe contenenti solamente il \
+carattere \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] la stringa \
 \[OpenCurlyDoubleQuote]aaab\[CloseCurlyDoubleQuote] \[EGrave] sintatticamente \
 errata. 
-L\[CloseCurlyQuote]analisi sintattica serve quindi a verificare che le regole \
-di sintassi siano rispettate e applicate correttamente. Queste regole vengono \
-solitamente descritte dalla grammatica che definisce il linguaggio.
+Queste regole vengono descritte dalla grammatica che definisce il linguaggio.
 
 Una grammatica G \[EGrave] descritta da una quadrupla G =(N, T, P, S), dove:
 \t- N \[EGrave] l\[CloseCurlyQuote]insieme di simboli Non Terminali, che \
@@ -48533,7 +48525,7 @@ Un simbolo non terminale pu\[OGrave] avere una o pi\[UGrave] produzioni, se \
 ha pi\[UGrave] produzioni queste saranno separate dalla barra verticale \
 \[OpenCurlyDoubleQuote]|\[CloseCurlyDoubleQuote].
 
-Ad esempio la grammatica G1 = ({A, B}, {a, b}, P, \[OpenCurlyDoubleQuote]A\
+Ad esempio, la grammatica G1 = ({A, B}, {a, b}, P, \[OpenCurlyDoubleQuote]A\
 \[CloseCurlyDoubleQuote]) con P:\
 \>", "Text",
  CellChangeTimes->{{3.89075151167789*^9, 3.890751511958028*^9}, {
@@ -48550,8 +48542,9 @@ Ad esempio la grammatica G1 = ({A, B}, {a, b}, P, \[OpenCurlyDoubleQuote]A\
    3.8934786024414015`*^9, 3.8934786030048065`*^9}, {3.893478700721707*^9, 
    3.8934787573248773`*^9}, {3.893478792145529*^9, 3.8934788299864435`*^9}, 
    3.893478936380767*^9, {3.8934790096281815`*^9, 3.8934790396519957`*^9}, {
-   3.893593332607995*^9, 
-   3.893593365502495*^9}},ExpressionUUID->"831cc4ee-6cc3-429b-99df-\
+   3.893593332607995*^9, 3.893593365502495*^9}, {3.8944265368873615`*^9, 
+   3.8944266107140245`*^9}, 3.894426699956135*^9, 
+   3.894426804947064*^9},ExpressionUUID->"831cc4ee-6cc3-429b-99df-\
 c844d749d142"],
 
 Cell[BoxData[
@@ -48572,16 +48565,16 @@ descrive un linguaggio di stringhe composte dai caratteri \
 \[CloseCurlyDoubleQuote] ma che devono iniziare e terminare con \
 \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote].
 Il simbolo \[Epsilon] indica una produzione vuota, cio\[EGrave] che non \
-genera nessun Terminale e non si sviluppa in altri Non Terminali. La \
-notazione | separa le diverse produzioni di un Non Teminale.
+genera nessun Terminale e non si sviluppa in altri Non Terminali.
 
 In particolare, le grammatiche a cui ci stiamo riferendo sono definite \
-\[OpenCurlyDoubleQuote]context-free\[CloseCurlyDoubleQuote]. Queste \
-grammatiche hanno la caratteristica di esprimere ogni regola sintattica sotto \
-forma di derivazione di un simbolo a sinistra a partire da uno o pi\[UGrave] \
-simboli a destra. Nell\[CloseCurlyQuote]esempio precedente il simbolo non \
-terminale A pu\[OGrave] sempre essere sostituito da \
-\[OpenCurlyDoubleQuote]aBA\[CloseCurlyDoubleQuote] o da \
+\[OpenCurlyDoubleQuote]context-free\[CloseCurlyDoubleQuote].
+Queste grammatiche hanno la caratteristica di esprimere ogni regola \
+sintattica sotto forma di derivazione di un simbolo a sinistra a partire da \
+uno o pi\[UGrave] simboli a destra.
+Nell\[CloseCurlyQuote]esempio precedente il simbolo non terminale A pu\
+\[OGrave] sempre essere sostituito da \[OpenCurlyDoubleQuote]aBA\
+\[CloseCurlyDoubleQuote] o da \
 \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote], indipendentemente dai \
 simboli che lo precedono o lo seguono. 
 
@@ -48593,8 +48586,9 @@ Con questa grammatica la stringa \[OpenCurlyDoubleQuote]aababba\
    3.893331307617669*^9, 3.8933313664004126`*^9}, {3.893331586151492*^9, 
    3.8933316125595903`*^9}, {3.893332649923526*^9, 3.8933326802268963`*^9}, {
    3.893332750850952*^9, 3.8933328554345655`*^9}, {3.893480057067459*^9, 
-   3.893480058349077*^9}, {3.893480094938877*^9, 
-   3.8934801251173506`*^9}},ExpressionUUID->"9595033e-f004-4aa0-aaf3-\
+   3.893480058349077*^9}, {3.893480094938877*^9, 3.8934801251173506`*^9}, {
+   3.8944267305716743`*^9, 
+   3.8944267593132114`*^9}},ExpressionUUID->"9595033e-f004-4aa0-aaf3-\
 e50054ea31e4"],
 
 Cell[BoxData[
@@ -48635,14 +48629,14 @@ Cell["\<\
 perch\[EGrave] \[OpenCurlyDoubleQuote]A\[CloseCurlyDoubleQuote] non ha una \
 produzione \[Epsilon].
 
-Per semplicit\[AGrave] una grammatica viene solamente descritta dal suo \
-insieme di produzioni, che contiene tutti i simboli Non Terminali e tutti i \
-simboli Terminali, con il simbolo iniziale scritto per primo.\
+Per semplicit\[AGrave], negli esempi la grammatica viene solamente descritta \
+dal suo insieme di produzioni e il simbolo iniziale viene scritto per primo.\
 \>", "Text",
  CellChangeTimes->{{3.893333253752804*^9, 3.8933332676413565`*^9}, {
   3.893333334808629*^9, 3.8933333349125905`*^9}, {3.8933344041884503`*^9, 
-  3.893334486724623*^9}, {3.8933345308763905`*^9, 
-  3.8933345523906565`*^9}},ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-\
+  3.893334486724623*^9}, {3.8933345308763905`*^9, 3.8933345523906565`*^9}, {
+  3.894426833007864*^9, 
+  3.8944269157639837`*^9}},ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-\
 c954cf4b54c2"]
 }, Open  ]],
 
@@ -48661,20 +48655,22 @@ leggere i caratteri che la compongono e trovare la produzione che genera \
 quella serie di caratteri. 
 
 In questi esercizi siamo interessati ad un tipo particolare di grammatiche, \
-dette LL(1), dove la prima L indica lettura della stringa in input Left to \
-right, la seconda L indica Leftmost derivation cio\[EGrave] l\
-\[CloseCurlyQuote]ordine delle produzioni \[EGrave] da sinistra a destra, e 1 \
-indica quanti caratteri della stringa di input vanno letti per capire la \
-produzione successiva. Per essere LL(1) \[EGrave] necessario che la \
-grammatica sia non ambigua, cio\[EGrave] che non abbia due produzioni che \
-iniziano con lo stesso terminale, e sia non ricorsiva a sinistra, \
-cio\[EGrave] il primo elemento di una produzione di un Non Terminale non sia \
-il non Terminale stesso.
+dette LL(1). 
+Nell\[CloseCurlyQuote]acronimo LL(1):
+\t- la prima \[OpenCurlyDoubleQuote]L\[CloseCurlyDoubleQuote] indica lettura \
+della stringa in input da sinstra a destra;
+\t- la seconda \[OpenCurlyDoubleQuote]L\[CloseCurlyDoubleQuote] indica \
+Leftmost derivation, cio\[EGrave] l\[CloseCurlyQuote]ordine delle produzioni \
+\[EGrave] da sinistra a destra;
+\t- \[OpenCurlyDoubleQuote]1\[CloseCurlyDoubleQuote] indica quanti caratteri \
+della stringa di input vanno letti per capire la produzione successiva.
 
-Nell\[CloseCurlyQuote]esempio precedente la grammatica \[EGrave] ambigua \
-perch\[EGrave] le due produzioni di \[OpenCurlyDoubleQuote]A\
-\[CloseCurlyDoubleQuote] iniziano entrambe per \[OpenCurlyDoubleQuote]a\
-\[CloseCurlyDoubleQuote]. 
+Per essere LL(1) \[EGrave] necessario che la grammatica sia:
+\t- non ambigua, cio\[EGrave] che non abbia due produzioni che iniziano con \
+lo stesso terminale;
+\t- non ricorsiva a sinistra, cio\[EGrave] il primo elemento di una \
+produzione di un Non Terminale non sia il non Terminale stesso.
+
 Un esempio di grammatica ricorsiva a sinistra \[EGrave]:\
 \>", "Text",
  CellChangeTimes->{{3.890751559350464*^9, 3.89075155965889*^9}, {
@@ -48685,8 +48681,10 @@ Un esempio di grammatica ricorsiva a sinistra \[EGrave]:\
    3.8933340833981137`*^9, 3.8933340915662794`*^9}, {3.893334155837365*^9, 
    3.8933343963492537`*^9}, {3.8933345653484774`*^9, 
    3.8933346126911783`*^9}, {3.893334656835793*^9, 3.893334657531576*^9}, {
-   3.893479095950389*^9, 3.893479096388605*^9}, 
-   3.8934791411222944`*^9},ExpressionUUID->"8035951f-3f95-47fc-ac68-\
+   3.893479095950389*^9, 3.893479096388605*^9}, 3.8934791411222944`*^9, {
+   3.8944269738050933`*^9, 3.8944271523674717`*^9}, {3.8944272055714636`*^9, 
+   3.8944272067960143`*^9}, {3.894427382562366*^9, 
+   3.8944273940656476`*^9}},ExpressionUUID->"8035951f-3f95-47fc-ac68-\
 058de01754a0"],
 
 Cell[BoxData[
@@ -48698,16 +48696,12 @@ Cell[BoxData[
 3a4a14fab024"],
 
 Cell["\<\
-che produce stringhe di soli caratteri \[OpenCurlyDoubleQuote]a\
-\[CloseCurlyDoubleQuote], ma leggendo solo un carattere alla volta \[EGrave] \
-impossibile sapere quante volte \[EGrave] stata sviluppata la prima \
-produzione (in particolare \[EGrave] necessario leggere tutta la stringa per \
-sapere quante produzioni sono state fatte).
 
 Un esempio di grammatica LL(1) \[EGrave]:\
 \>", "Text",
- CellChangeTimes->{{3.893334660459532*^9, 
-  3.893334827043247*^9}},ExpressionUUID->"aa978665-5369-4964-8987-\
+ CellChangeTimes->{{3.893334660459532*^9, 3.893334827043247*^9}, {
+  3.894427224423438*^9, 
+  3.894427229961568*^9}},ExpressionUUID->"aa978665-5369-4964-8987-\
 c2ef01f4a074"],
 
 Cell[BoxData[
@@ -48718,21 +48712,9 @@ Cell[BoxData[
    RowBox[{"B", " ", "->", " ", 
     RowBox[{"bB", " ", "|", " ", "\[Epsilon]"}]}]}]}]], "DisplayFormula",
  CellChangeTimes->{{3.8933348396716375`*^9, 3.8933348396756353`*^9}, {
-  3.893334896786975*^9, 
-  3.8933349224908867`*^9}},ExpressionUUID->"70d3cb79-035d-4602-a991-\
-5bbac7d44173"],
-
-Cell["\<\
-che produce stringhe composte da una serie di \[OpenCurlyDoubleQuote]a\
-\[CloseCurlyDoubleQuote] seguite da una serie di \[OpenCurlyDoubleQuote]b\
-\[CloseCurlyDoubleQuote] (si noti che le stringhe possono anche essere vuote).\
-\>", "Text",
- CellChangeTimes->{{3.8933349515384064`*^9, 3.8933351182420597`*^9}, {
-   3.8933354480879855`*^9, 3.893335509096744*^9}, 3.893335923638307*^9, {
-   3.893479784925171*^9, 3.8934798897078805`*^9}, {3.893479947133542*^9, 
-   3.8934799738840327`*^9}, {3.8934800354285936`*^9, 
-   3.8934800360223246`*^9}},ExpressionUUID->"c9a3dd01-cb85-4389-b684-\
-97695488f56f"]
+   3.893334896786975*^9, 3.8933349224908867`*^9}, 
+   3.8944272541992702`*^9},ExpressionUUID->"70d3cb79-035d-4602-a991-\
+5bbac7d44173"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -48747,14 +48729,15 @@ Cell["1.3 Parsing", "Subsection",
 
 Cell["\<\
 Il parsing \[EGrave] il processo che prende una stringa del linguaggio in \
-input e determina le produzioni della grammatica che la generano. In \
-particolare, siamo interessati al parsing con grammatiche LL(1), con le quali \
-\[EGrave] possibile trovare la produzione giusta leggendo in input un solo \
-carattere alla volta. Ad esempio con la grammatica descritta prima:\
+input e determina le produzioni della grammatica che la generano.
+Le grammatiche LL(1) permettono di trovare la produzione giusta leggendo in \
+input un solo carattere alla volta. 
+Ad esempio con la grammatica descritta prima:\
 \>", "Text",
  CellChangeTimes->{{3.8933359484543543`*^9, 3.8933359859586167`*^9}, {
   3.8933360210710645`*^9, 3.8933361784614024`*^9}, {3.8934794083891554`*^9, 
-  3.8934795295637093`*^9}},ExpressionUUID->"014820bb-6df9-460d-9b5a-\
+  3.8934795295637093`*^9}, {3.8944272937569003`*^9, 
+  3.894427318134635*^9}},ExpressionUUID->"014820bb-6df9-460d-9b5a-\
 895efe595162"],
 
 Cell[BoxData[
@@ -48798,17 +48781,15 @@ carattere viene prodotto \[EGrave] \[OpenCurlyDoubleQuote]consumato\
    3.8933355343480587`*^9, 3.893335775664409*^9}},ExpressionUUID->
   "38628610-e67d-4cdf-a873-e74a00ba7462"],
  "\n\nQuesto esempio \[EGrave] stato fatto in maniera intuitiva, ma con \
-grammatiche pi\[UGrave] complesse non \[EGrave] sempre possibile. In questi \
+grammatiche pi\[UGrave] complesse non \[EGrave] sempre possibile.\nIn questi \
 casi, si deve applicare un procedimento per ottenere una tabella di parsing \
-che associa ad ogni coppia di Non Terminale e Terminale una produzione da \
-sviluppare. \n\nQuesta tabella ha due funzioni: \n\t- fornire le regole per \
-il parsing delle stringhe;\n\t- verificare che la grammatica sia \
-effettivamente LL(1). \n\t\nIn questo documento ci concentriamo solamente su \
-grammatiche che sappiamo essere LL(1), che verranno prodotte nell\
-\[CloseCurlyQuote]interfaccia finale di svolgimento degli esercizi. \n\nNelle \
-prossime sezioni vengono illustrate le fasi di questo procedimento: la \
-creazione degli insiemi Nullable, First e Follow per ogni Non Terminale e le \
-regole di costruzione e riempimento della tabella di parsing finale."
+che associa ad ogni coppia di non terminale e terminale una produzione da \
+sviluppare. \n\nLa tabella di parsing ha due funzioni: \n\t- fornire le \
+regole per il parsing delle stringhe;\n\t- verificare che la grammatica sia \
+effettivamente LL(1). \n\nNelle prossime sezioni vengono illustrate le fasi \
+di questo procedimento:\n\t- la creazione degli insiemi Nullable, First e \
+Follow per ogni non terminale;\n\t- le regole di costruzione e riempimento \
+della tabella di parsing finale."
 }], "Text",
  CellChangeTimes->{{3.890751559350464*^9, 3.89075155965889*^9}, {
    3.893327592718688*^9, 3.8933275935005627`*^9}, {3.8933358839522123`*^9, 
@@ -48817,8 +48798,9 @@ regole di costruzione e riempimento della tabella di parsing finale."
    3.893337859664007*^9, 3.893337907887191*^9}, {3.893338000454883*^9, 
    3.8933380036706676`*^9}, {3.893338079742179*^9, 3.893338129678248*^9}, {
    3.893338219916582*^9, 3.893338495829579*^9}, 3.893479550181635*^9, {
-   3.8934796042284822`*^9, 
-   3.8934797034611197`*^9}},ExpressionUUID->"5d9d7106-8588-4618-8e0f-\
+   3.8934796042284822`*^9, 3.8934797034611197`*^9}, {3.8944273530899153`*^9, 
+   3.8944273676527185`*^9}, {3.894427429109027*^9, 
+   3.894427478474086*^9}},ExpressionUUID->"5d9d7106-8588-4618-8e0f-\
 c9d98b41818f"]
 }, Open  ]]
 }, Open  ]],
@@ -48876,15 +48858,15 @@ c598692c2e8e"],
 Cell[TextData[{
  "Il primo passo \[EGrave] individuare tutte le produzioni in cui compare \
 \[Epsilon].\nI simboli non terminali che producono \[Epsilon] fanno parte \
-dell\[CloseCurlyQuote]insieme nullable.\nTuttavia, questi non sono gli unici \
-simboli non terminali che possono fare parte di questo insieme.\nIl passo \
-successivo \[EGrave] individuare, se esistono, le produzioni in cui compaiono \
-unicamente uno o pi\[UGrave] simboli non terminali gi\[AGrave] presenti nell\
-\[CloseCurlyQuote]insieme Nullable. Anche queste produzioni possono risultare \
-in stringhe vuote, di conseguenza, i non terminali che le generano devono \
-essere aggiunti all\[CloseCurlyQuote]insieme Nullable.  \nSi ripete questo \
-passaggio finch\[EGrave] sono state analizzate tutte le produzioni.\n\nNel \
-caso in cui \[Epsilon]",
+dell\[CloseCurlyQuote]insieme nullable.\n\nTuttavia, questi non sono gli \
+unici simboli non terminali che possono fare parte di questo insieme.\nIl \
+passo successivo \[EGrave] individuare, se esistono, le produzioni in cui \
+compaiono unicamente uno o pi\[UGrave] simboli non terminali gi\[AGrave] \
+presenti nell\[CloseCurlyQuote]insieme Nullable.\nAnche queste produzioni \
+possono risultare in stringhe vuote, di conseguenza, i non terminali che le \
+generano devono essere aggiunti all\[CloseCurlyQuote]insieme Nullable.  \n\n\
+Si ripete questo passaggio finch\[EGrave] sono state analizzate tutte le \
+produzioni.\n\nNel caso in cui \[Epsilon]",
  StyleBox[" ",
   FontWeight->"Bold"],
  "non compaia in nessuna produzione, l\[CloseCurlyQuote]insieme Nullable sar\
@@ -48893,8 +48875,9 @@ caso in cui \[Epsilon]",
  CellChangeTimes->{{3.890751559350464*^9, 3.89075155965889*^9}, {
    3.8932325662090416`*^9, 3.8932326654071846`*^9}, {3.893232773070665*^9, 
    3.893233038444023*^9}, {3.8932330796920195`*^9, 3.893233158298833*^9}, {
-   3.8932332075263925`*^9, 3.893233255443423*^9}, 
-   3.893233288961516*^9},ExpressionUUID->"957dcab2-83cb-44a3-801e-\
+   3.8932332075263925`*^9, 3.893233255443423*^9}, 3.893233288961516*^9, {
+   3.894427735666193*^9, 
+   3.8944278055467787`*^9}},ExpressionUUID->"957dcab2-83cb-44a3-801e-\
 0bef065d6273"]
 }, Open  ]],
 
@@ -48957,16 +48940,10 @@ e9b47ccff390"],
 
 Cell["\<\
 Data una grammatica context-free, a ogni simbolo non terminale \[EGrave] \
-associato un insieme First. Questo insieme \[EGrave] composto dai simboli \
-terminali (compreso \[Epsilon]) che possono apparire come carattere iniziale \
-di una stringa derivata da una produzione del non terminale. 
-
-Nella progettazione dei compilatori, gli insiemi First e Follow vengono usati \
-per aiutare a generare un parser predittivo per una data grammatica.
-Infatti, se il compilatore sa qual \[EGrave] il primo carattere di una \
-stringa prodotta quando viene applicata una certa regola e lo confronta con \
-il primo carattere (o token) della stringa corrente in input, \[EGrave] \
-capace di scegliere pi\[UGrave] facilmente quale regola applicare. \
+associato un insieme First.
+Questo insieme \[EGrave] composto dai simboli terminali (compreso \[Epsilon]) \
+che possono apparire come carattere iniziale di una stringa derivata da una \
+produzione del non terminale. \
 \>", "Text",
  CellChangeTimes->{{3.89075151167789*^9, 3.890751511958028*^9}, {
    3.893237033597542*^9, 3.893237034098218*^9}, {3.8932370914496813`*^9, 
@@ -48977,8 +48954,10 @@ capace di scegliere pi\[UGrave] facilmente quale regola applicare. \
    3.8934332861760225`*^9}, {3.893433316508916*^9, 3.8934333733747835`*^9}, {
    3.8934335315412903`*^9, 3.893433565058713*^9}, {3.893433615641449*^9, 
    3.893433636303338*^9}, {3.893433677194917*^9, 3.893433685842067*^9}, {
-   3.8934337334021635`*^9, 3.893433873321415*^9}, 
-   3.8934339072593718`*^9},ExpressionUUID->"5432960b-69a3-4ff1-b477-\
+   3.8934337334021635`*^9, 3.893433873321415*^9}, 3.8934339072593718`*^9, {
+   3.89442787671161*^9, 3.894427877056618*^9}, {3.894427963810563*^9, 
+   3.894427997908371*^9}, {3.894429607498061*^9, 
+   3.894429608126142*^9}},ExpressionUUID->"5432960b-69a3-4ff1-b477-\
 24c6de744c30"]
 }, Open  ]],
 
@@ -49001,16 +48980,18 @@ Dato quindi il non terminale che si sta analizzando, si aggiungono al suo \
 insieme First i simboli terminali che sono al primo posto nelle sue produzioni.
 Se una delle sue produzioni inizia con un altro simbolo non terminale, all\
 \[CloseCurlyQuote]insieme si aggiungeranno i first di \
-quest\[CloseCurlyQuote]altro non terminale (se non sono ancora stati \
-calcolati rester\[AGrave] in sospeso e verr\[AGrave] completato una volta \
-calcolati).
+quest\[CloseCurlyQuote]altro non terminale.
+Se questi non sono ancora stati calcolati rester\[AGrave] in sospeso e verr\
+\[AGrave] completato una volta calcolati.
+
 In pi\[UGrave], se la produzione ha come primo simbolo un simbolo non \
-terminale nullable, all\[CloseCurlyQuote]insieme si aggiunger\[AGrave] anche \
-l\[CloseCurlyQuote]elemento successivo nella produzione. Se questo \[EGrave] \
-un terminale esso verr\[AGrave] semplicemente aggiunto \
+terminale nullable, si deve valutare anche l\[CloseCurlyQuote]elemento \
+successivo nella produzione.
+Se questo \[EGrave] un terminale esso verr\[AGrave] semplicemente aggiunto \
 all\[CloseCurlyQuote]insieme, se, invece, \[EGrave] un non terminale si \
 ripete il passo precedente finch\[EAcute] non si incontra un terminale, un \
 non terminale non nullable oppure la produzione finisce.
+
 Si procede cos\[IGrave] finch\[EAcute] tutti gli insiemi First sono completi.
 
 \[CapitalEGrave] importante sottolineare che \[Epsilon] non viene mai passato \
@@ -49025,8 +49006,9 @@ da un insieme First a un altro, ma viene aggiunto a presciendere all\
   3.8933001403997264`*^9, 3.893300224338467*^9}, {3.8933007615061255`*^9, 
   3.8933007645759864`*^9}, {3.8933007973599515`*^9, 3.8933008078555903`*^9}, {
   3.89330084862671*^9, 3.893300925605567*^9}, {3.893301630968874*^9, 
-  3.893301631278927*^9}, {3.8933017516819425`*^9, 
-  3.893301773707411*^9}},ExpressionUUID->"86f53269-f156-4951-9a9c-\
+  3.893301631278927*^9}, {3.8933017516819425`*^9, 3.893301773707411*^9}, {
+  3.8944280580164313`*^9, 3.8944280830743756`*^9}, {3.894428152766432*^9, 
+  3.8944281799523616`*^9}},ExpressionUUID->"86f53269-f156-4951-9a9c-\
 4ad530f4d153"]
 }, Open  ]],
 
@@ -49086,19 +49068,16 @@ a9f41e2cd661"],
 
 Cell["\<\
 Data una grammatica context-free, a ogni simbolo non terminale \[EGrave] \
-associato un insieme Follow. Questo insieme \[EGrave] composto dai simboli \
-terminali (e dal simbolo $) che possono apparire immediatamente dopo il non \
-terminale in qualsiasi derivazione valida.
-
-Anche l\[CloseCurlyQuote]insieme Follow ha lo scopo di aiutare il compilatore \
-a capire quale produzione scegliere dopo aver letto il carattere successivo \
-in input. \
+associato un insieme Follow.
+Questo insieme \[EGrave] composto dai simboli terminali (e dal simbolo $) che \
+possono apparire immediatamente dopo il non terminale in qualsiasi \
+derivazione valida.\
 \>", "Text",
  CellChangeTimes->{{3.89075151167789*^9, 3.890751511958028*^9}, {
   3.893301455150965*^9, 3.89330150132437*^9}, {3.8934339983248215`*^9, 
   3.8934340012179165`*^9}, {3.893434552670235*^9, 3.893434607227141*^9}, {
-  3.8934346781708803`*^9, 
-  3.8934346812532606`*^9}},ExpressionUUID->"ef855798-cad4-4986-ab62-\
+  3.8934346781708803`*^9, 3.8934346812532606`*^9}, {3.8944282320466795`*^9, 
+  3.8944282452645903`*^9}},ExpressionUUID->"ef855798-cad4-4986-ab62-\
 63ba9c256773"]
 }, Open  ]],
 
@@ -49119,20 +49098,21 @@ terminale \[EGrave] ininfluente.
 Dato il non terminale, il primo passo \[EGrave] individuare le produzioni in \
 cui esso compare. 
 Successivamente, per ogni produzione, si cerca qual \[EGrave] l\
-\[CloseCurlyQuote]elemento immediatamente a destra del non terminale. Questo \
-pu\[OGrave] essere un terminale, un non terminale o pu\[OGrave] non esserci \
-niente.
-Se \[EGrave] un terminale questo viene aggiunto all\[CloseCurlyQuote]insieme \
-Follow.
-Se \[EGrave] un non terminale si aggiungono all\[CloseCurlyQuote]insieme i \
-first di quel non terminale. Se il non terminale \[EGrave] nullable, si deve \
-vedere anche l\[CloseCurlyQuote]elemento successivo nella produzione \
-(ripetendo questi passi finch\[EAcute] non si trova qualcosa che non sia un \
-non terminale nullable).
-Se dopo il terminale la produzione finisce si aggiungono \
-all\[CloseCurlyQuote]insieme Follow i follow del non terminale che ha \
-generato quella produzione (se questi non sono stati ancora calcolati si \
-tiene in sospeso e si completer\[AGrave] in seguito).
+\[CloseCurlyQuote]elemento immediatamente a destra del non terminale. 
+
+A seconda di cos\[CloseCurlyQuote]\[EGrave] questo elemento, si applicano \
+diversi metodi: 
+\t- se \[EGrave] un terminale questo viene aggiunto \
+all\[CloseCurlyQuote]insieme Follow.
+\t- se \[EGrave] un non terminale si aggiungono all\[CloseCurlyQuote]insieme \
+i first di quel non terminale. Se esso \[EGrave] nullable, si deve vedere \
+anche l\[CloseCurlyQuote]elemento successivo nella produzione (ripetendo \
+questi passi finch\[EAcute] non si trova qualcosa che non sia un non \
+terminale nullable).
+\t- se dopo il terminale la produzione finisce si aggiungono all\
+\[CloseCurlyQuote]insieme Follow i follow del non terminale che ha generato \
+quella produzione (se questi non sono stati ancora calcolati si tiene in \
+sospeso e si completer\[AGrave] in seguito).
 
 Il simbolo $ viene dato di default all\[CloseCurlyQuote]insieme Follow del \
 non terminale iniziale e pu\[OGrave] essere passato da un insieme Follow a un \
@@ -49145,8 +49125,9 @@ Il simbolo \[Epsilon], invece, non compare mai in nessun insieme Follow.\
   3.89330179461082*^9, 3.893301853599239*^9}, {3.893301932539561*^9, 
   3.893302031334327*^9}, {3.893302127709382*^9, 3.8933022340609493`*^9}, {
   3.8933022733934393`*^9, 3.8933023202673173`*^9}, {3.8933025326207366`*^9, 
-  3.8933026984025283`*^9}, {3.8933029733819933`*^9, 
-  3.8933030260474286`*^9}},ExpressionUUID->"4a39c3d8-0e4f-4355-872a-\
+  3.8933026984025283`*^9}, {3.8933029733819933`*^9, 3.8933030260474286`*^9}, {
+  3.8944282884510436`*^9, 3.894428406153001*^9}, {3.8944284429964886`*^9, 
+  3.894428537038988*^9}},ExpressionUUID->"4a39c3d8-0e4f-4355-872a-\
 f8ff9dd5054c"]
 }, Open  ]],
 
@@ -49213,21 +49194,17 @@ Cell["\<\
 La tabella di parsing \[EGrave] una tabella a doppia entrata in cui nelle \
 colonne si hanno tutti i simboli terminali (compreso $) della grammatica e \
 nelle righe tutti i simboli non terminali.
-Viene utilizzata per parsare una stringa in input e generare l\
-\[CloseCurlyQuote]albero sintattico.
-Il parser fa riferimento a questa tabella per prendere \
-sull\[CloseCurlyQuote]input e sulla produzione che lo genera.
 
-L\[CloseCurlyQuote]ordine in cui compaiono i non terminali e i terminali \
-nelle righe e nelle colonne \[EGrave] ininfluente.\
+Viene utilizzata per parsare una stringa in input e generare l\
+\[CloseCurlyQuote]albero sintattico.\
 \>", "Text",
  CellChangeTimes->{{3.89075151167789*^9, 3.890751511958028*^9}, {
   3.893496486082*^9, 3.8934964952599974`*^9}, {3.8934970401735535`*^9, 
   3.8934970411751947`*^9}, {3.893497184897534*^9, 3.89349722496244*^9}, {
   3.8934974938464403`*^9, 3.893497615037817*^9}, {3.893502436769637*^9, 
   3.8935024653558674`*^9}, {3.89350288360027*^9, 3.8935028871177573`*^9}, {
-  3.893502992823063*^9, 
-  3.8935031312451963`*^9}},ExpressionUUID->"ea103078-fabb-4a01-8320-\
+  3.893502992823063*^9, 3.8935031312451963`*^9}, {3.8944286556251945`*^9, 
+  3.894428670944853*^9}},ExpressionUUID->"ea103078-fabb-4a01-8320-\
 03e9c65139dc"]
 }, Open  ]],
 
@@ -49247,13 +49224,16 @@ Le produzioni di un dato non terminale andranno sempre nella riga assegnata a \
 quel non terminale. 
 
 Le prime produzioni da valutare sono quelle che iniziano con un simbolo \
-terminale. Esse andranno inserite nella colonna del simbolo iniziale della \
-produzione.
+terminale.
+Esse andranno inserite nella colonna del simbolo iniziale della produzione.
+
 Successivamente, si analizzano le produzioni che iniziano con un simbolo non \
-terminale. La produzione sar\[AGrave] inserita nelle colonne dei simboli \
-terminali che fanno parte dell\[CloseCurlyQuote]inisieme First del non \
-terminale che appare come simbolo iniziale.
-Infine, si prendono in considerazione le produzioni che generano \[Epsilon]. \
+terminale.
+La produzione sar\[AGrave] inserita nelle colonne dei simboli terminali che \
+fanno parte dell\[CloseCurlyQuote]inisieme First del non terminale che appare \
+come simbolo iniziale.
+
+Infine, si prendono in considerazione le produzioni che generano \[Epsilon].
 Queste andranno messe nelle colonne dei simboli terminali che fanno parte \
 dell\[CloseCurlyQuote]insieme Follow del non terminale che ha generato la \
 produzione.\
@@ -49263,8 +49243,9 @@ produzione.\
    3.8934961895609074`*^9, 3.893496194848631*^9}, {3.893501685590431*^9, 
    3.893501686502264*^9}, {3.893501790753791*^9, 3.8935018601381593`*^9}, {
    3.893502219299659*^9, 3.893502270854417*^9}, {3.893502380078866*^9, 
-   3.893502431719941*^9}, {3.8935024811630383`*^9, 
-   3.89350272914106*^9}},ExpressionUUID->"9f5568fa-f41f-4c2a-8683-\
+   3.893502431719941*^9}, {3.8935024811630383`*^9, 3.89350272914106*^9}, {
+   3.8944286933139534`*^9, 
+   3.894428717661521*^9}},ExpressionUUID->"9f5568fa-f41f-4c2a-8683-\
 9cd3fe560f1c"]
 }, Open  ]],
 
@@ -49284,14 +49265,14 @@ Cell[TextData[{
 \[Epsilon]\nD \[RightArrow] fg\n\nNullable = {B, C}\n\nFirst(A) = {a, c, \
 \[Epsilon], e}\nFirst(B) = {c, \[Epsilon]}\nFirst(C) = {e, \[Epsilon]}\n\
 First(D) = {f}\n\nFollow(A) = {$}\nFollow(B) = {e}\nFollow(C) = {$}\n\
-Follow(D) = {b}\n\n1. Partiamo dalla tabella vuota.\n"
+Follow(D) = {b}\n\n1. Partiamo dalla tabella vuota."
 }], "Text",
  CellChangeTimes->{{3.893496159962809*^9, 3.893496169502224*^9}, {
-  3.8935027465488763`*^9, 3.893502750844793*^9}, {3.8935027945914297`*^9, 
-  3.8935028070998063`*^9}, {3.8935032071221466`*^9, 3.893503424346247*^9}, {
-  3.8935034732579823`*^9, 3.8935034802629213`*^9}, {3.893503707211544*^9, 
-  3.893503712441511*^9}, {3.893746657758658*^9, 
-  3.893746698946932*^9}},ExpressionUUID->"386cf907-739f-48b3-9a68-\
+   3.8935027465488763`*^9, 3.893502750844793*^9}, {3.8935027945914297`*^9, 
+   3.8935028070998063`*^9}, {3.8935032071221466`*^9, 3.893503424346247*^9}, {
+   3.8935034732579823`*^9, 3.8935034802629213`*^9}, {3.893503707211544*^9, 
+   3.893503712441511*^9}, {3.893746657758658*^9, 3.893746698946932*^9}, 
+   3.8944252135664043`*^9},ExpressionUUID->"386cf907-739f-48b3-9a68-\
 1a2fd12fd54a"],
 
 Cell[BoxData[
@@ -49317,12 +49298,11 @@ Cell[BoxData[
 Cell["\<\
 2. Iniziamo dalla produzione A \[RightArrow] aDb. Inizia con \
 \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] perci\[OGrave] verr\[AGrave] \
-messa nella riga A e colonna a.
-\
+messa nella riga A e colonna a.\
 \>", "Text",
  CellChangeTimes->{{3.8935036908010426`*^9, 3.8935037397680116`*^9}, 
-   3.8937395398763905`*^9},ExpressionUUID->"6f05de30-7087-4357-9e3b-\
-c38102986959"],
+   3.8937395398763905`*^9, 
+   3.8944252121685*^9},ExpressionUUID->"6f05de30-7087-4357-9e3b-c38102986959"],
 
 Cell[CellGroupData[{
 
@@ -49391,15 +49371,14 @@ Cell[BoxData[
   3.8937760383109303`*^9, 3.893776375330071*^9, {3.893776617168302*^9, 
    3.893776643250675*^9}},
  CellLabel->"Out[34]=",ExpressionUUID->"fee26fda-04c6-408a-83f0-298f226f3773"]
-}, Open  ]],
+}, {2}]],
 
 Cell["\<\
 3. Allo stesso modo, inseriamo le produzioni B \[RightArrow] cd, C \
-\[RightArrow] e e D \[RightArrow] fg.
-\
+\[RightArrow] e e D \[RightArrow] fg.\
 \>", "Text",
- CellChangeTimes->{{3.8935036908010426`*^9, 
-  3.8935038150224113`*^9}},ExpressionUUID->"348b998a-3fb5-4ba7-bc04-\
+ CellChangeTimes->{{3.8935036908010426`*^9, 3.8935038150224113`*^9}, 
+   3.894425210521511*^9},ExpressionUUID->"348b998a-3fb5-4ba7-bc04-\
 71849f5e1436"],
 
 Cell[CellGroupData[{
@@ -49469,19 +49448,19 @@ Cell[BoxData[
   3.893776057226364*^9, 3.893776375646591*^9, {3.893776617279953*^9, 
    3.893776643380104*^9}},
  CellLabel->"Out[35]=",ExpressionUUID->"3f2a4342-92d6-4f60-a408-6811bc81eed0"]
-}, Open  ]],
+}, {2}]],
 
 Cell["\<\
 4. Analizziamo ora la produzione A \[RightArrow] BC. Inizia con il non \
 terminale B, i cui First sono \
 \[OpenCurlyDoubleQuote]c\[CloseCurlyDoubleQuote] e \[OpenCurlyDoubleQuote]\
 \[Epsilon]\[CloseCurlyDoubleQuote]. Perci\[OGrave], inseriamo la produzione \
-nella colonna c. 
-\
+nella colonna c. \
 \>", "Text",
  CellChangeTimes->{{3.8935036908010426`*^9, 3.8935038150224113`*^9}, {
-  3.8935038720232644`*^9, 3.8935039450021315`*^9}, {3.893504027150428*^9, 
-  3.893504031624064*^9}},ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-\
+   3.8935038720232644`*^9, 3.8935039450021315`*^9}, {3.893504027150428*^9, 
+   3.893504031624064*^9}, 
+   3.8944252083994665`*^9},ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-\
 33056bd7db1f"],
 
 Cell[CellGroupData[{
@@ -49552,92 +49531,18 @@ Cell[BoxData[
   3.8937760693998737`*^9, 3.89377637567072*^9, {3.893776617298092*^9, 
    3.893776643399901*^9}},
  CellLabel->"Out[36]=",ExpressionUUID->"d4e07369-2330-4e11-be18-58b14a3a0fd1"]
-}, Open  ]],
+}, {2}]],
 
 Cell["\<\
-5. La produzione B \[RightArrow] \[Epsilon] andr\[AGrave], invece, inserita \
-nelle colonne che corrispondono ai follow di B, ovvero \
-\[OpenCurlyDoubleQuote]e\[CloseCurlyDoubleQuote].
-\
+5. La produzione B \[RightArrow] \[Epsilon] sar\[AGrave] inserita nelle \
+colonne che corrispondono ai follow di B, ovvero \[OpenCurlyDoubleQuote]e\
+\[CloseCurlyDoubleQuote].\
 \>", "Text",
  CellChangeTimes->{{3.8935036908010426`*^9, 3.8935038150224113`*^9}, {
-  3.8935038720232644`*^9, 
-  3.893504024489872*^9}},ExpressionUUID->"185bc883-8a01-4012-8428-\
+   3.8935038720232644`*^9, 3.893504024489872*^9}, 3.894425205338622*^9, {
+   3.894428827551954*^9, 
+   3.8944288326705294`*^9}},ExpressionUUID->"185bc883-8a01-4012-8428-\
 eaaea821465d"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Grid", "[", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-      "\"\< \>\"", ",", " ", "\"\<a\>\"", ",", " ", "\"\<b\>\"", ",", " ", 
-       "\"\<c\>\"", ",", " ", "\"\<d\>\"", ",", " ", "\"\<e\>\"", ",", " ", 
-       "\"\<f\>\"", ",", " ", "\"\<g\>\"", ",", " ", "\"\<$\>\""}], "}"}], 
-     ",", 
-     RowBox[{"{", 
-      RowBox[{
-      "\"\<A\>\"", ",", "\"\<A \[RightArrow] aDb\>\"", ",", "\"\< \>\"", ",", 
-       "\"\<A \[RightArrow] BC\>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\< \>\"", ",", " ", "\"\< \>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\< \>\""}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-      "\"\<B\>\"", ",", "\"\< \>\"", ",", "\"\< \>\"", ",", 
-       "\"\<B \[RightArrow] cd\>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\<B \[RightArrow] \[Epsilon]\>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\< \>\"", ",", " ", "\"\< \>\""}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-      "\"\<C\>\"", ",", "\"\< \>\"", ",", "\"\< \>\"", ",", "\"\< \>\"", ",", 
-       " ", "\"\< \>\"", ",", " ", "\"\<C \[RightArrow] e\>\"", ",", " ", 
-       "\"\< \>\"", ",", " ", "\"\< \>\"", ",", " ", "\"\< \>\""}], "}"}], 
-     ",", 
-     RowBox[{"{", 
-      RowBox[{
-      "\"\<D\>\"", ",", "\"\< \>\"", ",", "\"\< \>\"", ",", "\"\< \>\"", ",", 
-       " ", "\"\< \>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\<D \[RightArrow] fg\>\"", ",", " ", "\"\< \>\"", ",", " ", 
-       "\"\< \>\""}], "}"}]}], "}"}], ",", 
-   RowBox[{"Frame", "->", "All"}], ",", " ", 
-   RowBox[{"ItemSize", " ", "->", " ", "10"}], ",", " ", 
-   RowBox[{"Editable", "->", "False"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.893503483881663*^9, 3.8935035480817657`*^9}, {
-   3.8935035807356977`*^9, 3.8935036018766613`*^9}, {3.893503653777929*^9, 
-   3.8935036756870265`*^9}, {3.8935037557301054`*^9, 
-   3.8935037559521866`*^9}, {3.8935038343491297`*^9, 3.893503859048009*^9}, {
-   3.8935039549464264`*^9, 3.893503955314777*^9}, {3.8935040580084124`*^9, 
-   3.893504058295519*^9}, 3.8937394961456275`*^9, {3.8937463754531918`*^9, 
-   3.893746375639429*^9}},
- CellLabel->"In[37]:=",ExpressionUUID->"e47078be-230e-4da9-a28c-810e3bc24e17"],
-
-Cell[BoxData[
- TagBox[GridBox[{
-    {"\<\" \"\>", "\<\"a\"\>", "\<\"b\"\>", "\<\"c\"\>", "\<\"d\"\>", \
-"\<\"e\"\>", "\<\"f\"\>", "\<\"g\"\>", "\<\"$\"\>"},
-    {"\<\"A\"\>", "\<\"A \[RightArrow] aDb\"\>", "\<\" \"\>", "\<\"A \
-\[RightArrow] BC\"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", \
-"\<\" \"\>"},
-    {"\<\"B\"\>", "\<\" \"\>", "\<\" \"\>", "\<\"B \[RightArrow] cd\"\>", "\<\
-\" \"\>", "\<\"B \[RightArrow] \[Epsilon]\"\>", "\<\" \"\>", "\<\" \"\>", "\<\
-\" \"\>"},
-    {"\<\"C\"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", "\<\"C \
-\[RightArrow] e\"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>"},
-    {"\<\"D\"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \"\>", "\<\" \
-\"\>", "\<\"D \[RightArrow] fg\"\>", "\<\" \"\>", "\<\" \"\>"}
-   },
-   AutoDelete->False,
-   Editable->False,
-   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
-   GridBoxItemSize->{"Columns" -> {{10}}}],
-  "Grid"]], "Output",
- CellChangeTimes->{
-  3.893776375741993*^9, {3.893776617372656*^9, 3.8937766434774323`*^9}},
- CellLabel->"Out[37]=",ExpressionUUID->"fff63b48-e1b2-4f9e-a846-524a24d56eba"]
-}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -49708,17 +49613,17 @@ Cell[BoxData[
   3.8937760858530684`*^9, 3.893776375765706*^9, {3.893776617389703*^9, 
    3.893776643495223*^9}},
  CellLabel->"Out[38]=",ExpressionUUID->"87d80251-bcf9-4dbf-9a14-f825af9135d2"]
-}, Open  ]],
+}, {2}]],
 
 Cell["\<\
 6. Infine, la produzione C \[RightArrow] \[Epsilon] sar\[AGrave] inserita \
 nelle colonne che corrispondono ai follow di C, ovvero \
-\[OpenCurlyDoubleQuote]$\[CloseCurlyDoubleQuote].
-\
+\[OpenCurlyDoubleQuote]$\[CloseCurlyDoubleQuote].\
 \>", "Text",
  CellChangeTimes->{{3.8935036908010426`*^9, 3.8935038150224113`*^9}, {
-  3.8935038720232644`*^9, 3.893504024489872*^9}, {3.8935040774471917`*^9, 
-  3.8935041008578577`*^9}},ExpressionUUID->"c9e7994a-55b3-4556-a764-\
+   3.8935038720232644`*^9, 3.893504024489872*^9}, {3.8935040774471917`*^9, 
+   3.8935041008578577`*^9}, 
+   3.8944252028903685`*^9},ExpressionUUID->"c9e7994a-55b3-4556-a764-\
 ff20210c1669"],
 
 Cell[CellGroupData[{
@@ -49792,7 +49697,7 @@ Cell[BoxData[
   3.893776098734178*^9, 3.893776375822624*^9, {3.893776617447908*^9, 
    3.893776643554861*^9}},
  CellLabel->"Out[39]=",ExpressionUUID->"cfb3a3a1-1176-4f19-ad7c-30c8f09af85d"]
-}, Open  ]]
+}, {2}]]
 }, Open  ]]
 }, Open  ]],
 
@@ -49819,7 +49724,14 @@ ed291a8c0cb7"],
 Cell["\<\
 Lo scopo dell\[CloseCurlyQuote]esercizio \[EGrave] generare gli insiemi \
 Nullable, First, Follow e completare la tabella di parsing, data una \
-grammatica.\
+grammatica.
+
+Ogni esercizio ha come insieme di non terminali l\[CloseCurlyQuote]insieme \
+{A, B, C, D}.
+L\[CloseCurlyQuote]insieme di terminali, invece, \[EGrave] composto dalle \
+lettere \[OpenCurlyDoubleQuote]a\[CloseCurlyDoubleQuote] fino a \
+\[OpenCurlyDoubleQuote]l\[CloseCurlyDoubleQuote].
+Il simbolo iniziale \[EGrave] sempre A.\
 \>", "Text",
  CellChangeTimes->{{3.89075151167789*^9, 3.890751511958028*^9}, {
   3.893496486082*^9, 3.8934964952599974`*^9}, {3.8934970401735535`*^9, 
@@ -49828,8 +49740,8 @@ grammatica.\
   3.8935024653558674`*^9}, {3.89350288360027*^9, 3.8935028871177573`*^9}, {
   3.893502992823063*^9, 3.8935031312451963`*^9}, {3.89359314590714*^9, 
   3.8935931547851343`*^9}, {3.893593199833945*^9, 3.8935932438559217`*^9}, {
-  3.8935998560921965`*^9, 
-  3.893599861549196*^9}},ExpressionUUID->"7e033b42-6f20-472c-a466-\
+  3.8935998560921965`*^9, 3.893599861549196*^9}, {3.8944288680796185`*^9, 
+  3.894428949917879*^9}},ExpressionUUID->"7e033b42-6f20-472c-a466-\
 db744604bc86"]
 }, Open  ]],
 
@@ -49845,33 +49757,42 @@ Cell["6.2 Funzionalit\[AGrave] dell\[CloseCurlyQuote]interfaccia", \
 def0e2054ae2"],
 
 Cell["\<\
-\[Bullet] Per generare un nuovo esercizio puoi cliccare su \
+\[Bullet] Per generare un nuovo esercizio clicca su \
 \[OpenCurlyDoubleQuote]Nuovo Esercizio\[CloseCurlyDoubleQuote] e te ne verr\
-\[AGrave] fornito uno interamente casuale oppure puoi inserire il numero di \
-un esercizio che vuoi svolgere (inserendo \[OpenCurlyDoubleQuote]0\
-\[CloseCurlyDoubleQuote] restituisce un nuovo esercizio casuale).
+\[AGrave] fornito uno interamente casuale.
+\[Bullet] Per rigenerare un esercizio che hai gi\[AGrave] visto inserisci il \
+numero dell\[CloseCurlyQuote]esercizio e clicca su \
+\[OpenCurlyDoubleQuote]Genera\[CloseCurlyDoubleQuote] (inserendo \
+\[OpenCurlyDoubleQuote]0\[CloseCurlyDoubleQuote] avrai un nuovo esercizio \
+casuale).
 \[Bullet] Per ogni non terminale devi scegliere se \[EGrave] nullable \
 cliccando sul quadratino.
 \[Bullet] Per generare l\[CloseCurlyQuote]insieme di First di ogni non \
 terminale, seleziona nella tabella i terminali che fanno parte dell\
-\[CloseCurlyQuote]insieme. Lo stesso procedimento si applica ai Follow.
-\[Bullet] Per completare la tabella seleziona prima la cella in cui vuoi \
-inserire la produzione e successivamente la produzione (scelta tra quelle \
-sotto la tabella).
+\[CloseCurlyQuote]insieme.
+\[Bullet] Lo stesso procedimento si applica ai Follow.
+\[Bullet] Per completare la tabella, seleziona prima la cella in cui vuoi \
+inserire la produzione e successivamente clicca sulla produzione (scelta tra \
+quelle sotto la tabella).
 \[Bullet] Se vuoi eliminare una produzione clicca su \
-\[OpenCurlyDoubleQuote]Svuota\[CloseCurlyDoubleQuote].
+\[OpenCurlyDoubleQuote]Svuota Cella\[CloseCurlyDoubleQuote].
+\[Bullet] Se vuoi ripulire tutta la tabella clicca su \
+\[OpenCurlyDoubleQuote]Svuota Tutto\[CloseCurlyDoubleQuote].
 \[Bullet] Per verificare la correttezza dell\[CloseCurlyQuote]esercizio \
 clicca su i pulsanti \[OpenCurlyDoubleQuote]Mostra Soluzione\
 \[CloseCurlyDoubleQuote] di ogni passaggio.
+
+Per aprire l\[CloseCurlyQuote]interfaccia clicca sul pulsante sottostante.
 \
 \>", "Text",
  CellChangeTimes->CompressedData["
-1:eJxTTMoPSmViYGAQAWIQ7bbxKxPr3zeOWiv+gel98w+FODK9dXwW+CIURB/o
+1:eJxTTMoPSmViYGAQA2IQ7bbxKxPr3zeOWiv+gel98w+FODK9dXwW+CIURB/o
 ZZ0Foo1mq4LpmTtk1oBo/zNyG0E0l9juSyD6jOnDhyD63oIZNi5A2iVZ2wFE
 Z5oWl4Do1Uceg+mOMKkmEL3sRvpkEM33cNL5YiBda37zI4iOiJ/5DUSf4j7P
 WAKkpVY9EwfRQRNMJEA0U4KNUC+QjmYJB9NtysvTQbTil8dZYPG3L4pBdItq
 bxmILjntNxlE7/pUPxVEG+XfMtkGpAVDX1iAaJ66a0kg+nTbqhQQbfTj4brd
-QFpl1rzNIJrt9uUnJ0H85C1PQfSmUzdkTwFpOUcFORANAFymk/A=
+QFpl1rzNIJrt9uUnJ0H85C1PQfSmUzdkTwFpOUcFORB9ojh2OQfLW0eJow7b
+QXRJfs8+EF3n7H8cRAMAulSg8Q==
   "],ExpressionUUID->"881feac8-f472-4b50-a222-2b1f9c2bdd06"],
 
 Cell[CellGroupData[{
@@ -49906,8 +49827,9 @@ Cell[BoxData[
    3.89377683095395*^9}, {3.893776923598577*^9, 3.893776978961193*^9}, {
    3.893777070784733*^9, 3.893777085815998*^9}, {3.8937771876546164`*^9, 
    3.893777190868189*^9}, {3.8937772761263227`*^9, 3.8937772779401217`*^9}, {
-   3.893777338000832*^9, 3.89377734220413*^9}},
- CellLabel->"In[54]:=",ExpressionUUID->"bd6adc6e-3164-453c-8bb7-4b2b8673844a"],
+   3.893777338000832*^9, 3.89377734220413*^9}, {3.8944252969908037`*^9, 
+   3.894425347182783*^9}},ExpressionUUID->"bd6adc6e-3164-453c-8bb7-\
+4b2b8673844a"],
 
 Cell[BoxData[
  ButtonBox["\<\"Genera Esercizio\"\>",
@@ -49920,12 +49842,7 @@ Cell[BoxData[
   Method->"Preemptive"]], "Output",
  CellChangeTimes->{3.893777279825561*^9, 3.893777342812674*^9},
  CellLabel->"Out[54]=",ExpressionUUID->"883d577c-33de-4fb5-819b-b1f0e6fe1273"]
-}, {2}]],
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.89377728213227*^9, 
-  3.893777285447625*^9}},ExpressionUUID->"f78e96df-6dee-4c32-b589-\
-4582cfad72c3"]
+}, {2}]]
 }, Open  ]]
 }, Open  ]],
 
@@ -49979,8 +49896,8 @@ Cell["VIII. Commenti e Lavoro Futuro", "Section",
 Cell["\<\
 L\[CloseCurlyQuote]obiettivo di questo progetto era quello di creare un \
 tutorial in Mathematica che potesse aiutare gli studenti di informatica a \
-capire meglio in cosa consiste l\[CloseCurlyQuote]analisi sintattica dei \
-compilatori e a costruire una tabella di parsing. 
+capire meglio in cosa consiste l\[CloseCurlyQuote]analisi sintattica e a \
+costruire una tabella di parsing. 
 
 Durante queste settimane abbiamo quindi creato un pacchetto che contenesse \
 tutte le funzioni necessarie per generare un esercizio e abbiamo scritto un \
@@ -50027,16 +49944,19 @@ aggiungendo esercizi appartenenti ad altre fasi della compilazione.\
   3.893649257449198*^9, 3.893649523254818*^9}, {3.89364957175797*^9, 
   3.8936495728152475`*^9}, {3.8936496776922584`*^9, 3.89364969902444*^9}, {
   3.8936497526488886`*^9, 3.8936497579579487`*^9}, {3.8936499649433813`*^9, 
-  3.89364996510808*^9}, {3.8936501336466885`*^9, 
-  3.8936501342979536`*^9}},ExpressionUUID->"fc5c28d2-a05a-4452-9829-\
+  3.89364996510808*^9}, {3.8936501336466885`*^9, 3.8936501342979536`*^9}, {
+  3.8944293390269685`*^9, 
+  3.8944293393765354`*^9}},ExpressionUUID->"fc5c28d2-a05a-4452-9829-\
 e1c8d0b78581"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{720, 847},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowSize->{1202.086956521739, 607.9304347826087},
+WindowMargins->{{-5.634782608695652, Automatic}, {-5.634782608695559, 
+   Automatic}},
 TaggingRules-><|"SlideshowSettings" -> <|"Toolbar" -> True|>|>,
-FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (January 30, 2023)",
+Magnification:>0.8 Inherited,
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"9658fb0a-0c2b-417f-b382-efd4f58f5443"
 ]
@@ -50052,159 +49972,153 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 198, 2, 200, "Title",ExpressionUUID->"5a1f2e26-4b6a-4ea3-9804-de30c40d3e08"],
-Cell[781, 26, 288, 4, 72, "Subtitle",ExpressionUUID->"bb67af07-e1ff-49b5-87b6-4fa053c91c67"],
-Cell[1072, 32, 540, 12, 87, "Text",ExpressionUUID->"2cdba1a7-404c-4d69-8992-032295e035a9"],
-Cell[1615, 46, 2946458, 48312, 299, "Text",ExpressionUUID->"90da8c64-7221-4ff8-9e7e-0f40f7788a67"],
-Cell[2948076, 48360, 705, 12, 123, "Text",ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
+Cell[580, 22, 198, 2, 78, "Title",ExpressionUUID->"5a1f2e26-4b6a-4ea3-9804-de30c40d3e08"],
+Cell[781, 26, 288, 4, 45, "Subtitle",ExpressionUUID->"bb67af07-e1ff-49b5-87b6-4fa053c91c67"],
+Cell[1072, 32, 540, 12, 56, "Text",ExpressionUUID->"2cdba1a7-404c-4d69-8992-032295e035a9"],
+Cell[1615, 46, 2946458, 48312, 177, "Text",ExpressionUUID->"90da8c64-7221-4ff8-9e7e-0f40f7788a67"],
+Cell[2948076, 48360, 705, 12, 44, "Text",ExpressionUUID->"9274d549-7f68-4c12-8069-8ce7ef4449e9"],
 Cell[CellGroupData[{
-Cell[2948806, 48376, 155, 3, 84, "Section",ExpressionUUID->"b994f387-a12f-4dc4-a2dc-dab7aa7f8d43"],
-Cell[2948964, 48381, 2416, 61, 738, "Text",ExpressionUUID->"2588153c-a80c-4091-ba49-2da0194dd30f"]
+Cell[2948806, 48376, 155, 3, 54, "Section",ExpressionUUID->"b994f387-a12f-4dc4-a2dc-dab7aa7f8d43"],
+Cell[2948964, 48381, 2416, 61, 496, "Text",ExpressionUUID->"2588153c-a80c-4091-ba49-2da0194dd30f"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2951417, 48447, 161, 3, 84, "Section",ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-8d79751a7c6a"],
-Cell[2951581, 48452, 2157, 32, 274, "Text",ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
+Cell[2951417, 48447, 161, 3, 54, "Section",ExpressionUUID->"65fbb34a-22dc-40c9-b3dd-8d79751a7c6a"],
+Cell[2951581, 48452, 1303, 25, 138, "Text",ExpressionUUID->"fb2c88f0-c1a6-4e3a-aa88-2663a01cd7f6"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2953775, 48489, 219, 4, 84, "Section",ExpressionUUID->"2064ed3a-6554-4335-b298-0e7d33e63446"],
+Cell[2952921, 48482, 219, 4, 54, "Section",ExpressionUUID->"2064ed3a-6554-4335-b298-0e7d33e63446"],
 Cell[CellGroupData[{
-Cell[2954019, 48497, 464, 7, 67, "Subsection",ExpressionUUID->"cff70c90-21a6-4a19-ad04-2134c5b48c8f"],
-Cell[2954486, 48506, 2901, 48, 476, "Text",ExpressionUUID->"831cc4ee-6cc3-429b-99df-c844d749d142"],
-Cell[2957390, 48556, 437, 10, 64, "DisplayFormula",ExpressionUUID->"2524ca1b-2af3-4218-b837-a3dbbb5a345a"],
-Cell[2957830, 48568, 1653, 29, 274, "Text",ExpressionUUID->"9595033e-f004-4aa0-aaf3-e50054ea31e4"],
-Cell[2959486, 48599, 654, 16, 33, "DisplayFormula",ExpressionUUID->"69efaa76-cd62-441d-9972-a5f803b9778b"],
-Cell[2960143, 48617, 249, 4, 44, "Text",ExpressionUUID->"7f70c12b-588f-4672-8e7c-ec43550a3389"],
-Cell[2960395, 48623, 350, 8, 33, "DisplayFormula",ExpressionUUID->"0863eee6-c5bf-4963-9fc5-b8476c0154a0"],
-Cell[2960748, 48633, 618, 12, 131, "Text",ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-c954cf4b54c2"]
+Cell[2953165, 48490, 464, 7, 43, "Subsection",ExpressionUUID->"cff70c90-21a6-4a19-ad04-2134c5b48c8f"],
+Cell[2953632, 48499, 2840, 48, 285, "Text",ExpressionUUID->"831cc4ee-6cc3-429b-99df-c844d749d142"],
+Cell[2956475, 48549, 437, 10, 38, "DisplayFormula",ExpressionUUID->"2524ca1b-2af3-4218-b837-a3dbbb5a345a"],
+Cell[2956915, 48561, 1639, 30, 156, "Text",ExpressionUUID->"9595033e-f004-4aa0-aaf3-e50054ea31e4"],
+Cell[2958557, 48593, 654, 16, 19, "DisplayFormula",ExpressionUUID->"69efaa76-cd62-441d-9972-a5f803b9778b"],
+Cell[2959214, 48611, 249, 4, 28, "Text",ExpressionUUID->"7f70c12b-588f-4672-8e7c-ec43550a3389"],
+Cell[2959466, 48617, 350, 8, 19, "DisplayFormula",ExpressionUUID->"0863eee6-c5bf-4963-9fc5-b8476c0154a0"],
+Cell[2959819, 48627, 611, 12, 64, "Text",ExpressionUUID->"caeb19c3-fba8-4ba8-bc24-c954cf4b54c2"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2961403, 48650, 356, 5, 67, "Subsection",ExpressionUUID->"6005e3bd-6347-4db0-bc5d-0a01aa95e20e"],
-Cell[2961762, 48657, 1894, 32, 274, "Text",ExpressionUUID->"8035951f-3f95-47fc-ac68-058de01754a0"],
-Cell[2963659, 48691, 262, 6, 35, "DisplayFormula",ExpressionUUID->"39118365-7d5b-43e3-99e3-3a4a14fab024"],
-Cell[2963924, 48699, 529, 11, 131, "Text",ExpressionUUID->"aa978665-5369-4964-8987-c2ef01f4a074"],
-Cell[2964456, 48712, 437, 10, 64, "DisplayFormula",ExpressionUUID->"70d3cb79-035d-4602-a991-5bbac7d44173"],
-Cell[2964896, 48724, 608, 10, 44, "Text",ExpressionUUID->"c9a3dd01-cb85-4389-b684-97695488f56f"]
+Cell[2960467, 48644, 356, 5, 43, "Subsection",ExpressionUUID->"6005e3bd-6347-4db0-bc5d-0a01aa95e20e"],
+Cell[2960826, 48651, 2005, 36, 248, "Text",ExpressionUUID->"8035951f-3f95-47fc-ac68-058de01754a0"],
+Cell[2962834, 48689, 262, 6, 21, "DisplayFormula",ExpressionUUID->"39118365-7d5b-43e3-99e3-3a4a14fab024"],
+Cell[2963099, 48697, 241, 7, 46, "Text",ExpressionUUID->"aa978665-5369-4964-8987-c2ef01f4a074"],
+Cell[2963343, 48706, 463, 10, 38, "DisplayFormula",ExpressionUUID->"70d3cb79-035d-4602-a991-5bbac7d44173"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2965541, 48739, 359, 6, 67, "Subsection",ExpressionUUID->"73ab1766-7a53-4bec-9f86-2a2fc07d233a"],
-Cell[2965903, 48747, 628, 10, 102, "Text",ExpressionUUID->"014820bb-6df9-460d-9b5a-895efe595162"],
-Cell[2966534, 48759, 386, 9, 64, "DisplayFormula",ExpressionUUID->"b26faa46-5045-4df5-9970-7e09dcd51d36"],
-Cell[2966923, 48770, 2582, 51, 667, "Text",ExpressionUUID->"5d9d7106-8588-4618-8e0f-c9d98b41818f"]
+Cell[2963843, 48721, 359, 6, 43, "Subsection",ExpressionUUID->"73ab1766-7a53-4bec-9f86-2a2fc07d233a"],
+Cell[2964205, 48729, 610, 11, 64, "Text",ExpressionUUID->"014820bb-6df9-460d-9b5a-895efe595162"],
+Cell[2964818, 48742, 386, 9, 38, "DisplayFormula",ExpressionUUID->"b26faa46-5045-4df5-9970-7e09dcd51d36"],
+Cell[2965207, 48753, 2507, 50, 372, "Text",ExpressionUUID->"5d9d7106-8588-4618-8e0f-c9d98b41818f"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2969554, 48827, 159, 3, 84, "Section",ExpressionUUID->"0646fb6f-37b6-4ed3-957d-29a0728cc53c"],
+Cell[2967763, 48809, 159, 3, 54, "Section",ExpressionUUID->"0646fb6f-37b6-4ed3-957d-29a0728cc53c"],
 Cell[CellGroupData[{
-Cell[2969738, 48834, 422, 7, 67, "Subsection",ExpressionUUID->"fdf434a1-9f32-4214-b7fb-b421dfb429f1"],
-Cell[2970163, 48843, 1095, 20, 188, "Text",ExpressionUUID->"69ad39df-ffb3-451b-9784-d3cfc8adfd86"]
+Cell[2967947, 48816, 422, 7, 43, "Subsection",ExpressionUUID->"fdf434a1-9f32-4214-b7fb-b421dfb429f1"],
+Cell[2968372, 48825, 1095, 20, 120, "Text",ExpressionUUID->"69ad39df-ffb3-451b-9784-d3cfc8adfd86"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2971295, 48868, 320, 5, 67, "Subsection",ExpressionUUID->"0bf6c4da-1221-4b0a-969c-c598692c2e8e"],
-Cell[2971618, 48875, 1375, 22, 246, "Text",ExpressionUUID->"957dcab2-83cb-44a3-801e-0bef065d6273"]
+Cell[2969504, 48850, 320, 5, 43, "Subsection",ExpressionUUID->"0bf6c4da-1221-4b0a-969c-c598692c2e8e"],
+Cell[2969827, 48857, 1432, 23, 193, "Text",ExpressionUUID->"957dcab2-83cb-44a3-801e-0bef065d6273"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2973030, 48902, 314, 5, 67, "Subsection",ExpressionUUID->"890f2930-b3cd-4a49-8261-5a17ca97376b"],
-Cell[2973347, 48909, 1574, 26, 533, "Text",ExpressionUUID->"bcd51cd4-9be4-41fe-b942-57f9f01a9f4f"]
+Cell[2971296, 48885, 314, 5, 43, "Subsection",ExpressionUUID->"890f2930-b3cd-4a49-8261-5a17ca97376b"],
+Cell[2971613, 48892, 1574, 26, 322, "Text",ExpressionUUID->"bcd51cd4-9be4-41fe-b942-57f9f01a9f4f"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2974970, 48941, 159, 3, 84, "Section",ExpressionUUID->"b775610c-d517-4bd7-870f-1f6c36027a95"],
+Cell[2973236, 48924, 159, 3, 54, "Section",ExpressionUUID->"b775610c-d517-4bd7-870f-1f6c36027a95"],
 Cell[CellGroupData[{
-Cell[2975154, 48948, 468, 7, 67, "Subsection",ExpressionUUID->"e59a435c-60ac-4a6e-a5c7-e9b47ccff390"],
-Cell[2975625, 48957, 1537, 24, 188, "Text",ExpressionUUID->"5432960b-69a3-4ff1-b477-24c6de744c30"]
+Cell[2973420, 48931, 468, 7, 43, "Subsection",ExpressionUUID->"e59a435c-60ac-4a6e-a5c7-e9b47ccff390"],
+Cell[2973891, 48940, 1239, 20, 46, "Text",ExpressionUUID->"5432960b-69a3-4ff1-b477-24c6de744c30"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2977199, 48986, 345, 5, 67, "Subsection",ExpressionUUID->"46fa9c89-32bd-4862-8ff1-2f9fe1f19c32"],
-Cell[2977547, 48993, 2217, 36, 389, "Text",ExpressionUUID->"86f53269-f156-4951-9a9c-4ad530f4d153"]
+Cell[2975167, 48965, 345, 5, 43, "Subsection",ExpressionUUID->"46fa9c89-32bd-4862-8ff1-2f9fe1f19c32"],
+Cell[2975515, 48972, 2288, 39, 248, "Text",ExpressionUUID->"86f53269-f156-4951-9a9c-4ad530f4d153"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2979801, 49034, 339, 5, 67, "Subsection",ExpressionUUID->"c0435769-f0c6-4cbf-b20d-cbba7ad36a95"],
-Cell[2980143, 49041, 1469, 23, 648, "Text",ExpressionUUID->"2d2db8be-b1d3-434e-b2b6-5f0c3638bd78"]
+Cell[2977840, 49016, 339, 5, 43, "Subsection",ExpressionUUID->"c0435769-f0c6-4cbf-b20d-cbba7ad36a95"],
+Cell[2978182, 49023, 1469, 23, 414, "Text",ExpressionUUID->"2d2db8be-b1d3-434e-b2b6-5f0c3638bd78"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2981661, 49070, 157, 3, 84, "Section",ExpressionUUID->"4cc23520-cbfd-4a13-87ee-e5eded1b04bd"],
+Cell[2979700, 49052, 157, 3, 54, "Section",ExpressionUUID->"4cc23520-cbfd-4a13-87ee-e5eded1b04bd"],
 Cell[CellGroupData[{
-Cell[2981843, 49077, 421, 7, 67, "Subsection",ExpressionUUID->"e722abd7-c646-4038-b81d-a9f41e2cd661"],
-Cell[2982267, 49086, 791, 15, 131, "Text",ExpressionUUID->"ef855798-cad4-4986-ab62-63ba9c256773"]
+Cell[2979882, 49059, 421, 7, 43, "Subsection",ExpressionUUID->"e722abd7-c646-4038-b81d-a9f41e2cd661"],
+Cell[2980306, 49068, 671, 12, 46, "Text",ExpressionUUID->"ef855798-cad4-4986-ab62-63ba9c256773"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2983095, 49106, 371, 6, 67, "Subsection",ExpressionUUID->"e7ccc2a3-87a4-40d1-b1f4-391cf4060341"],
-Cell[2983469, 49114, 1948, 35, 389, "Text",ExpressionUUID->"4a39c3d8-0e4f-4355-872a-f8ff9dd5054c"]
+Cell[2981014, 49085, 371, 6, 43, "Subsection",ExpressionUUID->"e7ccc2a3-87a4-40d1-b1f4-391cf4060341"],
+Cell[2981388, 49093, 2047, 37, 267, "Text",ExpressionUUID->"4a39c3d8-0e4f-4355-872a-f8ff9dd5054c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2985454, 49154, 367, 6, 67, "Subsection",ExpressionUUID->"40f29717-1677-4d9f-96fe-4b0a0b81e7ab"],
-Cell[2985824, 49162, 1793, 28, 734, "Text",ExpressionUUID->"004136ee-b984-48d9-b4c0-82c7bb846a9d"]
+Cell[2983472, 49135, 367, 6, 43, "Subsection",ExpressionUUID->"40f29717-1677-4d9f-96fe-4b0a0b81e7ab"],
+Cell[2983842, 49143, 1793, 28, 469, "Text",ExpressionUUID->"004136ee-b984-48d9-b4c0-82c7bb846a9d"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2987666, 49196, 219, 4, 84, "Section",ExpressionUUID->"8128f560-56af-4906-b20e-f0eb5cee469c"],
+Cell[2985684, 49177, 219, 4, 54, "Section",ExpressionUUID->"8128f560-56af-4906-b20e-f0eb5cee469c"],
 Cell[CellGroupData[{
-Cell[2987910, 49204, 351, 5, 67, "Subsection",ExpressionUUID->"61129019-4c6b-42e5-ba5e-736ca23b4903"],
-Cell[2988264, 49211, 1037, 19, 188, "Text",ExpressionUUID->"ea103078-fabb-4a01-8320-03e9c65139dc"]
+Cell[2985928, 49185, 351, 5, 43, "Subsection",ExpressionUUID->"61129019-4c6b-42e5-ba5e-736ca23b4903"],
+Cell[2986282, 49192, 840, 15, 64, "Text",ExpressionUUID->"ea103078-fabb-4a01-8320-03e9c65139dc"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2989338, 49235, 322, 5, 67, "Subsection",ExpressionUUID->"fa22868b-75e1-427f-a7c3-158c9ffb1128"],
-Cell[2989663, 49242, 1388, 25, 246, "Text",ExpressionUUID->"9f5568fa-f41f-4c2a-8683-9cd3fe560f1c"]
+Cell[2987159, 49212, 322, 5, 43, "Subsection",ExpressionUUID->"fa22868b-75e1-427f-a7c3-158c9ffb1128"],
+Cell[2987484, 49219, 1438, 29, 212, "Text",ExpressionUUID->"9f5568fa-f41f-4c2a-8683-9cd3fe560f1c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2991088, 49272, 259, 4, 67, "Subsection",ExpressionUUID->"641097da-573a-409d-a974-74e1676aee23"],
-Cell[2991350, 49278, 929, 16, 677, "Text",ExpressionUUID->"386cf907-739f-48b3-9a68-1a2fd12fd54a"],
-Cell[2992282, 49296, 957, 18, 141, "Output",ExpressionUUID->"beb19a4b-ccba-422a-8a4f-3c7a7e1e7d41"],
-Cell[2993242, 49316, 354, 8, 73, "Text",ExpressionUUID->"6f05de30-7087-4357-9e3b-c38102986959"],
+Cell[2988959, 49253, 259, 4, 43, "Subsection",ExpressionUUID->"641097da-573a-409d-a974-74e1676aee23"],
+Cell[2989221, 49259, 956, 16, 414, "Text",ExpressionUUID->"386cf907-739f-48b3-9a68-1a2fd12fd54a"],
+Cell[2990180, 49277, 957, 18, 92, "Output",ExpressionUUID->"beb19a4b-ccba-422a-8a4f-3c7a7e1e7d41"],
+Cell[2991140, 49297, 375, 7, 28, "Text",ExpressionUUID->"6f05de30-7087-4357-9e3b-c38102986959"],
 Cell[CellGroupData[{
-Cell[2993621, 49328, 1930, 41, 116, "Input",ExpressionUUID->"14340e13-c366-4e4d-9b0d-ec4838aab696"],
-Cell[2995554, 49371, 1071, 21, 141, "Output",ExpressionUUID->"fee26fda-04c6-408a-83f0-298f226f3773"]
-}, Open  ]],
-Cell[2996640, 49395, 261, 7, 73, "Text",ExpressionUUID->"348b998a-3fb5-4ba7-bc04-71849f5e1436"],
-Cell[CellGroupData[{
-Cell[2996926, 49406, 1990, 41, 116, "Input",ExpressionUUID->"8a02b35b-2d32-4cf3-bde3-6c710d0e0848"],
-Cell[2998919, 49449, 1119, 21, 143, "Output",ExpressionUUID->"3f2a4342-92d6-4f60-a408-6811bc81eed0"]
-}, Open  ]],
-Cell[3000053, 49473, 530, 11, 73, "Text",ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-33056bd7db1f"],
-Cell[CellGroupData[{
-Cell[3000608, 49488, 2005, 41, 116, "Input",ExpressionUUID->"7af0bdd1-3916-4db0-82f7-5b8f335e7563"],
-Cell[3002616, 49531, 1139, 22, 143, "Output",ExpressionUUID->"d4e07369-2330-4e11-be18-58b14a3a0fd1"]
-}, Open  ]],
-Cell[3003770, 49556, 390, 9, 73, "Text",ExpressionUUID->"185bc883-8a01-4012-8428-eaaea821465d"],
-Cell[CellGroupData[{
-Cell[3004185, 49569, 2210, 45, 90, "Input",ExpressionUUID->"e47078be-230e-4da9-a28c-810e3bc24e17"],
-Cell[3006398, 49616, 1117, 22, 143, "Output",ExpressionUUID->"fff63b48-e1b2-4f9e-a846-524a24d56eba"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3007552, 49643, 2031, 41, 116, "Input",ExpressionUUID->"386e5fff-53b5-4dd7-b881-88842941d14f"],
-Cell[3009586, 49686, 1167, 23, 143, "Output",ExpressionUUID->"87d80251-bcf9-4dbf-9a14-f825af9135d2"]
-}, Open  ]],
-Cell[3010768, 49712, 438, 9, 73, "Text",ExpressionUUID->"c9e7994a-55b3-4556-a764-ff20210c1669"],
-Cell[CellGroupData[{
-Cell[3011231, 49725, 2064, 42, 116, "Input",ExpressionUUID->"3f905bbb-5d3e-4a02-8495-4b9f2e7cacbb"],
-Cell[3013298, 49769, 1192, 24, 143, "Output",ExpressionUUID->"cfb3a3a1-1176-4f19-ad7c-30c8f09af85d"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3014551, 49800, 406, 6, 84, "Section",ExpressionUUID->"eb32614a-c831-4e59-a181-6bf7143953e4"],
-Cell[CellGroupData[{
-Cell[3014982, 49810, 389, 6, 67, "Subsection",ExpressionUUID->"fc5ba514-8d0f-48f9-b0c1-ed291a8c0cb7"],
-Cell[3015374, 49818, 800, 14, 73, "Text",ExpressionUUID->"7e033b42-6f20-472c-a466-db744604bc86"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3016211, 49837, 406, 7, 67, "Subsection",ExpressionUUID->"727c5907-b622-42ee-872d-def0e2054ae2"],
-Cell[3016620, 49846, 1602, 28, 476, "Text",ExpressionUUID->"881feac8-f472-4b50-a222-2b1f9c2bdd06"],
-Cell[CellGroupData[{
-Cell[3018247, 49878, 1693, 31, 220, "Input",ExpressionUUID->"bd6adc6e-3164-453c-8bb7-4b2b8673844a"],
-Cell[3019943, 49911, 446, 10, 56, "Output",ExpressionUUID->"883d577c-33de-4fb5-819b-b1f0e6fe1273"]
+Cell[2991540, 49308, 1930, 41, 69, "Input",ExpressionUUID->"14340e13-c366-4e4d-9b0d-ec4838aab696"],
+Cell[2993473, 49351, 1071, 21, 93, "Output",ExpressionUUID->"fee26fda-04c6-408a-83f0-298f226f3773"]
 }, {2}]],
-Cell[3020401, 49924, 151, 3, 37, "Input",ExpressionUUID->"f78e96df-6dee-4c32-b589-4582cfad72c3"]
+Cell[2994556, 49375, 283, 6, 28, "Text",ExpressionUUID->"348b998a-3fb5-4ba7-bc04-71849f5e1436"],
+Cell[CellGroupData[{
+Cell[2994864, 49385, 1990, 41, 69, "Input",ExpressionUUID->"8a02b35b-2d32-4cf3-bde3-6c710d0e0848"],
+Cell[2996857, 49428, 1119, 21, 95, "Output",ExpressionUUID->"3f2a4342-92d6-4f60-a408-6811bc81eed0"]
+}, {2}]],
+Cell[2997988, 49452, 559, 11, 28, "Text",ExpressionUUID->"8a1a9d3f-b1e9-4792-8a1c-33056bd7db1f"],
+Cell[CellGroupData[{
+Cell[2998572, 49467, 2005, 41, 69, "Input",ExpressionUUID->"7af0bdd1-3916-4db0-82f7-5b8f335e7563"],
+Cell[3000580, 49510, 1139, 22, 95, "Output",ExpressionUUID->"d4e07369-2330-4e11-be18-58b14a3a0fd1"]
+}, {2}]],
+Cell[3001731, 49535, 455, 9, 28, "Text",ExpressionUUID->"185bc883-8a01-4012-8428-eaaea821465d"],
+Cell[CellGroupData[{
+Cell[3002211, 49548, 2031, 41, 69, "Input",ExpressionUUID->"386e5fff-53b5-4dd7-b881-88842941d14f"],
+Cell[3004245, 49591, 1167, 23, 95, "Output",ExpressionUUID->"87d80251-bcf9-4dbf-9a14-f825af9135d2"]
+}, {2}]],
+Cell[3005424, 49617, 467, 9, 28, "Text",ExpressionUUID->"c9e7994a-55b3-4556-a764-ff20210c1669"],
+Cell[CellGroupData[{
+Cell[3005916, 49630, 2064, 42, 69, "Input",ExpressionUUID->"3f905bbb-5d3e-4a02-8495-4b9f2e7cacbb"],
+Cell[3007983, 49674, 1192, 24, 95, "Output",ExpressionUUID->"cfb3a3a1-1176-4f19-ad7c-30c8f09af85d"]
+}, {2}]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3020601, 49933, 274, 4, 84, "Section",ExpressionUUID->"b2b4837b-fa5c-444f-a236-91bdca30cda9"],
-Cell[3020878, 49939, 1324, 27, 303, "Text",ExpressionUUID->"ea59365b-32a6-4981-a1b6-5780175d3c7e"]
+Cell[3009233, 49705, 406, 6, 54, "Section",ExpressionUUID->"eb32614a-c831-4e59-a181-6bf7143953e4"],
+Cell[CellGroupData[{
+Cell[3009664, 49715, 389, 6, 43, "Subsection",ExpressionUUID->"fc5ba514-8d0f-48f9-b0c1-ed291a8c0cb7"],
+Cell[3010056, 49723, 1172, 21, 101, "Text",ExpressionUUID->"7e033b42-6f20-472c-a466-db744604bc86"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3022239, 49971, 327, 5, 84, "Section",ExpressionUUID->"e500173f-e44a-4dc9-be86-3fd82f12e23e"],
-Cell[3022569, 49978, 3378, 53, 1137, "Text",ExpressionUUID->"fc5c28d2-a05a-4452-9829-e1c8d0b78581"]
+Cell[3011265, 49749, 406, 7, 43, "Subsection",ExpressionUUID->"727c5907-b622-42ee-872d-def0e2054ae2"],
+Cell[3011674, 49758, 1968, 37, 230, "Text",ExpressionUUID->"881feac8-f472-4b50-a222-2b1f9c2bdd06"],
+Cell[CellGroupData[{
+Cell[3013667, 49799, 1723, 32, 130, "Input",ExpressionUUID->"bd6adc6e-3164-453c-8bb7-4b2b8673844a"],
+Cell[3015393, 49833, 446, 10, 33, "Output",ExpressionUUID->"883d577c-33de-4fb5-819b-b1f0e6fe1273"]
+}, {2}]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3015897, 49850, 274, 4, 54, "Section",ExpressionUUID->"b2b4837b-fa5c-444f-a236-91bdca30cda9"],
+Cell[3016174, 49856, 1324, 27, 101, "Text",ExpressionUUID->"ea59365b-32a6-4981-a1b6-5780175d3c7e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3017535, 49888, 327, 5, 54, "Section",ExpressionUUID->"e500173f-e44a-4dc9-be86-3fd82f12e23e"],
+Cell[3017865, 49895, 3415, 54, 304, "Text",ExpressionUUID->"fc5c28d2-a05a-4452-9829-e1c8d0b78581"]
 }, Open  ]]
 }, Open  ]]
 }
