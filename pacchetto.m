@@ -687,8 +687,8 @@ col[n0_] := Module[{n = n0}, Mod[n-1,cols]+1]
 xy[n0_] := Module[{n = n0}, {row[n],col[n]}]
 
 
-(*Funzione che preso in input un seed genera la manipulate*)
-
+(*Funzione che preso in input un seed genera la manipulate, possiamo chiamare questa funzione senza alcun parametro, in questo 
+caso genera un esercizio random*)
 GenerazioneInterfaccia[seed0_] :=
   Module[{seed = seed0},
     showNullable = False;
@@ -697,6 +697,8 @@ GenerazioneInterfaccia[seed0_] :=
     showSolution = False;
     num = seed;
     interface =
+    
+    (*Creazione di una Manipulate in cui l'espressione \[EGrave] una Grid contente l'intero esercizio *)
       Manipulate[
         Grid[
           {
@@ -714,10 +716,12 @@ GenerazioneInterfaccia[seed0_] :=
                       Button[
                         "Nuovo Esercizio",
                         (
+                        (*Al clic del bottone viene generata una nuova grammatica con seed random, settiamo il cursor a zero 
+                        se assicurarci che nessuna sia selezionata  *)
                           cursor = 0;
                           Spacer[5];
+                          (*? perch\[EGrave] prima di richiamare GenerazioneEsercizio creiamo una emptyGrammar?*)
                           emptyGrammar = createEmptyGrammar[soluzione];
-                           (*Al clic del bottone viene generata una nuova grammatica con seed random*)
                           GenerazioneEsercizio[];
                         ), ImageSize -> {Automatic},
                           BaseStyle -> {FontSize -> 15}
@@ -735,6 +739,7 @@ GenerazioneInterfaccia[seed0_] :=
                                   Dynamic[
                                     parametro,
                                     If[NumberQ[#],
+                                    (*Prendiamo il valore assoluto del numero per prevenire il caso in cui l'utente inserisca valori negativi*)
                                       parametro = Abs[#]]&
                                   ],
                                   Number,
@@ -743,11 +748,14 @@ GenerazioneInterfaccia[seed0_] :=
                             Spacer[4],
                             Button[
                               "Genera",
+                              (*Controlliamo che il parametro sia compreso nel range 0-10000*)
                               If[parametro != "" && 0 <= parametro <= 10000,
+                              (*Caso in cui l'utente abbia inserito un valore valido generiamo l' esercizio richiesto *)
                                 cursor = 0;
                                 emptyGrammar = createEmptyGrammar[soluzione];
                                 (*Al clic del bottone viene generata una nuova grammatica con seed preso da tastiera*)
                                 GenerazioneEsercizio[parametro];,
+                                (*Messaggio di diagolo nel caso in cui l'utente non abbia inserito un valore valido *)
                                 MessageDialog["Inserire un valore compreso fra 1 e 10000"
                                   ]
                               ],
@@ -760,10 +768,11 @@ GenerazioneInterfaccia[seed0_] :=
                     }
                   ],
                   " ",
+                  (*All'interno di una riga viene mostrata la grammatica. la funzione displatyGrammatic \[EGrave] una Grid*)
                   Row[{Column[{Style["GRAMMATICA", Bold, FontSize -> 
                     17], displayGrammatica[grammatica]}, Alignment -> Left]}],
                   " ",
-                  (*NULLABLE*)
+                  (*Sezione che mostra i NULLABLE*)
                   Row[
                     {
                       Column[
@@ -792,7 +801,7 @@ GenerazioneInterfaccia[seed0_] :=
                     }
                   ],
                   " ",
-                  (*FIRST*)
+                  (*Sezione che mostra i FIRST*)
                   Row[
                     {
                       Column[
@@ -820,7 +829,7 @@ GenerazioneInterfaccia[seed0_] :=
                     }
                   ],
                   " ",
-                  (*FOLLOW*)
+                  (*Sezione che mostra i FOLLOW*)
                   Row[
                     {
                       Column[
@@ -849,7 +858,7 @@ GenerazioneInterfaccia[seed0_] :=
                     }
                   ],
                   " ",
-                  (*TABLE*)
+                  (*Sezione che mostra la TABELLA dell'esercizio*)
                   Row[
                     {
                       Column[
@@ -875,15 +884,22 @@ GenerazioneInterfaccia[seed0_] :=
                               )
                           ],
                           Row[
-						     (*Viene creata una serie di bottoni ciascuno indicante una delle produzioni della grammatica generata.*) 
+						     (*Viene creata una serie di bottoni ciascuno indicante una delle produzioni della grammatica generata.
+						     l'aggiunta di With[{i = i}] alll'interno di Table permette di salvare il valore di "i" all'interno dell'azione del
+						     bottone. "i" va da 1 fino alla lunghezza di "listaProduzioi"*) 
 						     Table[With[{i = i},
                                 Button[
                                   listaProduzioni[[i]],
                                   If[cursor > 0,
-                                    emptyGrammar[[xy[cursor][[1]], xy[
-                                      cursor][[2]]]] = listaProduzioni[[i]];
-                                      (*Controllo che la produzione inserita nella cella sia nella posizione corretta.
-                                        In caso contrario viene eseguito un Beep.*)
+                                    (*Grazie a With[{i = i}] possiamo accedere all'iesimo elemento in listaProduzione e andarlo a inserire all'interno 
+                                    di emptyGrammar nella posizione cliccata dall'utente. 
+                                    xy[cursor] restituisce la riga e colonna della cella "cursor" che \[EGrave] stata selezionata
+                                    Attraverso xy[cursor][[1]] accediamo alla riga 
+                                   Attraverso xy[cursor][[2]] accediamo alla colonna  *)
+                               
+                                  emptyGrammar[[xy[cursor][[1]], xy[ cursor][[2]]]] = listaProduzioni[[i]];
+                                  
+                                  (*Controllo che la produzione inserita nella cella sia nella posizione corretta. In caso contrario viene eseguito un Beep.*)
                                     If[emptyGrammar[[xy[cursor][[1]],xy[cursor][[2]]]] != soluzione[[xy[cursor][[1]], xy[cursor][[2]]]],
                                         Beep[]
                                     ]
@@ -891,6 +907,7 @@ GenerazioneInterfaccia[seed0_] :=
                                 BaseStyle -> {FontSize -> 15}
                                 ]
                               ],
+                              (*"i" che va da 1 fino alla lunghezza di "listaProduzioi"*)
                               {i, 1, Length[listaProduzioni]}
                             ],
                             Spacer[0.4]
@@ -900,8 +917,10 @@ GenerazioneInterfaccia[seed0_] :=
                          (*Bottone che permette di svuotare il contenuto di una singola cella*)
                          Button["Svuota Cella",
                                 If[cursor > 0,
-                                  emptyGrammar[[xy[cursor][[1]], xy[cursor
-                                    ][[2]]]] = " "
+                                (*xy[cursor] restituisce la riga e colonna della cella "cursor" che \[EGrave] stata selezionata
+                                Attraverso xy[cursor][[1]] accediamo alla riga 
+                                Attraverso xy[cursor][[2]] accediamo alla colonna  *)
+                                  emptyGrammar[[xy[cursor][[1]], xy[cursor][[2]]]] = " "
                                 ],ImageSize -> {Automatic},
                               BaseStyle -> {FontSize -> 15}],
                               " ",
@@ -940,6 +959,9 @@ GenerazioneInterfaccia[seed0_] :=
           },
           Editable -> False
         ],
+        (*"emptyNullableCheckbox" "emptyFirstCheckbox"  "emptyFollowCheckbox" "emptyGrammar" "cursor"
+        sono i controlli della Manipulate per\[OGrave] in questo caso settando ControlType a None non viene effettuato 
+        nessun conrollo *)
         {{emptyNullableCheckbox, createEmptyNullableCheckbox[nullable]}, ControlType -> None},
         {{emptyFirstCheckbox, createEmptyFirstFollowCheckbox[soluzione,True]}, ControlType -> None},
         {{emptyFollowCheckbox, createEmptyFirstFollowCheckbox[soluzione,False]}, ControlType -> None},
