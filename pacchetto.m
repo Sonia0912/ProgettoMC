@@ -692,10 +692,10 @@ caso genera un esercizio random*)
 GenerazioneInterfaccia[seed0_] :=
   Module[{seed = seed0},
     showNullableSln = False;
-    
+    showFirstSln = False;
+    showFollowSln = False;
     (*Nuovo per espandere l'intero esercizio nullable*)
     showNullable = False;
-    
     showFirst = False;
     showFollow = False;
     showSolution = False;
@@ -777,20 +777,17 @@ GenerazioneInterfaccia[seed0_] :=
                     17], displayGrammatica[grammatica]}, Alignment -> Left]}],
                   " ",
                   (*Sezione che mostra i NULLABLE*)
-                  
                   Column[
                     {
-                    Style["NULLABLE", Bold, FontSize -> 17],
+                      (*L'intero esercizio nullable \[EGrave] mostrato al click di prova esercizio*)
+                   Button["Nullable",
+                      showNullable = Not[showNullable], 
+                      ImageSize -> {Automatic},
+                      BaseStyle -> {FontSize -> 15}],
+                    (*Style["NULLABLE", Bold, FontSize -> 17],*)
                     Framed["Un non terminale \[EGrave] nullable se pu\[OGrave] produrre una stringa vuota (\[Epsilon]). Seleziona i non terminali nullable.",
                     FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top], 
-                    
-                   (*L'intero esercizio nullable \[EGrave] mostrato al click di prova esercizio*)
-                   Button["Prova l'esercizio", 
-                      showNullable = Not[showNullable],
-                      ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}], 
-                   " ", 
-                             
+                   " ",     
                    Dynamic[
                    If[showNullable,
                       Column[{
@@ -822,42 +819,53 @@ GenerazioneInterfaccia[seed0_] :=
                   (*Sezione che mostra i FIRST*)
                   Column[
                     {
-                    Style["FIRST", Bold, FontSize -> 17],
+                   Button["First",
+                      showFirst = Not[showFirst], 
+                      ImageSize -> {Automatic},
+                      BaseStyle -> {FontSize -> 15}],
                           Framed["Dato un non terminale (ad esempio A,B), il suo insieme First \[EGrave] composto dai simboli terminali (compreso \[Epsilon])\nche possono apparire come carattere iniziale di una stringa derivata da una sua produzione.",
                           FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],
+                          " ",
+                  Dynamic[
+                   If[showFirst,        
+                  Column[{
                     Row[
                         {
                           displayFirstFollow[emptyFirstCheckbox],
                           "   ",
                           Dynamic[
-                            If[showFirst,
+                            If[showFirstSln,
                               Column[{Style["Soluzione First", Bold],
                                  displayFirstFollow[first]}, Alignment -> Left],
                               " "]
                           ]                          
                         },
-                        Alignment -> Left
-                      ], " ",
+                        Alignment -> Left],
                      (*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli First*)
                       Button["Mostra Soluzione First", 
-                      showFirst = Not[showFirst],
+                      showFirstSln = Not[showFirstSln],
                       ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}]
-                    }
-                  ],
+                      BaseStyle -> {FontSize -> 15}]}],""]
+                  ]}],
                   " ",
                   (*Sezione che mostra i FOLLOW*)
                   Column[
                     {
-                    Style["FOLLOW", Bold, FontSize -> 17],
+                   Button["Follow",
+                      showFollow = Not[showFollow], 
+                      ImageSize -> {Automatic},
+                      BaseStyle -> {FontSize -> 15}],
                           Framed["Dato un non terminale, il suo insieme Follow \[EGrave] composto dai simboli terminali (e dal simbolo $)\nche possono apparire immediatamente dopo il non terminale in qualsiasi derivazione valida.",
                              FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],
+                 Dynamic[   
+                   If[showFollow, 
+                   Column[{      
                     Row[
                       {
                         displayFirstFollow[emptyFollowCheckbox],
                         "   ", 
                         Dynamic[
-                            If[showFollow,
+                            If[showFollowSln,
                               Column[{Style["Soluzione Follow", Bold],
                               displayFirstFollow[follow]}, Alignment -> Left],
                               ""
@@ -865,12 +873,12 @@ GenerazioneInterfaccia[seed0_] :=
                           ]
                         },
                         Alignment -> Left
-                      ], " ",
+                      ],
                       (*Al clic del bottone viene mostrata la tabella con la soluzione per i simboli Follow*)
                       Button["Mostra Soluzione Follow", 
-                      showFollow = Not[showFollow], 
+                      showFollowSln = Not[showFollowSln], 
                       ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}]
+                      BaseStyle -> {FontSize -> 15}]}], ""] ]
                     }
                   ],
                   " ",
