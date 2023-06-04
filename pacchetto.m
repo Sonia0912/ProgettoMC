@@ -694,7 +694,7 @@ GenerazioneInterfaccia[seed0_] :=
     showNullableSln = False;
     showFirstSln = False;
     showFollowSln = False;
-    (*Nuovo per espandere l'intero esercizio nullable*)
+    
     showNullable = False;
     showFirst = False;
     showFollow = False;
@@ -1030,42 +1030,6 @@ GenerazioneEsercizio[seed0_:0] :=
 		
 		interfaccia
 	]
-
-
-
-
-GenerazioneEsercizio[3]
-
-
-Manipulate[
-  Column[{
-    "Testo del paragrafo",
-    Dynamic@If[showParagraph, 
-      CellPrint[TextCell["Nuovo paragrafo", "Text"]], 
-      Nothing
-    ],
-    Button["Mostra/Nascondi paragrafo", showParagraph = !showParagraph]
-  }],
-  {{showParagraph, False}, ControlType -> None}
-]
-
-
-
-
-
-DynamicModule[{showParagraph = False},
-  Column[{
-    "Testo del paragrafo",
-    Dynamic@If[showParagraph,
-      TextCell["Ciao", "Text"],
-      Nothing
-    ],
-    PopupMenu[
-      Dynamic[showParagraph, (showParagraph = #) &],
-      {False -> "Nascondi paragrafo", True -> "Mostra paragrafo"}
-    ]
-  }]
-]
 
 
 
