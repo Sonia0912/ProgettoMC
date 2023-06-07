@@ -694,11 +694,8 @@ GenerazioneInterfaccia[seed0_] :=
     showNullableSln = False;
     showFirstSln = False;
     showFollowSln = False;
-    
-    showNullable = False;
-    showFirst = False;
-    showFollow = False;
     showSolution = False;
+    
     num = seed;
     interface =
     
@@ -779,17 +776,14 @@ GenerazioneInterfaccia[seed0_] :=
                   (*Sezione che mostra i NULLABLE*)
                   Column[
                     {
+                     Row[{Style["Nullable",Bold,FontSize->20], " "
                       (*L'intero esercizio nullable \[EGrave] mostrato al click di prova esercizio*)
-                   Button["Nullable",
-                      showNullable = Not[showNullable], 
-                      ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}],
+                    }],
                     (*Style["NULLABLE", Bold, FontSize -> 17],*)
-                    Framed["Un non terminale \[EGrave] nullable se pu\[OGrave] produrre una stringa vuota (\[Epsilon]). Seleziona i non terminali nullable.",
+                    Framed["Un non terminale \[EGrave] nullable se pu\[OGrave] produrre una stringa vuota (\[Epsilon]). \n Seleziona i non terminali nullable.",
                     FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top], 
                    " ",     
                    Dynamic[
-                   If[showNullable,
                       Column[{
                       Row[
                         {
@@ -811,7 +805,7 @@ GenerazioneInterfaccia[seed0_] :=
                      BaseStyle -> {FontSize -> 15}]}] 
                      ,
                    ""     
-                    ]]
+                    ]
                     }
                   ],
                   " ",
@@ -819,15 +813,12 @@ GenerazioneInterfaccia[seed0_] :=
                   (*Sezione che mostra i FIRST*)
                   Column[
                     {
-                   Button["First",
-                      showFirst = Not[showFirst], 
-                      ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}],
+                   Row[{Style["First",Bold,FontSize->20], " "
+                      }],
                           Framed["Dato un non terminale (ad esempio A,B), il suo insieme First \[EGrave] composto dai simboli terminali (compreso \[Epsilon])\nche possono apparire come carattere iniziale di una stringa derivata da una sua produzione.",
                           FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],
                           " ",
                   Dynamic[
-                   If[showFirst,        
                   Column[{
                     Row[
                         {
@@ -845,20 +836,17 @@ GenerazioneInterfaccia[seed0_] :=
                       Button["Mostra Soluzione First", 
                       showFirstSln = Not[showFirstSln],
                       ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}]}],""]
+                      BaseStyle -> {FontSize -> 15}]}],""
                   ]}],
                   " ",
                   (*Sezione che mostra i FOLLOW*)
                   Column[
                     {
-                   Button["Follow",
-                      showFollow = Not[showFollow], 
-                      ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}],
+                   Row[{Style["Follow",Bold,FontSize->20], " "
+                       }],
                           Framed["Dato un non terminale, il suo insieme Follow \[EGrave] composto dai simboli terminali (e dal simbolo $)\nche possono apparire immediatamente dopo il non terminale in qualsiasi derivazione valida.",
                              FrameStyle -> Directive[Thin, White], ImageSize -> {Automatic}, Alignment -> Top],
-                 Dynamic[   
-                   If[showFollow, 
+                 Dynamic[
                    Column[{      
                     Row[
                       {
@@ -878,7 +866,7 @@ GenerazioneInterfaccia[seed0_] :=
                       Button["Mostra Soluzione Follow", 
                       showFollowSln = Not[showFollowSln], 
                       ImageSize -> {Automatic},
-                      BaseStyle -> {FontSize -> 15}]}], ""] ]
+                      BaseStyle -> {FontSize -> 15}]}], "" ]
                     }
                   ],
                   " ",
@@ -1030,8 +1018,6 @@ GenerazioneEsercizio[seed0_:0] :=
 		
 		interfaccia
 	]
-
-
 
 
 End[];
