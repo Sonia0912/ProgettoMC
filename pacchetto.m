@@ -819,6 +819,7 @@ GenerazioneInterfaccia[seed0_] :=
                         {
                           displayFirstFollow[emptyFirstCheckbox],
                           "   ",
+                          (* Se la variabile "showFirstSln" \[EGrave] true visualizziamo la tabella della soluzione dei first *)
                           Dynamic[
                             If[showFirstSln,
                               Column[{Style["Soluzione First", Bold],
@@ -848,6 +849,7 @@ GenerazioneInterfaccia[seed0_] :=
                         displayFirstFollow[emptyFollowCheckbox],
                         "   ", 
                         Dynamic[
+                         (* Se la variabile "showFollowSln" \[EGrave] true visualizziamo la tabella della soluzione dei follow *)
                             If[showFollowSln,
                               Column[{Style["Soluzione Follow", Bold],
                               displayFirstFollow[follow]}, Alignment -> Left],
