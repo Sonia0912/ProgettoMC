@@ -28,7 +28,7 @@ Begin["`Private`"];
 (*GENERAZIONE GRAMMATICA CASUALE
 - A ogni Non Terminale (sempre A, B, C, D) e' associata una lista composta da Terminali e da Non Terminali.
 - Questa lista viene poi suddivisa in 1/2/3 produzioni che saranno associate a quel non terminale.
-- Tutti gli elementi della lista devono apparire esattamente una volta nelle produzioni.
+- Tutti gli elementi devono apparire al piu' una volta nelle produzioni di tutta la grammatica.
 - Esempio:
 A: a, b, B
 B: c, d, C
@@ -37,32 +37,60 @@ D: g, h
 *)
 
 GenerazioneGrammatica[] := 
-	Module[{grammatica},	
-		(*Parametri per la generazione*)
-		tuttiNonTerminali = CharacterRange["A", "D"]; (*simboli Non Terminali disponibili*)
-		tuttiTerminali = CharacterRange["a", "l"];    (*simboli terminali disponibli*)
+	Module[{ grammatica, (*lista finale contenente le produzioni per ciascun Non Terminale*)
+	
+			(*Parametri per la generazione*)
+			tuttiNonTerminali = CharacterRange["A", "D"], (*simboli Non Terminali disponibili*)
+			tuttiTerminali = CharacterRange["a", "l"],   (*simboli Terminali disponibli*)
+			numNonTerminali,
+			numTerminali,
+			
+			(*Parametri per la lunghezza delle produzioni*)
+			maxNumeroNonTerminali = 2, (*numero max di Non Terminali nelle produzioni di un Non Terminale*)
+			minNumeroTerminali = 2, (*numero min di Terminali nelle produzioni di un Non Terminale*)
+			maxNumeroTerminali = 3, (*numero max di Terminali nelle produzioni di un Non Terminale*)
+			maxProduzioni = 4, (*numero max di produzioni per un Non Terminale*)
+			(*Abbiamo scelto questi valori per avere grammatiche non troppo complesse ma nemmeno banali*)
+			
+			(*Probabilita' che compaia Epsilon come produzione per un Non Terminale (40%).
+			Abbiamo scelto questo valore per non avere troppe produzioni con Epsilon.*)
+			probabilitaEpsilon = 40,
+			
+			(*Liste da "consumare" per generare la grammatica*)
+			nonTerminali,
+			nonTerminaliIndici,
+			terminali,
+			
+			(*Variabili di supporto per generare la grammatica*)
+			listaNonTerminaleEProduzioni, (*Lista contente il Non Terminale corrente e la lista delle sue produzioni*)
+			numNonTerminaliRimanenti, (*Numero di Non Terminali che rimangono disponibili per le produzioni*)
+			numElementiNonTerminali, (*Numero casuale di elementi Non Terminali associati a un Non Terminale*)
+			elementiNonTerminali, (*Elementi Non Terminali associati a un Non Terminale*)
+			numElementiTerminali, (*Numero casuale di elementi Terminali associati a un Non Terminale*)
+			elementiTerminali, (*Elementi Terminali associati a un Non Terminale*)
+			elementiDestra, (*Stringa che contiene tutti gli elementi in ordine casuale*)
+			numElementiDestra, (*Lunghezza della stringa, ovvero numElementiNonTerminali + numElementiTerminali*)
+			listaProduzioniCorrente, (*Lista temporanea di produzioni per il Non Terminale corrente*)
+			(*Variabili di supporto per separare la stringa in diverse produzioni*)
+			breaks,
+			numProduzioni, (*Numero di produzioni per il Non Terminale corrente*)
+			numBreakpoints,
+			breakpoints, (*Indici in cui spezzare la lista di elementi (per separare le produzioni)*)
+			indiceUltimoElementoProduzione
+			},	
 		
+		(*Lunghezze delle liste*)
 		numNonTerminali = Length[tuttiNonTerminali];
 		numTerminali = Length[tuttiTerminali];
 		
-		(*Parametri per la lunghezza delle produzioni*)
-		maxNumeroNonTerminali = 2;
-		minNumeroTerminali = 2;
-		maxNumeroTerminali = 3;
-		maxProduzioni = 4; 
-		(*Valori scelti per avere grammatiche non troppo complesse ma nemmeno banali*)
-		
-		(*Probabilita' che compaia Epsilon come produzione per un Non Terminale*)
-		probabilitaEpsilon = 40; (*Valore scelto per non avere troppe produzioni annullabili*)
-		
-		(*Inizializzazione lista per la grammatica finale*)
-		grammatica = List[];
-		
-		(*Liste da consumare per generare la grammatica*)
+		(*Inizializzazione delle liste da "consumare"*)
 		nonTerminali = tuttiNonTerminali;
 		nonTerminali = Drop[nonTerminali, 1];
 		nonTerminaliIndici = tuttiNonTerminali;
 		terminali = tuttiTerminali;
+		
+		(*Inizializzazione lista per la grammatica finale*)
+		grammatica = List[];
 		
 		(*Per ogni Non Terminale viene generata la sua lista di produzioni*)
 		Table[
@@ -91,7 +119,7 @@ GenerazioneGrammatica[] :=
 		   	    terminali = Drop[terminali, numElementiTerminali];
 		   		elementiNonTerminali = List[];
 		   	];
-		   	(*viene creata una stringa casuale di caratteri che andranno a formare le produzioni*)
+		      (*viene creata una stringa casuale di caratteri che andranno a formare le produzioni*)
 		  	elementiDestra = Union[elementiNonTerminali, elementiTerminali];
 		  	elementiDestra = RandomSample[elementiDestra];
 		  	numElementiDestra = Length[elementiDestra];
@@ -103,7 +131,7 @@ GenerazioneGrammatica[] :=
 		  	breaks = Range[2, numElementiDestra];
 		  	numProduzioni = RandomInteger[{1, Min[maxProduzioni, numElementiDestra]}];
 		  	numBreakpoints = numProduzioni - 1;
-		  	breakpoints = Sort[RandomSample[breaks, numBreakpoints]]; (*Indici a cui spezzare la lista di elementi*)
+		  	breakpoints = Sort[RandomSample[breaks, numBreakpoints]];
 		  	
 		  	(*Divisione della stringa nelle varie produzioni*)
 		  	If[numBreakpoints == 0,
@@ -168,7 +196,7 @@ GenerazioneListaProduzioni[G_] :=
 
 (*Ritorna i First di un Non Terminale*)
 getFirst[NT0_, F_] :=
-	Module[{NT = NT0, first = F, firstNT},
+	Module[{NT = NT0, first = F, firstNT, posizione, posizioneFlat},
 		posizione = Position[first,NT];
 		posizioneFlat = Flatten[posizione];
 		firstNT = first[[posizioneFlat[[1]],2]];
@@ -177,7 +205,7 @@ getFirst[NT0_, F_] :=
 
 (*Ritorna True se il Non Terminale e' nullable, False se non e' nullable*)
 checkNullabilita[NT1_, N_] := 
-	Module[{NT = NT1, nullable = N, nullabilita}, 
+	Module[{NT = NT1, nullable = N, nullabilita, posNTinNullable, indiceNTinNullable}, 
 		posNTinNullable = Position[nullable, NT];
 		indiceNTinNullable = posNTinNullable[[1, 1]];
 		nullabilita = nullable[[indiceNTinNullable,2]];
@@ -185,8 +213,8 @@ checkNullabilita[NT1_, N_] :=
 	]
 
 (*Data una produzione, le colonne e la riga in cui inserirla, la inserisce nella soluzione*)
-inserisciProduzione[prod0_, colonne0_, riga0_, S_] := 
-	Module[{prod = prod0, colonne = colonne0, riga = riga0, soluzione = S}, 
+inserisciProduzione[prod0_, colonne0_, riga0_, S_, numColonneTot0_] := 
+	Module[{prod = prod0, colonne = colonne0, riga = riga0, soluzione = S, numColonneTot = numColonneTot0}, 
 		Table[
 			Table[
 				If[soluzione[[1,c]]==colonne[[r]],
@@ -196,15 +224,16 @@ inserisciProduzione[prod0_, colonne0_, riga0_, S_] :=
 				{r, 1, Length[colonne],1}
 			];
 			,
-			{c, 1, numColonne, 1}
+			{c, 1, numColonneTot, 1}
 		];
 		soluzione
 	]
 
 (*Ritorna una lista di Terminali rimouvendo, se ci sono, Non Terminali e \[Epsilon]*)
 rimuoviNTeEps[lista0_] := 
-	Module[{lista = lista0, nuovaLista}, 
+	Module[{lista = lista0, nuovaLista, tuttiNonTerminali}, 
 		nuovaLista = lista;
+		tuttiNonTerminali = CharacterRange["A", "D"];
 		Table[
 			If[ContainsAny[{nuovaLista[[k]]},tuttiNonTerminali] || ContainsAny[{nuovaLista[[k]]},{"\[Epsilon]"}],
 				nuovaLista = Drop[nuovaLista, {k}];
@@ -219,8 +248,12 @@ rimuoviNTeEps[lista0_] :=
 (* NULLABLE *)
 
 GenerazioneNullable[G_] := 
-	Module[{grammatica = G, nullable},
+	Module[{grammatica = G, 
+			nullable (*Lista di nullable finale contenente coppie {Non Terminale, True/False} (True se \[EGrave] nullable, False altrimenti)*)
+			},
+			
 		nullable = List[];
+		
 		(*Per ogni Non Terminale partendo dall'ultimo*)
 		(*Un Non Terminale potrebbe produrre uno dei Non Terminali successivi, serve sapere se quelli sono annullabili*)
 		Table[ 
@@ -273,13 +306,39 @@ GenerazioneNullable[G_] :=
 (* FIRST *)
 
 GenerazioneFirst[G_, N_] := 
-	Module[{grammatica = G, nullable = N, first},
+	Module[{grammatica = G, 
+			nullable = N, 
+			tuttiNonTerminali = CharacterRange["A", "D"],
+			tuttiTerminali = CharacterRange["a", "l"],
+			numNonTerminali,
+			firstOvvi, (*Lista temporanea contente i first "ovvi" (primo elemento di ogni produzione)*)
+			first, (*Lista di first finale contente per ogni Non Terminale la lista di elementi Terminali first*)
+			listaNonTerminaleEFirst, (*Sottolista della lista first, ad esempio {A, {}}*)
+			listaFirstCorrente, (*Sottolista di listaNonTerminaleEFirst. Contiene i first del Non Terminale corrente*)
+			(*Variabili di supporto per la sostituzione dei first "ovvi" a "non ovvi"*)
+			elementoCorrente, (*Ogni elemento presente nelle liste di first "ovvi"*)
+			tuttePosizioni, (*Posizioni in cui compare il Non Terminale da sostituire*)
+			posizioneFinale,
+			posizione,
+			terminaliNonOvvi, (*Terminali che sostituiranno il Non Terminale "ovvio"*)
+			(*Variabili di supporto per gestire il caso in cui un Non Terminale "ovvio" sia nullable*)
+			nullabilita, (*True se nullable, false altrimenti*)
+			produzione, (*Produzione in cui compare un dato Non Terminale*)
+			successivo, (*Step a cui siamo nella produzione*)
+			elementoSuccessivo, (*Elemento successivo a quello corrente in una data produzione*)
+			posNTinFirst, (*Posizione del Non Terminale nella lista first*)
+			terminaliDaAggiungere, (*Terminali con cui sostituire il Non Terminale "ovvio"*)
+			},
+			
 		(*Inizializzazione della lista di first e liste di supporto temporanee*)
-		first = List[];
+		firstOvvi = List[];
+		first = {{"A",{}},{"B",{}},{"C",{}},{"D",{}}};
 		listaNonTerminaleEFirst = List[];
 		listaFirstCorrente = List[];
+		numNonTerminali = Length[tuttiNonTerminali];
 		
-		(*Ricerca First "ovvi" (sia Terminali che Non Terminali)*)
+		(*Ricerca first "ovvi".
+		I first "ovvi" sono il primo carattere (sia Terminale che Non Terminale) di ogni produzione per ogni Non Terminale*)
 		Table[
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] Table[
 				AppendTo[listaFirstCorrente, StringTake[grammatica[[i,2,j]],1]];
@@ -289,7 +348,7 @@ GenerazioneFirst[G_, N_] :=
 		
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] AppendTo[listaNonTerminaleEFirst, tuttiNonTerminali[[i]]];
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] AppendTo[listaNonTerminaleEFirst, listaFirstCorrente];
-		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] AppendTo[first,listaNonTerminaleEFirst];
+		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] AppendTo[firstOvvi,listaNonTerminaleEFirst];
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] 
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] listaFirstCorrente = List[];
 		\[NonBreakingSpace]\[NonBreakingSpace]\[NonBreakingSpace] listaNonTerminaleEFirst = List[];
@@ -300,32 +359,33 @@ GenerazioneFirst[G_, N_] :=
 		(*Mettiamo Epsilon ai Non Terminali nullable*)
 		Table[
 			If[nullable[[i,2]],
-				first[[i,2]] = Union[first[[i,2]], {"\[Epsilon]"}];
+				firstOvvi[[i,2]] = Union[firstOvvi[[i,2]], {"\[Epsilon]"}];
 			];
 			,
 			{i, 1, numNonTerminali, 1}
 		];
 		
-		(*Ricerca First "non ovvi"*)
+		(*Ricerca First "non ovvi".
+		Ovvero, sostituiamo i "first" Non Terminali che avevamo messo prima con i veri e propri first (Terminali)*)
 		Table[
 			Table[
-				elementoCorrente = first[[i,2,j]];
+				elementoCorrente = firstOvvi[[i,2,j]];
 				If[ContainsAny[{elementoCorrente},tuttiNonTerminali],
 					(*Cerchiamo i first di quel Non Terminale che saranno i first "non ovvi" del Terminale che stiamo valutando*)
-					tuttePosizioni = Position[first,elementoCorrente];
+					tuttePosizioni = Position[first, elementoCorrente];
 					posizioneFinale = Last[tuttePosizioni];
 					posizione = posizioneFinale[[1]];
 					terminaliNonOvvi = first[[posizione,2]];
-					(*Rimuoviamo il Non Terminale dalla lista di first*)
-					first[[i,2]] = Drop[first[[i,2]],{j}];
 					
 					(*Se c'e', rimuoviamo \[Epsilon] tra i Terminali da aggiungere*)
 					If[ContainsAny[{"\[Epsilon]"},terminaliNonOvvi],
 						posizione = Position[terminaliNonOvvi, "\[Epsilon]"];
 						terminaliNonOvvi = Drop[terminaliNonOvvi, Flatten[posizione]];
 					];
-					(*Aggiungiamo i Terminali senza duplicati*)
-					first[[i,2]] = Union[first[[i,2]], terminaliNonOvvi];
+					
+					(*Aggiungiamo i Terminali alla lista finale*)
+					AppendTo[first[[i,2]], terminaliNonOvvi];	
+					first[[i,2]] = Flatten[first[[i,2]]];		
 					
 					(*Controlliamo se il Non Terminale e' nullable*)
 					nullabilita = checkNullabilita[elementoCorrente, nullable];
@@ -348,25 +408,29 @@ GenerazioneFirst[G_, N_] :=
 							Which[
 								(*Il successivo e' un Non Terminale -> aggiungiamo i suoi First ai First del Non Terminale corrente*)
 								ContainsAny[{elementoSuccessivo},tuttiNonTerminali],
-									(*Aggiungiamo i First*)
+									(*Troviamo i First da aggiungere*)
 									posNTinFirst = Last[Position[first, elementoSuccessivo]][[1]];
 									terminaliDaAggiungere = first[[posNTinFirst, 2]];
 									
 									(*Se ci sono rimuoviamo i Non Terminali e \[Epsilon]*)
 									terminaliDaAggiungere = rimuoviNTeEps[terminaliDaAggiungere];
-									first[[i,2]] = Union[first[[i,2]], terminaliDaAggiungere];
+									
+									(*Aggiungiamo i First trovati*)
+									AppendTo[first[[i,2]], terminaliDaAggiungere];
+									first[[i,2]] = Flatten[first[[i,2]]];
 									
 									(*Controlliamo se anche questo e' nullable*)
 									nullabilita = checkNullabilita[elementoSuccessivo, nullable];
-									(*Aumentiamo successivo per vedere cosa c'\[EGrave] dopo*)
+									(*Aumentiamo successivo per poter vedere cosa c'e' dopo nella produzione*)
 									successivo = successivo+1;
 								, 
-								(*Il successivo e' un Terminale -> aggiungiamo il Terminali ai First*)
-								ContainsAny[{elementoSuccessivo},tuttiTerminali], 
-									first[[i,2]] = Union[first[[i,2]], {elementoSuccessivo}];
+								(*Il successivo e' un Terminale -> aggiungiamo il Terminale ai First*)
+								ContainsAny[{elementoSuccessivo},tuttiTerminali],
+									AppendTo[first[[i,2]], elementoSuccessivo];
+									first[[i,2]] = Flatten[first[[i,2]]];
 									nullabilita = False;
 								,
-								(*E' vuoto -> non aggiungiamo niente *)
+								(*E' vuoto -> non aggiungiamo niente*)
 								True,
 									nullabilita = False;
 							];
@@ -374,14 +438,14 @@ GenerazioneFirst[G_, N_] :=
 							nullabilita = False;
 						];
 					];
-					(*Decrementiamo j perche' avendo tolto il NT dalla lista di first gli indici sono cambiati*)
-					j--;			
+				, 
+				(*Else -> aggiungiamo semplicemente il terminale*)
+				AppendTo[first[[i,2]], elementoCorrente];
+				first[[i,2]] = Flatten[first[[i,2]]];
 				];
-				,
-				{j, 1, Length[first[[i,2]]], 1}
+				, {j, 1, Length[firstOvvi[[i,2]]], 1}
 			];
-			,
-			{i, numNonTerminali, 1, -1}
+			, {i, numNonTerminali, 1, -1}
 		];
 		
 		first
@@ -391,10 +455,24 @@ GenerazioneFirst[G_, N_] :=
 (* FOLLOW *)
 
 GenerazioneFollow[G_, N_, F_] := 
-	Module[{grammatica = G, nullable = N, first = F, follow},
+	Module[{grammatica = G, 
+			nullable = N,
+			first = F, 
+			follow, (*Lista finale di follow*)
+			tuttiNonTerminali = CharacterRange["A", "D"],
+			tuttiTerminali = CharacterRange["a", "l"],
+			numNonTerminali,
+			produzioneCorrente,
+			nonTerminaleDaControllare,
+			firstProssimoNonTerminale
+			},
+		
+		(*Inizializzazione*)
 		follow = {{"A", {"$"}}};
 		listaRicontrollo1 = List[];
 		listaRicontrollo2 = List[];
+		
+		numNonTerminali = Length[tuttiNonTerminali];
 		
 		(*Inizializzazione lista di Follow*)
 		Table[
@@ -468,18 +546,44 @@ GenerazioneFollow[G_, N_, F_] :=
 (*GENERAZIONE DELLA SOLUZIONE*)
 
 GenerazioneSoluzione[G_, N_, Fi_, Fo_] := 
-	Module[{grammatica = G, nullable = N, first = Fi, follow = Fo, soluzione},
+	Module[{grammatica = G, 
+			nullable = N, 
+			first = Fi, 
+			follow = Fo, 
+			soluzione, (*Lista finale contente la matrice della soluzione*)
+			tuttiNonTerminali = CharacterRange["A", "D"],
+			tuttiTerminali = CharacterRange["a", "l"],
+			numNonTerminali,
+			colonne, (*Lista di tutti gli elementi che saranno colonne*) 
+			numColonne, (*Numero di colonne*)
+			rigaCorrente, (*Riga della matrice che si sta valutando*)
+			produzione, (*Produzione da inserire nella matrice*)
+			primoElemento, (*Primo elemento della produzione*)
+			produzioneIntera, (*Produzione scritta per interno, in forma "A -> bC"*)
+			(*Variabili necessarie per posizionare la produzione nella matrice*)
+			posizione, (*Indice della colonna in cui inserire la produzione*)
+			posizioneFlat,
+			firstNT, (*I first di un dato Non Terminale*)
+			nullabilita, 
+			successivo,
+			elementoSuccessivo,
+			followNT (*I follow di un dato Non Terminale*)
+			},
+			
+		(*Inizializzazione della lista soluzione*)
 		soluzione = List[];
 		
+		numNonTerminali = Length[tuttiNonTerminali];
+		
 		colonne = tuttiTerminali;
-		colonne = Prepend[colonne, " "];
+		colonne = Prepend[colonne, " "]; (*La prima colonna e' "vuota" perche' contiene i valori Non Terminali *)
 		AppendTo[colonne, "$"];
 		numColonne = Length[colonne];
 		AppendTo[soluzione, colonne];
 		
 		rigaCorrente = List[];
 		
-		Table[	
+		Table[
 			(*Inizializziamo la riga di quel Non Terminale*)
 			Table[
 				AppendTo[rigaCorrente, " "];,
@@ -494,12 +598,13 @@ GenerazioneSoluzione[G_, N_, Fi_, Fo_] :=
 				produzione = grammatica[[i,2,j]];
 				primoElemento = StringTake[produzione,1];
 				produzioneIntera = StringJoin[tuttiNonTerminali[[i]], "->", produzione];
-				(*Controlliamo se la produzione inizia con un Terminale o con un Non Terminale*)
+				
+				(*Controlliamo se la produzione inizia con un Terminale, con un Non Terminale o con Epsilon*)
 				Which[
 					(*Caso Terminale*)
 					ContainsAny[{primoElemento}, tuttiTerminali],
 						(*Mettiamo la produzione nella colonna di quel Terminale*)
-						posizione = Position[soluzione[[1]],primoElemento];
+						posizione = Position[soluzione[[1]], primoElemento];
 						posizioneFlat = Flatten[posizione];
 						soluzione[[i+1]] = ReplacePart[soluzione[[i+1]], posizioneFlat[[1]] -> produzioneIntera];
 					,
@@ -508,14 +613,14 @@ GenerazioneSoluzione[G_, N_, Fi_, Fo_] :=
 						(*Prendiamo i fisrt di quel NT, saranno le colonne in cui mettere la produzione*)
 						firstNT = getFirst[primoElemento, first];
 						(*Prendiamo le posizioni di quei Terminali nelle colonne e rimpiazziamo*)
-						soluzione = inserisciProduzione[produzioneIntera, firstNT, i+1, soluzione];
+						soluzione = inserisciProduzione[produzioneIntera, firstNT, i+1, soluzione, numColonne];
 						
 						(*Caso in cui il NT e' nullable*)
 						nullabilita = checkNullabilita[primoElemento, nullable];
 						successivo = 2;
 						While[nullabilita,
 							If[StringLength[produzione] >= successivo,
-								elementoSuccessivo = StringTake[produzione,{successivo}];
+								elementoSuccessivo = StringTake[produzione, {successivo}];
 								
 								Which[
 									(*Il successivo e' un Non Terminale -> mettiamo la produzione nelle colonne dei First di quel NT*)
@@ -523,7 +628,7 @@ GenerazioneSoluzione[G_, N_, Fi_, Fo_] :=
 										(*Prendiamo i fisrt di quel NT, saranno le colonne in cui mettere la produzione*)
 										firstNT = getFirst[elementoSuccessivo, first];
 										(*Prendiamo le posizioni di quei Terminali nelle colonne e rimpiazziamo*)
-										soluzione = inserisciProduzione[produzioneIntera, firstNT, i+1, soluzione];
+										soluzione = inserisciProduzione[produzioneIntera, firstNT, i+1, soluzione, numColonne];
 		
 										(*Controlliamo se anche questo e' nullable*)
 										nullabilita = checkNullabilita[elementoSuccessivo, nullable];
@@ -532,7 +637,7 @@ GenerazioneSoluzione[G_, N_, Fi_, Fo_] :=
 									, 
 									(*Il successivo e' un Terminale -> mettiamo la produzione nella colonna di quel Terminale*)
 									ContainsAny[{elementoSuccessivo},tuttiTerminali],
-										posizione = Position[soluzione[[1]],elementoSuccessivo];
+										posizione = Position[soluzione[[1]], elementoSuccessivo];
 										posizioneFlat = Flatten[posizione];
 										soluzione[[i+1]] = ReplacePart[soluzione[[i+1]], posizioneFlat[[1]] -> produzioneIntera];
 										nullabilita = False;
@@ -551,7 +656,7 @@ GenerazioneSoluzione[G_, N_, Fi_, Fo_] :=
 					True,
 						followNT = follow[[i,2]];
 						(*Prendiamo le posizioni di quei Terminali nelle colonne e rimpiazziamo*)
-						soluzione = inserisciProduzione[produzioneIntera, followNT, i+1, soluzione];
+						soluzione = inserisciProduzione[produzioneIntera, followNT, i+1, soluzione, numColonne];
 				];,
 				{j, 1, Length[grammatica[[i,2]]]}
 			];
@@ -986,12 +1091,25 @@ GenerazioneInterfaccia[seed0_] :=
 (*Funzione globale che permette di eseguire l'intero esercizio*)
 
 GenerazioneEsercizio[seed0_:0] :=
-	Module[{seed = seed0},
+	Module[{seed = seed0,
+			numEsercizio,
+			grammatica,
+			listaProduzioni,
+			nullable,
+			first,
+			follow,
+			soluzione,
+			rows,
+			cols,
+			interfaccia
+			},
+		
+		(*Inizializziamo il numero dell'esercizio*)	
 		numEsercizio = seed;
 		
-		(*Controllo che il seed sia un valore intero compreso fra 0 e 10000*)
+		(*Controllaimo che il seed sia un valore intero compreso fra 0 e 10000*)
 		If[NumberQ[numEsercizio] && 0<=numEsercizio<=10000, 		            
-		(*Se il seed non viene specificato \[EGrave] preso randomicamente*)
+		(*Se il seed non viene specificato e' preso randomicamente*)
 		If[numEsercizio == 0,
 			numEsercizio = RandomInteger[{1,9999}];
 			SeedRandom[numEsercizio];
@@ -1010,13 +1128,33 @@ GenerazioneEsercizio[seed0_:0] :=
 		(*Inizializzazione dell'interfaccia dell'esercizio*)
 		rows = Length[soluzione[[All,1]]];
 		cols = Length[soluzione[[1, All]]];
-		
-		(*MANCA DA METTERE LE VARIABILI LOCALI A GENERAZIONE INTERFACCIA CHE MI HA DATO PROBLEMI*)
 		interfaccia = GenerazioneInterfaccia[numEsercizio];,
 		MessageDialog["Inserire un valore compreso fra 1 e 10000, oppure 0 per un esercizio casuale"]];
 		
 		interfaccia
 	]
+
+
+(*CODICE PER TESTARE*)
+grammatica = GenerazioneGrammatica[];
+Print["Grammatica: ", grammatica];
+
+listaProd = GenerazioneListaProduzioni[grammatica];
+Print["Lista Produzioni: ", listaProd];
+
+listaNull = GenerazioneNullable[grammatica];
+Print["Nullable: ", listaNull];
+
+listaFirst = GenerazioneFirst[grammatica, listaNull];
+Print["First: ", listaFirst];
+
+listaFollow = GenerazioneFollow[grammatica, listaNull, listaFirst];
+Print["Follow: ", listaFollow];
+
+soluzione = GenerazioneSoluzione[grammatica, listaNull, listaFirst, listaFollow];
+soluzione // MatrixForm
+
+GenerazioneEsercizio[3];
 
 
 End[];
