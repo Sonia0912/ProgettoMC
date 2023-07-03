@@ -254,17 +254,17 @@ rimuoviNTeEps[lista0_] :=
 GenerazioneNullable[G_] := 
 	Module[{grammatica = G, 
 			nullable, (*Lista di nullable finale contenente coppie {Non Terminale, True/False} (True se \[EGrave] nullable, False altrimenti)*)
-			currentNull,
-			foundNullable,
-			produzioneDaControllare,
-			isNull,
-			j, k
+			currentNull, (*coppia {Non Terminale corrente, True/False} da inserire nella lista nullable finale*)
+			foundNullable, (*flag per interrompere la ricerca*)
+			produzioneDaControllare, (*produzione del Non Terminale corrente da controllare*)
+			isNull, (*flag per il controllo di annullabilit\[AGrave]*)
+			j, k (*iteratori*)
 			},
 			
 		nullable = List[];
 		
 		(*Per ogni Non Terminale partendo dall'ultimo*)
-		(*Un Non Terminale potrebbe produrre uno dei Non Terminali successivi, serve sapere se quelli sono annullabili*)
+		(*Un Non Terminale potrebbe produrre uno dei Non Terminali successivi, serve sapere se quelli sono annullabili, motivo per cui si parte dall'ultimo NT*)
 		Table[ 
 			currentNull = {grammatica[[i, 1]], False};
 			
@@ -272,7 +272,7 @@ GenerazioneNullable[G_] :=
 			foundNullable = False;
 			
 			(*Per ogni produzione finch\[EGrave] non ne trova una annullabile*)
-			(*Le iterazioni partono dall'ultima produzione perch\[EGrave] \[Epsilon] \[EGrave] sempre l'ultima*)
+			(*Le iterazioni partono dall'ultima produzione perch\[EGrave] se c'\[EGrave] \[Epsilon] \[EGrave] sempre l'ultima, il codice \[EGrave] pi\[UGrave] efficiente*)
 			j = Length[grammatica[[i, 2]]];
 			While[!foundNullable && j > 0,
 				produzioneDaControllare = grammatica[[i, 2, j]] ;
@@ -471,11 +471,11 @@ GenerazioneFollow[G_, N_, F_] :=
 			tuttiNonTerminali = CharacterRange["A", "D"],
 			tuttiTerminali = CharacterRange["a", "l"],
 			numNonTerminali,
-			produzioneCorrente,
-			nonTerminaleDaControllare,
-			firstProssimoNonTerminale,
-			listaRicontrollo1,
-			listaRicontrollo2
+			produzioneCorrente, (*produzione da controllare*)
+			nonTerminaleDaControllare, (*Non Terminale presente nella produzione da controllare*)
+			firstProssimoNonTerminale, (*se il carattere successivo al Non Terminale corrente \[EGrave] un altro NT qui si segna il suo first*)
+			listaRicontrollo1, (*lista per il controllo del follow dei Non Terminali in ultima posizione in una produzione*)
+			listaRicontrollo2 (*lista per il controllo del follow dei Non Terminali seguiti da un NT nullable*)
 			},
 		
 		(*Inizializzazione*)
