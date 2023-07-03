@@ -791,11 +791,11 @@ xy[n0_, cols0_] := Module[{n = n0, cols = cols0}, {row[n, cols],col[n, cols]}]
 (*Funzione che preso in input un seed genera la manipulate, possiamo chiamare questa funzione senza alcun parametro, in questo 
 caso genera un esercizio random*)
 GenerazioneInterfaccia[seed0_, rows0_, cols0_, grammatica0_, soluzione0_, listaProduzioni0_, nullable0_, first0_, follow0_] :=
-  Module[{},
-    showNullableSln = False;
-    showFirstSln = False;
-    showFollowSln = False;
-    showSolution = False;
+  DynamicModule[{
+    showNullableSln = False,
+    showFirstSln = False,
+    showFollowSln = False,
+    showSolution = False},    
     
     num=seed0;
     soluzione=soluzione0;
@@ -1140,11 +1140,6 @@ GenerazioneEsercizio[seed0_:0] :=
 		
 		interfaccia
 	]
-
-
-(*CODICE PER TESTARE*)
-
-GenerazioneEsercizio[3]
 
 
 End[];
