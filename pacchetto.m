@@ -38,6 +38,7 @@ D: g, h
 
 GenerazioneGrammatica[] := 
 	Module[{ grammatica, (*lista finale contenente le produzioni per ciascun Non Terminale*)
+			(*grammatica e' una lista di liste, in cui a ogni Non Terminale e' associata la propria lista di produzioni*)
 	
 			(*Parametri per la generazione*)
 			tuttiNonTerminali = CharacterRange["A", "D"], (*simboli Non Terminali disponibili*)
@@ -56,7 +57,9 @@ GenerazioneGrammatica[] :=
 			Abbiamo scelto questo valore per non avere troppe produzioni con Epsilon.*)
 			probabilitaEpsilon = 40,
 			
-			(*Liste da "consumare" per generare la grammatica*)
+			(*Liste da "consumare" per generare la grammatica.
+			Quando un Non Terminale o un Terminale viene utilizzato per una produzione, 
+			esso viene rimosso da queste liste per non poter piu' essere utilizzato*)
 			nonTerminali,
 			nonTerminaliIndici,
 			terminali,
@@ -71,6 +74,7 @@ GenerazioneGrammatica[] :=
 			elementiDestra, (*Stringa che contiene tutti gli elementi in ordine casuale*)
 			numElementiDestra, (*Lunghezza della stringa, ovvero numElementiNonTerminali + numElementiTerminali*)
 			listaProduzioniCorrente, (*Lista temporanea di produzioni per il Non Terminale corrente*)
+			
 			(*Variabili di supporto per separare la stringa in diverse produzioni*)
 			breaks,
 			numProduzioni, (*Numero di produzioni per il Non Terminale corrente*)
@@ -249,7 +253,12 @@ rimuoviNTeEps[lista0_] :=
 
 GenerazioneNullable[G_] := 
 	Module[{grammatica = G, 
-			nullable (*Lista di nullable finale contenente coppie {Non Terminale, True/False} (True se \[EGrave] nullable, False altrimenti)*)
+			nullable, (*Lista di nullable finale contenente coppie {Non Terminale, True/False} (True se \[EGrave] nullable, False altrimenti)*)
+			currentNull,
+			foundNullable,
+			produzioneDaControllare,
+			isNull,
+			j, k
 			},
 			
 		nullable = List[];
@@ -327,7 +336,7 @@ GenerazioneFirst[G_, N_] :=
 			successivo, (*Step a cui siamo nella produzione*)
 			elementoSuccessivo, (*Elemento successivo a quello corrente in una data produzione*)
 			posNTinFirst, (*Posizione del Non Terminale nella lista first*)
-			terminaliDaAggiungere, (*Terminali con cui sostituire il Non Terminale "ovvio"*)
+			terminaliDaAggiungere (*Terminali con cui sostituire il Non Terminale "ovvio"*)
 			},
 			
 		(*Inizializzazione della lista di first e liste di supporto temporanee*)
@@ -464,7 +473,9 @@ GenerazioneFollow[G_, N_, F_] :=
 			numNonTerminali,
 			produzioneCorrente,
 			nonTerminaleDaControllare,
-			firstProssimoNonTerminale
+			firstProssimoNonTerminale,
+			listaRicontrollo1,
+			listaRicontrollo2
 			},
 		
 		(*Inizializzazione*)
