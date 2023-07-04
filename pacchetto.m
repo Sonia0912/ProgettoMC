@@ -806,7 +806,8 @@ GenerazioneInterfaccia[seed0_, rows0_, cols0_, grammatica0_, soluzione0_, listaP
     showNullableSln = False,
     showFirstSln = False,
     showFollowSln = False,
-    showSolution = False},    
+    showSolution = False
+    },    
     
     num=seed0;
     soluzione=soluzione0;
@@ -872,8 +873,9 @@ GenerazioneInterfaccia[seed0_, rows0_, cols0_, grammatica0_, soluzione0_, listaP
                               (*Controlliamo che il parametro sia compreso nel range 0-10000*)
                               If[parametro != "" && 0 <= parametro <= 10000,
                               (*Caso in cui l'utente abbia inserito un valore valido generiamo l' esercizio richiesto *)
-                                cursor = 0;
-                                (*emptyGrammar = createEmptyGrammar[soluzione, rows, cols];*)
+                               cursor = 0;
+                        
+                                emptyGrammar = createEmptyGrammar[soluzione, rows, cols];
                                 (*Al clic del bottone viene generata una nuova grammatica con seed preso da tastiera*)
                                 GenerazioneEsercizio[parametro];,
                                 (*Messaggio di diagolo nel caso in cui l'utente non abbia inserito un valore valido *)
